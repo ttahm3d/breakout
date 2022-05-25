@@ -23,6 +23,7 @@ export default function Header({
           </Logo>
           <NavItems>
             <IconButton
+              aria-label="Toggle Theme"
               icon={theme === "light" ? <IoMdMoon /> : <FiSun />}
               onClick={toggleTheme}
             />

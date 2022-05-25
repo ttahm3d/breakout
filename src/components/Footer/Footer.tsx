@@ -1,10 +1,6 @@
 import BreakoutLogo from "../../assets/icons/BreakoutIcon.svg";
 import styled from "styled-components";
-import {
-  AiOutlineLinkedin,
-  AiOutlineGithub,
-  AiOutlineTwitter,
-} from "react-icons/ai";
+import { RiLinkedinFill, RiGithubLine, RiTwitterLine } from "react-icons/ri";
 import { Container } from "../../styles/globals";
 
 export default function Footer() {
@@ -12,19 +8,19 @@ export default function Footer() {
     {
       id: 1,
       name: "Github",
-      icon: <AiOutlineGithub />,
+      icon: <RiGithubLine />,
       path: "https://github.com/ttahm3d",
     },
     {
       id: 2,
       name: "Linked In",
-      icon: <AiOutlineLinkedin />,
+      icon: <RiLinkedinFill />,
       path: "https://www.linkedin.com/in/tahirahmedt/",
     },
     {
       id: 3,
       name: "Twitter",
-      icon: <AiOutlineTwitter />,
+      icon: <RiTwitterLine />,
       path: "https://twitter.com/ttahm3d",
     },
   ];
@@ -97,7 +93,7 @@ const ExtLink = styled.a`
   color: ${(props) => props.theme.colors.slate11};
 
   :hover {
-    color: ${(props) => props.theme.colors.slate12};
+    color: ${(props) => props.theme.colors.mauve12};
   }
 
   .icon {

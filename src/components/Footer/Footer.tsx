@@ -53,7 +53,7 @@ export default function Footer() {
 const FooterWrapper = styled.footer`
   padding: 2rem 0;
   margin-top: auto;
-  border-top: 1px solid ${(props) => props.theme.colors.slate7};
+  border-top: 1px solid ${(props) => props.theme.colors.violet7};
 `;
 
 const FooterContainer = styled.section`
@@ -90,7 +90,7 @@ const LinksContainer = styled.div`
 const ExtLink = styled.a`
   display: flex;
   gap: 1rem;
-  color: ${(props) => props.theme.colors.slate11};
+  color: ${(props) => props.theme.colors.gray12};
 
   :hover {
     color: ${(props) => props.theme.colors.mauve12};

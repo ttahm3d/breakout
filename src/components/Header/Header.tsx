@@ -36,8 +36,8 @@ export default function Header({
 
 const HeaderComponent = styled.header`
   padding: 0.75rem 0;
-  border-bottom: 1px solid ${(props) => props.theme.colors.slate7};
-  background-color: ${(props) => props.theme.colors.slate1};
+  border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+  background-color: ${(props) => props.theme.colors.violet1};
   z-index: 9;
   position: sticky;
   top: 0;

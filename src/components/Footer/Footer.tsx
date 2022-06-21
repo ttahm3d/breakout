@@ -32,7 +32,9 @@ export default function Footer() {
           <Logo>
             <img src={BreakoutLogo} alt="Breakout Logo" />
           </Logo>
-          <FooterLinksWrapper>Internal Links</FooterLinksWrapper>
+          <FooterLinksWrapper>
+            <FooterHeader>Internal Links</FooterHeader>
+          </FooterLinksWrapper>
           <FooterLinksWrapper>
             <FooterHeader>Other Links</FooterHeader>
             <LinksContainer>

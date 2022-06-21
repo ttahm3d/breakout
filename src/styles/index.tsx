@@ -30,11 +30,15 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    background-color: ${(props) => props.theme.colors.slate1};
-    color:  ${(props) => props.theme.colors.slate12};
+    background-color: ${(props) => props.theme.colors.violet1};
+    color:  ${(props) => props.theme.colors.gray12};
     font-family: "IBM Plex Sans Arabic", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
   }
 `;
 

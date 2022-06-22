@@ -11,6 +11,7 @@ const MainContainer = styled.main`
 
   @media screen and (min-width: 64em) {
     grid-template-columns: 1fr 4fr;
+    gap: 2rem;
   }
 `;
 

@@ -33,6 +33,8 @@ const LightTheme = {
     ...orange,
     ...violet,
     ...indigo,
+    white: "#fff",
+    black: "#000",
   },
 };
 
@@ -48,6 +50,8 @@ const DarkTheme = {
     ...orangeDark,
     ...violetDark,
     ...indigoDark,
+    white: "#fff",
+    black: "#000",
   },
 };
 

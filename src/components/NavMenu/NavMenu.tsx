@@ -69,7 +69,7 @@ const MenuBar = styled.aside`
   padding: 1rem 0;
 
   @media screen and (max-width: 56.25em) {
-    background-color: ${(props) => props.theme.colors.violet4};
+    background-color: ${(props) => props.theme.colors.violet3};
     padding: 1rem;
     position: fixed;
     bottom: 0;
@@ -106,13 +106,13 @@ const MenuItem = styled(NavLink)`
   cursor: pointer;
 
   &[aria-current] {
-    background-color: ${(props) => props.theme.colors.blue9};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.plum5};
+    color: ${(props) => props.theme.colors.slate12};
   }
 
   :hover {
-    background-color: ${(props) => props.theme.colors.blue7};
-    color: ${(props) => props.theme.colors.plum11};
+    background-color: ${(props) => props.theme.colors.plum4};
+    color: ${(props) => props.theme.colors.gray12};
   }
 
   .icon {

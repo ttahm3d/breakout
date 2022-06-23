@@ -2,28 +2,70 @@ import BreakoutLogo from "../../assets/icons/BreakoutIcon.svg";
 import styled from "styled-components";
 import { RiLinkedinFill, RiGithubLine, RiTwitterLine } from "react-icons/ri";
 import { Container } from "../../styles/globals";
+import { useMemo } from "react";
+import { IconType } from "react-icons/lib";
+import { Link } from "react-router-dom";
+
+type Links = {
+  id: number;
+  text: string;
+  icon?: IconType;
+  path: string;
+};
 
 export default function Footer() {
-  const externalLinks = [
-    {
-      id: 1,
-      name: "Github",
-      icon: <RiGithubLine />,
-      path: "https://github.com/ttahm3d",
-    },
-    {
-      id: 2,
-      name: "Linked In",
-      icon: <RiLinkedinFill />,
-      path: "https://www.linkedin.com/in/tahirahmedt/",
-    },
-    {
-      id: 3,
-      name: "Twitter",
-      icon: <RiTwitterLine />,
-      path: "https://twitter.com/ttahm3d",
-    },
-  ];
+  const externalLinks: Links[] = useMemo(() => {
+    return [
+      {
+        id: 1,
+        text: "Github",
+        icon: RiGithubLine,
+        path: "https://github.com/ttahm3d",
+      },
+      {
+        id: 2,
+        text: "Linked In",
+        icon: RiLinkedinFill,
+        path: "https://www.linkedin.com/in/tahirahmedt/",
+      },
+      {
+        id: 3,
+        text: "Twitter",
+        icon: RiTwitterLine,
+        path: "https://twitter.com/ttahm3d",
+      },
+    ];
+  }, []);
+
+  const internalLinks: Links[] = useMemo(() => {
+    return [
+      {
+        id: 1,
+        text: "Home",
+        path: "/home",
+      },
+      {
+        id: 2,
+        text: "Explore",
+        path: "/explore",
+      },
+      {
+        id: 3,
+        text: "Discover",
+        path: "/discover",
+      },
+      {
+        id: 4,
+        text: "Bookmarks",
+        path: "/bookmarks",
+      },
+      {
+        id: 5,
+        text: "Profile",
+        path: "/profile",
+      },
+    ];
+  }, []);
 
   return (
     <FooterWrapper>
@@ -34,15 +76,21 @@ export default function Footer() {
           </Logo>
           <FooterLinksWrapper>
             <FooterHeader>Internal Links</FooterHeader>
+            <LinksContainer>
+              {internalLinks.map((link) => (
+                <ExtLink href={link.path} key={link.id}>
+                  <>{link.text}</>
+                </ExtLink>
+              ))}
+            </LinksContainer>
           </FooterLinksWrapper>
           <FooterLinksWrapper>
             <FooterHeader>Other Links</FooterHeader>
             <LinksContainer>
-              {externalLinks.map(({ id, name, icon, path }) => (
-                <ExtLink href={path} key={id}>
-                  <div className="icon">{icon}</div>
-                  <>{name}</>
-                </ExtLink>
+              {externalLinks.map((item) => (
+                <IntLink to={item.path} key={item.id}>
+                  <>{item.text}</>
+                </IntLink>
               ))}
             </LinksContainer>
           </FooterLinksWrapper>
@@ -53,9 +101,13 @@ export default function Footer() {
 }
 
 const FooterWrapper = styled.footer`
-  padding: 2rem 0;
+  padding: 2rem 0 6rem;
   margin-top: auto;
   border-top: 1px solid ${(props) => props.theme.colors.violet7};
+
+  @media screen and (min-width: 56.25em) {
+    padding: 2rem 0;
+  }
 `;
 
 const FooterContainer = styled.section`
@@ -81,18 +133,18 @@ const LinksContainer = styled.div`
   flex-direction: column;
 `;
 
-// const FooterLink = styled(Link)`
-//   color: ${(props) => props.theme.colors.slate11};
+const IntLink = styled(Link)`
+  color: ${(props) => props.theme.colors.gray11};
 
-//   :hover {
-//     color: ${(props) => props.theme.colors.slate12};
-//   }
-// `;
+  :hover {
+    color: ${(props) => props.theme.colors.mauve12};
+  }
+`;
 
 const ExtLink = styled.a`
   display: flex;
   gap: 1rem;
-  color: ${(props) => props.theme.colors.gray12};
+  color: ${(props) => props.theme.colors.gray11};
 
   :hover {
     color: ${(props) => props.theme.colors.mauve12};

@@ -19,6 +19,10 @@ import {
   indigoDark,
   gray,
   grayDark,
+  purple,
+  purpleDark,
+  pink,
+  pinkDark,
 } from "@radix-ui/colors";
 
 const LightTheme = {
@@ -33,6 +37,8 @@ const LightTheme = {
     ...orange,
     ...violet,
     ...indigo,
+    ...purple,
+    ...pink,
     white: "#fff",
     black: "#000",
   },
@@ -50,6 +56,8 @@ const DarkTheme = {
     ...orangeDark,
     ...violetDark,
     ...indigoDark,
+    ...purpleDark,
+    ...pinkDark,
     white: "#fff",
     black: "#000",
   },

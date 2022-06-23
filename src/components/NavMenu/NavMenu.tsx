@@ -86,6 +86,8 @@ const MenuItemsContainer = styled.div`
   flex-direction: column;
   list-style: none;
   gap: 0.5rem;
+  position: sticky;
+  top: 4.5rem;
 
   @media screen and (max-width: 56.25em) {
     flex-direction: row;

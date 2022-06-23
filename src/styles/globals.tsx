@@ -9,8 +9,8 @@ const MainContainer = styled.main`
   display: grid;
   grid-template-columns: 1fr;
 
-  @media screen and (min-width: 64em) {
-    grid-template-columns: 1fr 4fr;
+  @media screen and (min-width: 56.25em) {
+    grid-template-columns: 1fr 5fr;
     gap: 2rem;
   }
 `;

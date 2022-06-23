@@ -1,10 +1,10 @@
 import { ThemeProvider } from "styled-components";
-import { Header, Footer } from "./components";
+import { Header, Footer, NavMenu } from "./components";
 import { LightTheme, DarkTheme } from "./styles/themes";
 import { GlobalStyle } from "./styles";
 import { useLocalStorage } from "./hooks";
-import { Container, Page } from "./styles/globals";
-import { BrowserRouter } from "react-router-dom";
+import { Container, MainContainer, Page } from "./styles/globals";
+import { useLocation } from "react-router-dom";
 import Router from "./router";
 
 function App(): JSX.Element {
@@ -13,19 +13,27 @@ function App(): JSX.Element {
   const toggleTheme: () => void = () =>
     theme === "light" ? setTheme("dark") : setTheme("light");
 
+  const { pathname } = useLocation();
+
+  const showNavMenu =
+    pathname !== "/" &&
+    pathname !== "/auth/sigin" &&
+    pathname !== "/auth/signup";
+
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme === "light" ? LightTheme : DarkTheme}>
-        <GlobalStyle />
-        <Page>
-          <Header theme={theme} toggleTheme={toggleTheme} />
-          <Container>
+    <ThemeProvider theme={theme === "light" ? LightTheme : DarkTheme}>
+      <GlobalStyle />
+      <Page>
+        <Header theme={theme} toggleTheme={toggleTheme} />
+        <Container>
+          <MainContainer showNavMenu={showNavMenu}>
+            {showNavMenu && <NavMenu />}
             <Router />
-          </Container>
-          <Footer />
-        </Page>
-      </ThemeProvider>
-    </BrowserRouter>
+          </MainContainer>
+        </Container>
+        <Footer />
+      </Page>
+    </ThemeProvider>
   );
 }
 

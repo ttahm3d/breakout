@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "styled-components";
+import { Header, Footer } from "./components";
+import { LightTheme, DarkTheme } from "./styles/themes";
+import { GlobalStyle } from "./styles";
+import { useLocalStorage } from "./hooks";
+import { Container, Page } from "./styles/globals";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./router";
 
-function App() {
+function App(): JSX.Element {
+  const [theme, setTheme] = useLocalStorage("breakout-theme", "light");
+
+  const toggleTheme: () => void = () =>
+    theme === "light" ? setTheme("dark") : setTheme("light");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme === "light" ? LightTheme : DarkTheme}>
+        <GlobalStyle />
+        <Page>
+          <Header theme={theme} toggleTheme={toggleTheme} />
+          <Container>
+            <Router />
+          </Container>
+          <Footer />
+        </Page>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

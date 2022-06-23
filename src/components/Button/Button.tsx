@@ -108,8 +108,8 @@ const StyledButton = styled.button<ButtonProps>`
 
 const StyledIconButton = styled.button`
   border: 1px solid transparent;
-  background-color: ${(props) => props.theme.colors.slate1};
-  color: ${(props) => props.theme.colors.slate12};
+  background-color: ${(props) => props.theme.colors.violet1};
+  color: ${(props) => props.theme.colors.violet12};
   align-items: center;
   border-radius: 0.25rem;
   padding: 0.25rem;
@@ -117,6 +117,6 @@ const StyledIconButton = styled.button`
   justify-content: center;
 
   :focus {
-    outline: 1px solid ${(props) => props.theme.colors.slate7};
+    outline: 1px solid ${(props) => props.theme.colors.violet7};
   }
 `;

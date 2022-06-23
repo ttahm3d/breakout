@@ -53,7 +53,7 @@ export default function NavMenu(): JSX.Element {
     <MenuBar>
       <MenuItemsContainer>
         {menuItems.map((item) => (
-          <MenuItem to={item.path}>
+          <MenuItem to={item.path} key={item.id}>
             <div className="icon">{<item.icon />}</div>
             <div className="text">{item.text}</div>
           </MenuItem>

@@ -64,18 +64,22 @@ export default function NavMenu(): JSX.Element {
 }
 
 const MenuBar = styled.aside`
-  background-color: ${(props) => props.theme.colors.violet1};
+  /* background-color: ${(props) => props.theme.colors.violet1}; */
+  background-color: ${(props) => props.theme.colors.violet2};
   position: sticky;
-  padding: 1rem 0;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  min-height: 80vh;
 
   @media screen and (max-width: 56.25em) {
-    background-color: ${(props) => props.theme.colors.violet3};
     padding: 1rem;
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 8;
     right: 0;
+    min-height: fit-content;
+    margin: 0;
   }
 `;
 

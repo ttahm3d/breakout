@@ -17,7 +17,7 @@ function App(): JSX.Element {
 
   const showNavMenu =
     pathname !== "/" &&
-    pathname !== "/auth/sigin" &&
+    pathname !== "/auth/signin" &&
     pathname !== "/auth/signup";
 
   return (

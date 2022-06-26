@@ -31,10 +31,10 @@ export default function FormikField({
           <StyledField
             type={showPassword ? "text" : "password"}
             name={name}
+            id={id}
             placeholder={placeholder}
           />
           <ErrorMessage name={name} component={TextError} />
-
           <ShowButton onClick={toggleShowPassword}>
             {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
           </ShowButton>
@@ -44,7 +44,12 @@ export default function FormikField({
       return (
         <FormItem>
           <Label htmlFor={id}>{label}</Label>
-          <StyledField type={type} name={name} placeholder={placeholder} />
+          <StyledField
+            type={type}
+            name={name}
+            id={id}
+            placeholder={placeholder}
+          />
           <ErrorMessage name={name} component={TextError} />
         </FormItem>
       );

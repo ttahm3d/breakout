@@ -8,7 +8,6 @@ import { Content } from "../../../styles/globals";
 type SignUpType = {
   firstName: string;
   lastName: string;
-  userName: string;
   email: string;
   password: string;
 };
@@ -24,7 +23,6 @@ export default function SignUp(): JSX.Element {
   const initialValues: SignUpType = {
     firstName: "",
     lastName: "",
-    userName: "",
     email: "",
     password: "",
   };
@@ -32,9 +30,7 @@ export default function SignUp(): JSX.Element {
   const validationSchema = Yup.object({
     firstName: Yup.string().required("Cannot be empty"),
     lastName: Yup.string().required("Cannot be empty"),
-    userName: Yup.string()
-      .required("Cannot be empty")
-      .min(4, "username is too short"),
+
     email: Yup.string()
       .email("Invalid Email format")
       .required("Email is required"),
@@ -56,12 +52,6 @@ export default function SignUp(): JSX.Element {
         type: "lastName",
         name: "lastName",
         label: "Last Name",
-      },
-      {
-        id: "userName",
-        type: "userName",
-        name: "userName",
-        label: "User Name",
       },
       {
         id: "email",

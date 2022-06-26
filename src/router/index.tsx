@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Loader from "../components/Loader/Loader";
-import RenderWithMenu from "./RenderWithMenu";
+// import RenderWithMenu from "./RenderWithMenu";
 
 const LandingPage = lazy(() => import("../pages/landingpage/LandingPage"));
 const SingIn = lazy(() => import("../pages/auth/SignIn/SignIn"));

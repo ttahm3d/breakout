@@ -1,9 +1,10 @@
 import BreakoutLogo from "../../assets/icons/BreakoutIcon.svg";
 import { IoMdMoon } from "react-icons/io";
 import { FiSun } from "react-icons/fi";
-import { IconButton } from "../Button/Button";
+import { IconButton, Button } from "../Button/Button";
 import styled from "styled-components";
 import { Container } from "../../styles/globals";
+import { useNavigate } from "react-router-dom";
 
 type HeaderProps = {
   theme: string;
@@ -14,6 +15,8 @@ export default function Header({
   theme,
   toggleTheme,
 }: HeaderProps): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <HeaderComponent>
       <Container>
@@ -22,6 +25,12 @@ export default function Header({
             <img src={BreakoutLogo} alt="Breakout Logo" />
           </Logo>
           <NavItems>
+            <Button
+              variant="secondary__cta"
+              radius={0.25}
+              onClick={() => navigate("/auth/signin")}>
+              Login
+            </Button>
             <IconButton
               aria-label="Toggle Theme"
               icon={theme === "light" ? <IoMdMoon /> : <FiSun />}

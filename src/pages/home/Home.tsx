@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { Container, Content } from "../../styles/globals";
+import { Content } from "../../styles/globals";
 
 export default function Home() {
   return (

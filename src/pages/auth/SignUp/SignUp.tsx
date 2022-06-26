@@ -93,7 +93,7 @@ export default function SignUp(): JSX.Element {
             </Form>
             <div>
               Alreay have an account?&nbsp;&nbsp;
-              <NavigationLink to="/auth/signup">Sign In</NavigationLink>
+              <NavigationLink to="/auth/signin">Sign In</NavigationLink>
             </div>
           </>
         </Formik>

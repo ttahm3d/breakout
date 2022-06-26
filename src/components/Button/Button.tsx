@@ -11,7 +11,7 @@ type ButtonProps = {
   fullwidth?: boolean;
   margin?: number;
   radius?: number;
-  children: JSX.Element;
+  children: JSX.Element | string;
   onClick?: () => void;
 };
 

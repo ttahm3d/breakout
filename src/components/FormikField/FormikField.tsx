@@ -58,7 +58,7 @@ function TextError({ children }: any) {
 const FormItem = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0 2rem;
+  padding: 0.25rem 0 2rem;
   position: relative;
 `;
 
@@ -93,7 +93,7 @@ const ShowButton = styled.div`
   border-radius: 0 0.25rem 0.25rem 0;
   justify-content: center;
   padding: 0.44rem;
-  top: 33%;
+  top: 32.5%;
   right: 1px;
   font-size: 1.2rem;
   cursor: pointer;
@@ -105,8 +105,9 @@ const ShowButton = styled.div`
 `;
 
 const Error = styled.div`
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   padding: 0.25rem;
+  width: 100%;
   background-color: ${(props) => props.theme.colors.red4};
   color: ${(props) => props.theme.colors.red10};
   position: absolute;

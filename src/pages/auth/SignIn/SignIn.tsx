@@ -1,8 +1,7 @@
+import styled from "styled-components";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { Button, FormikField } from "../../../components";
-import styled from "styled-components";
-import { Content } from "../../../styles/globals";
+import { Button, FormikField, NavigationLink } from "../../../components";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
 
 type SignInType = {
@@ -26,13 +25,13 @@ export default function SingIn(): JSX.Element {
   });
 
   return (
-    <Content>
-      <FormContainer>
-        <FormHeading>Signin</FormHeading>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(values) => console.log(values)}
-          validationSchema={validationSchema}>
+    <FormContainer>
+      <FormHeading>Sign In</FormHeading>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => console.log(values)}
+        validationSchema={validationSchema}>
+        <>
           <Form>
             <FormikField id="email" type="email" name="email" label="Email" />
             <FormikField
@@ -53,9 +52,13 @@ export default function SingIn(): JSX.Element {
               </FlexCenter>
             </LoginBtn>
           </Form>
-        </Formik>
-      </FormContainer>
-    </Content>
+          <div>
+            Don't have an account?&nbsp;&nbsp;
+            <NavigationLink to="/auth/signup">Create one now</NavigationLink>
+          </div>
+        </>
+      </Formik>
+    </FormContainer>
   );
 }
 
@@ -68,16 +71,16 @@ const FormContainer = styled.div`
 `;
 
 const FormHeading = styled.h3`
-  margin: 0;
+  font-size: 1.5rem;
   padding-bottom: 1rem;
 `;
 
 const LoginBtn = styled(Button)`
-  margin: 1.5rem 0 0;
+  margin: 1rem 0 0;
   padding: 0.45rem;
 
   :last-child {
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
   }
 `;
 

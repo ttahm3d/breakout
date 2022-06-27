@@ -6,8 +6,7 @@ import { Button, FormikField, NavigationLink } from "../../../components";
 import { Content } from "../../../styles/globals";
 
 type SignUpType = {
-  firstName: string;
-  lastName: string;
+  displayName: string;
   email: string;
   password: string;
 };
@@ -21,16 +20,13 @@ type FieldType = {
 
 export default function SignUp(): JSX.Element {
   const initialValues: SignUpType = {
-    firstName: "",
-    lastName: "",
+    displayName: "",
     email: "",
     password: "",
   };
 
   const validationSchema = Yup.object({
-    firstName: Yup.string().required("Cannot be empty"),
-    lastName: Yup.string().required("Cannot be empty"),
-
+    displayName: Yup.string().required("Cannot be empty"),
     email: Yup.string()
       .email("Invalid Email format")
       .required("Email is required"),
@@ -42,16 +38,10 @@ export default function SignUp(): JSX.Element {
   const formikFields: FieldType[] = useMemo(() => {
     return [
       {
-        id: "firstName",
-        type: "firstName",
-        name: "firstName",
-        label: "First Name",
-      },
-      {
-        id: "lastName",
-        type: "lastName",
-        name: "lastName",
-        label: "Last Name",
+        id: "displayName",
+        type: "displayName",
+        name: "displayName",
+        label: "Display Name",
       },
       {
         id: "email",
@@ -69,36 +59,34 @@ export default function SignUp(): JSX.Element {
   }, []);
 
   return (
-    <ExtContent>
-      <FormContainer>
-        <FormHeading>Sign Up</FormHeading>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(values) => console.log(values)}
-          validationSchema={validationSchema}>
-          <>
-            <Form>
-              {formikFields.map((field) => (
-                <FormikField
-                  key={field.id}
-                  id={field.id}
-                  label={field.label}
-                  name={field.name}
-                  type={field.type}
-                />
-              ))}
-              <LoginBtn variant="primary__block" fullwidth radius={0.25}>
-                Sign Up
-              </LoginBtn>
-            </Form>
-            <div>
-              Alreay have an account?&nbsp;&nbsp;
-              <NavigationLink to="/auth/signin">Sign In</NavigationLink>
-            </div>
-          </>
-        </Formik>
-      </FormContainer>
-    </ExtContent>
+    <FormContainer>
+      <FormHeading>Sign Up</FormHeading>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => console.log(values)}
+        validationSchema={validationSchema}>
+        <>
+          <Form>
+            {formikFields.map((field) => (
+              <FormikField
+                key={field.id}
+                id={field.id}
+                label={field.label}
+                name={field.name}
+                type={field.type}
+              />
+            ))}
+            <LoginBtn variant="primary__block" fullwidth radius={0.25}>
+              Sign Up
+            </LoginBtn>
+          </Form>
+          <div>
+            Alreay have an account?&nbsp;&nbsp;
+            <NavigationLink to="/auth/signin">Sign In</NavigationLink>
+          </div>
+        </>
+      </Formik>
+    </FormContainer>
   );
 }
 
@@ -122,8 +110,4 @@ const LoginBtn = styled(Button)`
   :last-child {
     margin: 1.5rem 0;
   }
-`;
-
-const ExtContent = styled(Content)`
-  padding: 4rem 0;
 `;

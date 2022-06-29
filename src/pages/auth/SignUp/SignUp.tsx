@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { Button, FormikField, NavigationLink } from "../../../components";
-import { Content } from "../../../styles/globals";
+import { signUpHandler } from "../../../redux/services/authServices";
+import { useAppDispatch } from "../../../hooks";
 
 type SignUpType = {
-  displayName: string;
+  fullName: string;
   email: string;
   password: string;
 };
@@ -19,14 +20,16 @@ type FieldType = {
 };
 
 export default function SignUp(): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const initialValues: SignUpType = {
-    displayName: "",
+    fullName: "",
     email: "",
     password: "",
   };
 
   const validationSchema = Yup.object({
-    displayName: Yup.string().required("Cannot be empty"),
+    fullName: Yup.string().required("Cannot be empty"),
     email: Yup.string()
       .email("Invalid Email format")
       .required("Email is required"),
@@ -35,13 +38,17 @@ export default function SignUp(): JSX.Element {
       .min(8, "Password is too short"),
   });
 
+  const handleSubmit = async (values: SignUpType) => {
+    dispatch(signUpHandler(values));
+  };
+
   const formikFields: FieldType[] = useMemo(() => {
     return [
       {
-        id: "displayName",
-        type: "displayName",
-        name: "displayName",
-        label: "Display Name",
+        id: "fullName",
+        type: "fullName",
+        name: "fullName",
+        label: "Full Name",
       },
       {
         id: "email",
@@ -63,7 +70,7 @@ export default function SignUp(): JSX.Element {
       <FormHeading>Sign Up</FormHeading>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}>
         <>
           <Form>
@@ -81,7 +88,7 @@ export default function SignUp(): JSX.Element {
             </LoginBtn>
           </Form>
           <div>
-            Alreay have an account?&nbsp;&nbsp;
+            Already have an account?&nbsp;&nbsp;
             <NavigationLink to="/auth/signin">Sign In</NavigationLink>
           </div>
         </>

@@ -26,6 +26,7 @@ export const signUpHandler = createAsyncThunk(
         email,
         password
       );
+      localStorage.setItem("breakout/user-id", response?.user?.uid);
       return response?.user;
     } catch (error) {}
   }
@@ -38,5 +39,10 @@ export const googleSignUpHandler = createAsyncThunk(
 
 export const googleSignInHandler = createAsyncThunk(
   "auth/user-google-signin",
+  async () => {}
+);
+
+export const logoutHandler = createAsyncThunk(
+  "auth/user-logout",
   async () => {}
 );

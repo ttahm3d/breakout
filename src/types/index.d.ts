@@ -8,10 +8,14 @@ export type SignUpType = {
   password: string;
 };
 
+export type SignInType = {
+  email: string;
+  password: string;
+};
+
 export type UserType = {
   userName: string | null;
   email: string | null;
-  password?: string | null;
   photoURL: string | null;
   followers: [User] | [];
   following: [User] | [];

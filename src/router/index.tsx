@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Loader from "../components/Loader/Loader";
-// import RenderWithMenu from "./RenderWithMenu";
+import RequireAuth from "./RequireAuth";
+import RedirectAuth from "./RedirectAuth";
 
 const LandingPage = lazy(() => import("../pages/landingpage/LandingPage"));
 const SingIn = lazy(() => import("../pages/auth/SignIn/SignIn"));
@@ -17,17 +18,19 @@ export default function Router(): JSX.Element {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/auth">
-          <Route path="/auth/signin" element={<SingIn />} />
-          <Route path="/auth/signup" element={<SignUp />} />
+        <Route element={<RedirectAuth />}>
+          <Route path="/auth">
+            <Route path="/auth/signin" element={<SingIn />} />
+            <Route path="/auth/signup" element={<SignUp />} />
+          </Route>
         </Route>
-        {/* <Route element={<RenderWithMenu />}> */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/discover" element={<Discover />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/profile" element={<Profile />} />
-        {/* </Route> */}
+        <Route element={<RequireAuth />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </Suspense>
   );

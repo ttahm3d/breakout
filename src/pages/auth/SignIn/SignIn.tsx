@@ -2,13 +2,14 @@ import { useMemo } from "react";
 import { Form, Formik } from "formik";
 import styled from "styled-components";
 import * as Yup from "yup";
+import { useAppDispatch } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
+import {
+  googleSignUpHandler,
+  signInHandler,
+} from "../../../redux/services/authServices";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
-
-type SignInType = {
-  email: string;
-  password: string;
-};
+import { SignInType } from "../../../types";
 
 type FieldType = {
   id: string;
@@ -21,6 +22,12 @@ export default function SingIn(): JSX.Element {
   const initialValues: SignInType = {
     email: "",
     password: "",
+  };
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (signInData: SignInType, { resetForm }: any) => {
+    dispatch(signInHandler(signInData));
+    resetForm();
   };
 
   const validationSchema = Yup.object({
@@ -54,7 +61,7 @@ export default function SingIn(): JSX.Element {
       <FormHeading>Sign In</FormHeading>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}>
         <>
           <Form>
@@ -70,7 +77,13 @@ export default function SingIn(): JSX.Element {
             <LoginBtn variant="primary__block" fullwidth radius={0.25}>
               <>Sign In</>
             </LoginBtn>
-            <LoginBtn variant="primary__outline" fullwidth radius={0.25}>
+          </Form>
+          <FlexCenter>
+            <LoginBtn
+              variant="primary__outline"
+              fullwidth
+              radius={0.25}
+              onClick={() => dispatch(googleSignUpHandler())}>
               <FlexCenter>
                 <FlexCenter>
                   <img src={GoogleLogo} alt="Google Logo" />
@@ -78,7 +91,7 @@ export default function SingIn(): JSX.Element {
                 &nbsp; Sign In With Google
               </FlexCenter>
             </LoginBtn>
-          </Form>
+          </FlexCenter>
           <div>
             Don't have an account?&nbsp;&nbsp;
             <NavigationLink to="/auth/signup">Create one now</NavigationLink>
@@ -107,7 +120,8 @@ const LoginBtn = styled(Button)`
   padding: 0.45rem;
 
   :last-child {
-    margin: 1.5rem 0;
+    margin: 1rem 0;
+    width: 18.025rem;
   }
 `;
 

@@ -5,17 +5,18 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth, googleAuthProvider, db, app } from "../../configs/firebase";
-import { SignUpType, UserType } from "../../types";
-import { createUser, createGoogleUser } from "./userServices";
+import { auth, googleAuthProvider } from "../../configs/firebase";
+import { SignInType, SignUpType } from "../../types";
+import { createUser, createGoogleUser, getUserById } from "./userServices";
 
 export const signInHandler = createAsyncThunk(
   "auth/user-signin",
-  async (loginData: any) => {
+  async (signInData: SignInType) => {
     try {
-      const { email, password } = loginData;
+      const { email, password } = signInData;
       const response = await signInWithEmailAndPassword(auth, email, password);
-      return response?.user;
+      localStorage.setItem("breakout/user-id", response?.user?.uid);
+      return await getUserById(response?.user?.uid);
     } catch (error) {}
   }
 );
@@ -31,9 +32,8 @@ export const signUpHandler = createAsyncThunk(
         password
       );
       localStorage.setItem("breakout/user-id", response?.user?.uid);
-      const result = await createUser(signupData, response?.user?.uid);
-      console.log(result);
-      return response?.user;
+      const createdUser = await createUser(signupData, response?.user?.uid);
+      return createdUser;
     } catch (error) {}
   }
 );
@@ -44,8 +44,8 @@ export const googleSignUpHandler = createAsyncThunk(
     try {
       const response = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("breakout/user-id", response?.user?.uid);
-      const result = await createGoogleUser(response?.user);
-      return response?.user;
+      const createdGoogleUser = await createGoogleUser(response?.user);
+      return createdGoogleUser;
     } catch (error) {}
   }
 );

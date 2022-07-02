@@ -2,15 +2,12 @@ import { useMemo } from "react";
 import styled from "styled-components";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useAppDispatch } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
 import { signUpHandler } from "../../../redux/services/authServices";
-import { useAppDispatch } from "../../../hooks";
-
-type SignUpType = {
-  fullName: string;
-  email: string;
-  password: string;
-};
+import { googleSignUpHandler } from "../../../redux/services/authServices";
+import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
+import { SignUpType } from "../../../types";
 
 type FieldType = {
   id: string;
@@ -38,8 +35,9 @@ export default function SignUp(): JSX.Element {
       .min(8, "Password is too short"),
   });
 
-  const handleSubmit = async (values: SignUpType) => {
+  const handleSubmit = (values: SignUpType, { resetForm }: any) => {
     dispatch(signUpHandler(values));
+    resetForm();
   };
 
   const formikFields: FieldType[] = useMemo(() => {
@@ -87,6 +85,20 @@ export default function SignUp(): JSX.Element {
               Sign Up
             </LoginBtn>
           </Form>
+          <FlexCenter>
+            <LoginBtn
+              variant="primary__outline"
+              fullwidth
+              radius={0.25}
+              onClick={() => dispatch(googleSignUpHandler())}>
+              <FlexCenter>
+                <FlexCenter>
+                  <img src={GoogleLogo} alt="Google Logo" />
+                </FlexCenter>
+                &nbsp; Sign Up With Google
+              </FlexCenter>
+            </LoginBtn>
+          </FlexCenter>
           <div>
             Already have an account?&nbsp;&nbsp;
             <NavigationLink to="/auth/signin">Sign In</NavigationLink>
@@ -115,6 +127,13 @@ const LoginBtn = styled(Button)`
   padding: 0.45rem;
 
   :last-child {
-    margin: 1.5rem 0;
+    margin: 1rem 0;
+    width: 18.025rem;
   }
+`;
+
+const FlexCenter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

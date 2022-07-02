@@ -8,22 +8,22 @@ export const createUser = async (signupData: SignUpType, userId: string) => {
     const user: UserType = {
       userName: signupData.fullName,
       email: signupData.email,
-      password: signupData.password,
-      photoURL: "",
+      photoURL:
+        "https://res.cloudinary.com/dut75albw/image/upload/v1656740158/breakout/user_czi25a.png",
       followers: [],
       following: [],
       bio: "",
       website: "",
     };
     await setDoc(doc(db, "users", userId), user);
-    const userInfo = getUser(userId);
+    const userInfo = getUserById(userId);
     return userInfo;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getUser = async (userId: string) => {
+export const getUserById = async (userId: string) => {
   try {
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
@@ -45,9 +45,18 @@ export const createGoogleUser = async (gUser: IAuth) => {
       website: "",
     };
     await setDoc(doc(db, "users", gUser.uid), user);
-    const userInfo = getUser(gUser.uid);
+    const userInfo = getUserById(gUser.uid);
     return userInfo;
   } catch (error) {
     console.log(error);
   }
 };
+
+export const getUserDetails = createAsyncThunk(
+  "user/user-info",
+  async (userId: string) => {
+    try {
+      return await getUserById(userId);
+    } catch (error) {}
+  }
+);

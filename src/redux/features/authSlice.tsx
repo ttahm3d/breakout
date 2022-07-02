@@ -1,16 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IAuth } from "../../types";
-import { signUpHandler } from "../services/authServices";
+import { DocumentData } from "firebase/firestore";
+import {
+  googleSignUpHandler,
+  logoutHandler,
+  signInHandler,
+  signUpHandler,
+} from "../services/authServices";
+import { getUserDetails } from "../services/userServices";
 
 type AuthType = {
-  user: IAuth | undefined;
+  user: DocumentData | undefined;
   loggedIn: boolean;
   loading: boolean;
 };
 
 const initialState: AuthType = {
   user: undefined,
-  loggedIn: false,
+  loggedIn: !!localStorage.getItem("breakout/user-id") || false,
   loading: false,
 };
 
@@ -20,7 +26,7 @@ const authSlice = createSlice({
   reducers: {
     signUp: (state, action) => {
       state.user = action.payload;
-      state.loggedIn = false;
+      state.loggedIn = true;
     },
   },
   extraReducers: (builder) => {
@@ -30,7 +36,65 @@ const authSlice = createSlice({
       })
       .addCase(signUpHandler.fulfilled, (state, action) => {
         state.loading = false;
+        state.loggedIn = true;
         state.user = action.payload;
+      })
+      .addCase(signUpHandler.rejected, (state) => {
+        state.loggedIn = false;
+        state.loading = false;
+        state.user = undefined;
+      })
+      .addCase(logoutHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logoutHandler.fulfilled, (state) => {
+        state.loading = false;
+        state.loggedIn = false;
+        state.user = undefined;
+      })
+      .addCase(logoutHandler.rejected, (state) => {
+        state.loggedIn = false;
+        state.loading = false;
+        state.user = undefined;
+      })
+      .addCase(googleSignUpHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(googleSignUpHandler.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(googleSignUpHandler.rejected, (state) => {
+        state.loggedIn = false;
+        state.loading = false;
+        state.user = undefined;
+      })
+      .addCase(getUserDetails.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUserDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(getUserDetails.rejected, (state) => {
+        state.loggedIn = false;
+        state.loading = false;
+        state.user = undefined;
+      })
+      .addCase(signInHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(signInHandler.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(signInHandler.rejected, (state) => {
+        state.loggedIn = false;
+        state.loading = false;
+        state.user = undefined;
       });
   },
 });

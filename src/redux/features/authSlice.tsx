@@ -3,7 +3,7 @@ import { DocumentData } from "firebase/firestore";
 import {
   googleSignInHandler,
   googleSignUpHandler,
-  logoutHandler,
+  signOutHandler,
   signInHandler,
   signUpHandler,
 } from "../services/authServices";
@@ -45,15 +45,15 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = undefined;
       })
-      .addCase(logoutHandler.pending, (state) => {
+      .addCase(signOutHandler.pending, (state) => {
         state.loading = true;
       })
-      .addCase(logoutHandler.fulfilled, (state) => {
+      .addCase(signOutHandler.fulfilled, (state) => {
         state.loading = false;
         state.loggedIn = false;
         state.user = undefined;
       })
-      .addCase(logoutHandler.rejected, (state) => {
+      .addCase(signOutHandler.rejected, (state) => {
         state.loggedIn = false;
         state.loading = false;
         state.user = undefined;

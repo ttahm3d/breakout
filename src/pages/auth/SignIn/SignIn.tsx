@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Form, Formik } from "formik";
 import styled from "styled-components";
 import * as Yup from "yup";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
 import {
   googleSignInHandler,
@@ -10,6 +10,7 @@ import {
 } from "../../../redux/services/authServices";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
 import { SignInType } from "../../../types";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type FieldType = {
   id: string;
@@ -23,11 +24,17 @@ export default function SingIn(): JSX.Element {
     email: "",
     password: "",
   };
+  const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
   const dispatch = useAppDispatch();
+  const { loggedIn } = useAppSelector((s) => s.authReducer);
 
   const handleSubmit = (signInData: SignInType, { resetForm }: any) => {
     dispatch(signInHandler(signInData));
     resetForm();
+    if (loggedIn) navigate(pathname);
   };
 
   const validationSchema = Yup.object({
@@ -75,7 +82,7 @@ export default function SingIn(): JSX.Element {
               />
             ))}
             <LoginBtn variant="primary__block" fullwidth radius={0.25}>
-              <>Sign In</>
+              Sign In
             </LoginBtn>
           </Form>
           <FlexCenter>

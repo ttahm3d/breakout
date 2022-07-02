@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import { ReactNode } from "react";
 
-type IconButtonProps = {
-  icon: ReactNode;
-  onClick: () => void;
-};
-
 type ButtonProps = {
   variant?: string;
   fullwidth?: boolean;
   margin?: number;
   radius?: number;
-  children: JSX.Element | string;
+  children?: JSX.Element | string;
   onClick?: () => void;
 };
+
+interface IIconButtonProps extends ButtonProps {
+  icon: ReactNode;
+  onClick: () => void;
+}
 
 const Button = (props: ButtonProps) => {
   const { variant, fullwidth, margin, radius, children } = props;
@@ -30,7 +30,7 @@ const Button = (props: ButtonProps) => {
   );
 };
 
-const IconButton = (props: IconButtonProps) => {
+const IconButton = (props: IIconButtonProps) => {
   const { icon, ...rest } = props;
   return <StyledIconButton {...rest}>{props.icon}</StyledIconButton>;
 };

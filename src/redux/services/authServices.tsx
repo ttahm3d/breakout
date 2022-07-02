@@ -61,8 +61,9 @@ export const googleSignInHandler = createAsyncThunk(
   }
 );
 
-export const logoutHandler = createAsyncThunk("auth/user-logout", async () => {
+export const signOutHandler = createAsyncThunk("auth/user-logout", async () => {
   try {
+    localStorage.removeItem("breakout/user-id");
     await signOut(auth);
   } catch (error) {}
 });

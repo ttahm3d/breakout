@@ -50,6 +50,17 @@ export const googleSignUpHandler = createAsyncThunk(
   }
 );
 
+export const googleSignInHandler = createAsyncThunk(
+  "auth/user-google-signin",
+  async () => {
+    try {
+      const response = await signInWithPopup(auth, googleAuthProvider);
+      localStorage.setItem("breakout/user-id", response?.user?.uid);
+      return await getUserById(response?.user?.uid);
+    } catch (error) {}
+  }
+);
+
 export const logoutHandler = createAsyncThunk("auth/user-logout", async () => {
   try {
     await signOut(auth);

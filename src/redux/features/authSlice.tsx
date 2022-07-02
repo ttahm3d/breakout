@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
 import {
+  googleSignInHandler,
   googleSignUpHandler,
   logoutHandler,
   signInHandler,
@@ -66,6 +67,19 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(googleSignUpHandler.rejected, (state) => {
+        state.loggedIn = false;
+        state.loading = false;
+        state.user = undefined;
+      })
+      .addCase(googleSignInHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(googleSignInHandler.fulfilled, (state, action) => {
+        state.loading = false;
+        state.loggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(googleSignInHandler.rejected, (state) => {
         state.loggedIn = false;
         state.loading = false;
         state.user = undefined;

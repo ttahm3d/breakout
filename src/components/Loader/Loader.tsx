@@ -3,10 +3,18 @@ import styled, { keyframes } from "styled-components";
 export default function Loader(): JSX.Element {
   return (
     <LoaderContainer>
-      <LoaderRing />
+      <LoaderCircle />
     </LoaderContainer>
   );
 }
+
+export function LoaderCircle(props: LoaderCircleType): JSX.Element {
+  return <LoaderRing size={props.size} />;
+}
+
+type LoaderCircleType = {
+  size?: number;
+};
 
 const LoaderContainer = styled.main`
   display: flex;
@@ -24,11 +32,11 @@ const spinAnimation = keyframes`
   }
 `;
 
-const LoaderRing = styled.div`
+const LoaderRing = styled.div<LoaderCircleType>`
   border: 0.25rem solid ${({ theme }) => theme.colors.plum3};
   border-top: 0.25rem solid ${({ theme }) => theme.colors.plum9};
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: ${({ size }) => (size ? `${size}rem` : "40px")};
+  height: ${({ size }) => (size ? `${size}rem` : "40px")};
   animation: ${spinAnimation} 0.5s linear infinite;
 `;

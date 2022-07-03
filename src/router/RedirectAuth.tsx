@@ -3,9 +3,9 @@ import { useAppSelector } from "../hooks";
 
 export default function RedirectAuth() {
   const location = useLocation();
-  const loggedIn = useAppSelector((s) => s.authReducer.loggedIn);
+  const { user } = useAppSelector((s) => s.authReducer);
 
-  return loggedIn ? (
+  return user !== undefined ? (
     <Navigate to="/home" state={{ from: location }} />
   ) : (
     <Outlet />

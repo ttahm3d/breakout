@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { Header, Footer, NavMenu } from "./components";
+import { Header, Footer, NavMenu, ToastComponent } from "./components";
 import { LightTheme, DarkTheme } from "./styles/themes";
 import { GlobalStyle } from "./styles";
 import { useAppDispatch, useLocalStorage } from "./hooks";
@@ -41,6 +41,7 @@ function App(): JSX.Element {
         </Container>
         <Footer />
       </Page>
+      <ToastComponent />
     </ThemeProvider>
   );
 }

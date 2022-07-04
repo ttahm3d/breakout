@@ -1,4 +1,3 @@
-import { MdOutlineLogout } from "react-icons/md";
 import BreakoutLogo from "../../assets/icons/BreakoutIcon.svg";
 import { IoMdMoon } from "react-icons/io";
 import { FiSun } from "react-icons/fi";
@@ -8,6 +7,8 @@ import { Container } from "../../styles/globals";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { signOutHandler } from "../../redux/services/authServices";
+import { auth } from "../../configs/firebase";
+import { signOut } from "firebase/auth";
 
 type HeaderProps = {
   theme: string;
@@ -20,7 +21,7 @@ export default function Header({
 }: HeaderProps): JSX.Element {
   const navigate = useNavigate();
 
-  const { user, loggedIn } = useAppSelector((s) => s.authReducer);
+  const { user } = useAppSelector((s) => s.authReducer);
   const dispatch = useAppDispatch();
 
   return (
@@ -31,13 +32,26 @@ export default function Header({
             <img src={BreakoutLogo} alt="Breakout Logo" />
           </Logo>
           <NavItems>
-            {loggedIn ? (
-              <Button
-                variant="secondary__cta"
-                radius={0.25}
-                onClick={() => dispatch(signOutHandler())}>
-                Sign Out
-              </Button>
+            {user !== undefined ? (
+              <>
+                <UserInfo>
+                  <div className="image">
+                    <img
+                      src={user.photoURL}
+                      alt={user.firstName}
+                      width={36}
+                      height={36}
+                    />
+                  </div>
+                  Hi {user.firstName}
+                </UserInfo>
+                <Button
+                  variant="secondary__cta"
+                  radius={0.25}
+                  onClick={() => dispatch(signOutHandler())}>
+                  Sign Out
+                </Button>
+              </>
             ) : (
               <Button
                 variant="secondary__cta"
@@ -95,8 +109,18 @@ const Logo = styled.div`
 //   }
 // `;
 
-// const UserInfo = styled.div`
-//   display: flex;
-//   align-items: center;
-//   gap: 0.25rem;
-// `;
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    border-radius: 50%;
+  }
+`;

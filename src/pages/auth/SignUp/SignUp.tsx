@@ -23,7 +23,8 @@ export default function SignUp(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const initialValues: SignUpType = {
-    fullName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   };
@@ -31,7 +32,8 @@ export default function SignUp(): JSX.Element {
   const { pathname } = useLocation();
 
   const validationSchema = Yup.object({
-    fullName: Yup.string().required("Cannot be empty"),
+    firstName: Yup.string().required("Cannot be empty"),
+    lastName: Yup.string().required("Cannot be empty"),
     email: Yup.string()
       .email("Invalid Email format")
       .required("Email is required"),
@@ -48,10 +50,16 @@ export default function SignUp(): JSX.Element {
   const formikFields: FieldType[] = useMemo(() => {
     return [
       {
-        id: "fullName",
-        type: "fullName",
-        name: "fullName",
-        label: "Full Name",
+        id: "firstName",
+        type: "firstName",
+        name: "firstName",
+        label: "First Name",
+      },
+      {
+        id: "lastName",
+        type: "lastName",
+        name: "lastName",
+        label: "Last Name",
       },
       {
         id: "email",
@@ -120,6 +128,7 @@ const FormContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   min-height: 80vh;
+  padding: 4rem 0;
 `;
 
 const FormHeading = styled.h3`

@@ -3,7 +3,8 @@ import * as FirebaseAuth from "firebase/auth";
 export interface IAuth extends FirebaseAuth.User {}
 
 export type SignUpType = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
@@ -14,9 +15,10 @@ export type SignInType = {
 };
 
 export type UserType = {
-  userName: string | null;
-  email: string | null;
-  photoURL: string | null;
+  firstName: string | any;
+  lastName: string | any;
+  email: string | any;
+  photoURL: string | any;
   followers: [User] | [];
   following: [User] | [];
   bio: string;

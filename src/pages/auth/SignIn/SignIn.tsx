@@ -11,6 +11,7 @@ import {
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
 import { SignInType } from "../../../types";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Content } from "../../../styles/globals";
 
 type FieldType = {
   id: string;
@@ -29,12 +30,12 @@ export default function SingIn(): JSX.Element {
   const { pathname } = useLocation();
 
   const dispatch = useAppDispatch();
-  const { loggedIn } = useAppSelector((s) => s.authReducer);
 
   const handleSubmit = (signInData: SignInType, { resetForm }: any) => {
     dispatch(signInHandler(signInData));
     resetForm();
-    if (loggedIn) navigate(pathname);
+    console.log(pathname);
+    navigate(pathname);
   };
 
   const validationSchema = Yup.object({
@@ -64,48 +65,50 @@ export default function SingIn(): JSX.Element {
   }, []);
 
   return (
-    <FormContainer>
-      <FormHeading>Sign In</FormHeading>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}>
-        <>
-          <Form>
-            {formikFields.map((field) => (
-              <FormikField
-                key={field.id}
-                id={field.id}
-                label={field.label}
-                name={field.name}
-                type={field.type}
-              />
-            ))}
-            <LoginBtn variant="primary__block" fullwidth radius={0.25}>
-              Sign In
-            </LoginBtn>
-          </Form>
-          <FlexCenter>
-            <LoginBtn
-              variant="primary__outline"
-              fullwidth
-              radius={0.25}
-              onClick={() => dispatch(googleSignInHandler())}>
-              <FlexCenter>
+    <Content>
+      <FormContainer>
+        <FormHeading>Sign In</FormHeading>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}>
+          <>
+            <Form>
+              {formikFields.map((field) => (
+                <FormikField
+                  key={field.id}
+                  id={field.id}
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
+                />
+              ))}
+              <LoginBtn variant="primary__block" fullwidth radius={0.25}>
+                Sign In
+              </LoginBtn>
+            </Form>
+            <FlexCenter>
+              <LoginBtn
+                variant="primary__outline"
+                fullwidth
+                radius={0.25}
+                onClick={() => dispatch(googleSignInHandler())}>
                 <FlexCenter>
-                  <img src={GoogleLogo} alt="Google Logo" />
+                  <FlexCenter>
+                    <img src={GoogleLogo} alt="Google Logo" />
+                  </FlexCenter>
+                  &nbsp; Sign In With Google
                 </FlexCenter>
-                &nbsp; Sign In With Google
-              </FlexCenter>
-            </LoginBtn>
-          </FlexCenter>
-          <div>
-            Don't have an account?&nbsp;&nbsp;
-            <NavigationLink to="/auth/signup">Create one now</NavigationLink>
-          </div>
-        </>
-      </Formik>
-    </FormContainer>
+              </LoginBtn>
+            </FlexCenter>
+            <div>
+              Don't have an account?&nbsp;&nbsp;
+              <NavigationLink to="/auth/signup">Create one now</NavigationLink>
+            </div>
+          </>
+        </Formik>
+      </FormContainer>
+    </Content>
   );
 }
 

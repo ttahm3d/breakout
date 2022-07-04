@@ -6,7 +6,8 @@ import { IAuth, SignUpType, UserType } from "../../types";
 export const createUser = async (signupData: SignUpType, userId: string) => {
   try {
     const user: UserType = {
-      userName: signupData.fullName,
+      firstName: signupData.firstName,
+      lastName: signupData.lastName,
       email: signupData.email,
       photoURL:
         "https://res.cloudinary.com/dut75albw/image/upload/v1656740158/breakout/user_czi25a.png",
@@ -30,13 +31,16 @@ export const getUserById = async (userId: string) => {
     if (docSnap.exists()) {
       return docSnap.data();
     }
-  } catch (error) {}
+  } catch (error: any) {
+    return error;
+  }
 };
 
 export const createGoogleUser = async (gUser: IAuth) => {
   try {
     const user: UserType = {
-      userName: gUser?.displayName,
+      firstName: gUser?.displayName?.split(" ")[0],
+      lastName: gUser?.displayName?.split(" ")[1],
       email: gUser?.email,
       photoURL: gUser.photoURL,
       followers: [],

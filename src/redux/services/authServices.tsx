@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { Toast } from "../../components";
 import { auth, googleAuthProvider } from "../../configs/firebase";
 import { SignInType, SignUpType } from "../../types";
 import { createUser, createGoogleUser, getUserById } from "./userServices";
@@ -57,7 +58,9 @@ export const googleSignInHandler = createAsyncThunk(
       const response = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("breakout/user-id", response?.user?.uid);
       return await getUserById(response?.user?.uid);
-    } catch (error) {}
+    } catch (error: any) {
+      return undefined;
+    }
   }
 );
 

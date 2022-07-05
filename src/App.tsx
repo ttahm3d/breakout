@@ -11,7 +11,7 @@ import { getUserDetails } from "./redux/services/userServices";
 
 function App(): JSX.Element {
   const [theme, setTheme] = useLocalStorage("breakout-theme", "light");
-  const disptach = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const toggleTheme: () => void = () =>
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -20,7 +20,7 @@ function App(): JSX.Element {
 
   const uid = localStorage.getItem("breakout/user-id");
   useEffect(() => {
-    if (uid !== null) disptach(getUserDetails(uid));
+    if (uid) dispatch(getUserDetails(uid));
   }, [uid]);
 
   const showNavMenu =

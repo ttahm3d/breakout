@@ -27,15 +27,15 @@ export default function SingIn(): JSX.Element {
   };
   const navigate = useNavigate();
 
-  const { pathname } = useLocation();
+  const { state: location }: any = useLocation();
+  console.log(location);
 
   const dispatch = useAppDispatch();
 
   const handleSubmit = (signInData: SignInType, { resetForm }: any) => {
     dispatch(signInHandler(signInData));
     resetForm();
-    console.log(pathname);
-    navigate(pathname);
+    navigate("/home", { replace: true });
   };
 
   const validationSchema = Yup.object({
@@ -83,7 +83,11 @@ export default function SingIn(): JSX.Element {
                   type={field.type}
                 />
               ))}
-              <LoginBtn variant="primary__block" fullwidth radius={0.25}>
+              <LoginBtn
+                variant="primary__block"
+                fullwidth
+                radius={0.25}
+                type="submit">
                 Sign In
               </LoginBtn>
             </Form>

@@ -61,6 +61,8 @@ export const getUserDetails = createAsyncThunk(
   async (userId: string) => {
     try {
       return await getUserById(userId);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 );

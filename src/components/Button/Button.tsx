@@ -1,22 +1,23 @@
 import styled from "styled-components";
 import { ReactNode } from "react";
 
-type ButtonProps = {
+interface IButtonProps {
   variant?: string;
   fullwidth?: boolean;
   margin?: number;
   radius?: number;
   children?: JSX.Element | string;
   onClick?: () => void;
-};
+  type?: "button" | "submit" | "reset";
+}
 
-interface IIconButtonProps extends ButtonProps {
+interface IIconButtonProps extends IButtonProps {
   icon: ReactNode;
   onClick: () => void;
 }
 
-const Button = (props: ButtonProps) => {
-  const { variant, fullwidth, margin, radius, children } = props;
+const Button = (props: IButtonProps) => {
+  const { variant, fullwidth, margin, radius, children, type } = props;
 
   return (
     <StyledButton
@@ -24,6 +25,7 @@ const Button = (props: ButtonProps) => {
       fullwidth={fullwidth}
       margin={margin}
       radius={radius}
+      type={type}
       {...props}>
       {children}
     </StyledButton>
@@ -37,7 +39,7 @@ const IconButton = (props: IIconButtonProps) => {
 
 export { Button, IconButton };
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button<IButtonProps>`
   outline: 2px solid transparent;
   background-color: ${(props) => {
     if (props.variant === "primary__block") return props.theme.colors.plum9;

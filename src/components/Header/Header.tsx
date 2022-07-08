@@ -7,6 +7,7 @@ import { Container } from "../../styles/globals";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { signOutHandler } from "../../redux/services/authServices";
+import { useState } from "react";
 
 type HeaderProps = {
   theme: string;
@@ -18,9 +19,13 @@ export default function Header({
   toggleTheme,
 }: HeaderProps): JSX.Element {
   const navigate = useNavigate();
-
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const { user } = useAppSelector((s) => s.authReducer);
   const dispatch = useAppDispatch();
+
+  const toggleDropdown = () => setShowDropdown((s) => !s);
+  const openDropdown = () => setShowDropdown(true);
+  const closeDropdown = () => setShowDropdown(false);
 
   return (
     <HeaderComponent>
@@ -32,23 +37,28 @@ export default function Header({
           <NavItems>
             {user !== undefined ? (
               <>
-                <UserInfo>
-                  <div className="image">
+                <UserInfo
+                  onClick={toggleDropdown}
+                  onMouseEnter={openDropdown}
+                  onMouseLeave={closeDropdown}>
+                  <UserImage className="image">
                     <img
                       src={user.photoURL}
                       alt={user.firstName}
                       width={24}
                       height={24}
                     />
-                  </div>
+                  </UserImage>
                   Hi {user.firstName}
+                  {showDropdown && (
+                    <Dropdown>
+                      <DropdownItem>Profile</DropdownItem>
+                      <DropdownItem onClick={() => dispatch(signOutHandler())}>
+                        Sign Out
+                      </DropdownItem>
+                    </Dropdown>
+                  )}
                 </UserInfo>
-                <Button
-                  variant="secondary__cta"
-                  radius={0.25}
-                  onClick={() => dispatch(signOutHandler())}>
-                  Sign Out
-                </Button>
               </>
             ) : (
               <Button
@@ -97,28 +107,52 @@ const Logo = styled.div`
   justify-content: center;
 `;
 
-// const MenuButton = styled(IconButton)`
-//   font-size: 1.25rem;
-//   margin-right: 1rem;
-//   display: ${({ pathname }) => (pathname === "/" ? "none" : "flex")};
-
-//   @media screen and (min-width: 64em) {
-//     display: none;
-//   }
-// `;
-
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  cursor: pointer;
+  gap: 0.5rem;
+  position: relative;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.75rem;
+  background-color: ${(props) => props.theme.colors.violet3};
+  color: ${(props) => props.theme.colors.violet11};
+`;
 
-  .image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+const UserImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 
   img {
     border-radius: 50%;
+  }
+`;
+
+const Dropdown = styled.div`
+  position: absolute;
+  top: 105%;
+  right: 0;
+  width: 6.9rem;
+  background-color: ${(props) => props.theme.colors.violet3};
+`;
+
+const DropdownItem = styled.div`
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+
+  :hover {
+    background-color: ${(props) => props.theme.colors.violet4};
+    outline: 1px solid ${(props) => props.theme.colors.violet8};
+    outline-offset: -1px;
+  }
+
+  :active {
+    background-color: ${(props) => props.theme.colors.violet5};
+  }
+
+  :not(:last-child) {
+    border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
   }
 `;

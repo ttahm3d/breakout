@@ -91,9 +91,11 @@ export default function SignUp(): JSX.Element {
                 type={field.type}
               />
             ))}
-            <LoginBtn variant="primary__block" fullwidth radius={0.25}>
-              Sign Up
-            </LoginBtn>
+            <FlexCenter>
+              <LoginBtn variant="primary__block" fullwidth radius={0.25}>
+                Sign Up
+              </LoginBtn>
+            </FlexCenter>
           </Form>
           <FlexCenter>
             <LoginBtn

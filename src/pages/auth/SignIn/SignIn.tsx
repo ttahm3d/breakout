@@ -86,13 +86,15 @@ export default function SingIn(): JSX.Element {
                   type={field.type}
                 />
               ))}
-              <LoginBtn
-                variant="primary__block"
-                fullwidth
-                radius={0.25}
-                type="submit">
-                Sign In
-              </LoginBtn>
+              <FlexCenter>
+                <LoginBtn
+                  variant="primary__block"
+                  fullwidth
+                  radius={0.25}
+                  type="submit">
+                  Sign In
+                </LoginBtn>
+              </FlexCenter>
             </Form>
             <FlexCenter>
               <LoginBtn

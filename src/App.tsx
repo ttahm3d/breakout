@@ -21,7 +21,7 @@ function App(): JSX.Element {
   const uid = localStorage.getItem("breakout/user-id");
   useEffect(() => {
     if (uid) dispatch(getUserDetails(uid));
-  }, [uid]);
+  }, [uid, dispatch]);
 
   const showNavMenu =
     pathname !== "/" &&

@@ -10,7 +10,6 @@ import {
 } from "../../../redux/services/authServices";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
 import { SignUpType } from "../../../types";
-import { useLocation } from "react-router-dom";
 
 type FieldType = {
   id: string;
@@ -28,8 +27,6 @@ export default function SignUp(): JSX.Element {
     email: "",
     password: "",
   };
-
-  const { pathname } = useLocation();
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required("Cannot be empty"),

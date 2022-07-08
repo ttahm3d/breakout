@@ -7,8 +7,6 @@ import { Container } from "../../styles/globals";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { signOutHandler } from "../../redux/services/authServices";
-import { auth } from "../../configs/firebase";
-import { signOut } from "firebase/auth";
 
 type HeaderProps = {
   theme: string;

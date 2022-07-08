@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Form, Formik } from "formik";
 import styled from "styled-components";
 import * as Yup from "yup";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { useAppDispatch } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
 import {
   googleSignInHandler,

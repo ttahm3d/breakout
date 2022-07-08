@@ -5,6 +5,7 @@ import FormikField from "./FormikField/FormikField";
 import NavigationLink from "./Link/Link";
 import NavMenu from "./NavMenu/NavMenu";
 import Loader, { LoaderCircle } from "./Loader/Loader";
+import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import Toast, { ToastComponent } from "./Toast/Toast";
 
 export {
@@ -16,6 +17,7 @@ export {
   LoaderCircle,
   NavigationLink,
   NavMenu,
+  ScrollToTop,
   Toast,
   ToastComponent,
 };

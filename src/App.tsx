@@ -1,5 +1,11 @@
 import { ThemeProvider } from "styled-components";
-import { Header, Footer, NavMenu, ToastComponent } from "./components";
+import {
+  Header,
+  Footer,
+  NavMenu,
+  ToastComponent,
+  ScrollToTop,
+} from "./components";
 import { LightTheme, DarkTheme } from "./styles/themes";
 import { GlobalStyle } from "./styles";
 import { useAppDispatch, useLocalStorage } from "./hooks";
@@ -31,6 +37,7 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme === "light" ? LightTheme : DarkTheme}>
       <GlobalStyle />
+      <ScrollToTop />
       <Page>
         <Header theme={theme} toggleTheme={toggleTheme} />
         <Container>

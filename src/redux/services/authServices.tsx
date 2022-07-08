@@ -17,8 +17,14 @@ export const signInHandler = createAsyncThunk(
       const { email, password } = signInData;
       const response = await signInWithEmailAndPassword(auth, email, password);
       localStorage.setItem("breakout/user-id", response?.user?.uid);
+      Toast({ message: "Sign In Successful", type: "success" });
       return await getUserById(response?.user?.uid);
-    } catch (error) {}
+    } catch (error: any) {
+      Toast({
+        message: error.message,
+        type: "error",
+      });
+    }
   }
 );
 
@@ -34,8 +40,14 @@ export const signUpHandler = createAsyncThunk(
       );
       localStorage.setItem("breakout/user-id", response?.user?.uid);
       const createdUser = await createUser(signupData, response?.user?.uid);
+      Toast({ message: "Account creation successful", type: "success" });
       return createdUser;
-    } catch (error) {}
+    } catch (error: any) {
+      Toast({
+        message: error.message,
+        type: "error",
+      });
+    }
   }
 );
 
@@ -46,8 +58,14 @@ export const googleSignUpHandler = createAsyncThunk(
       const response = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("breakout/user-id", response?.user?.uid);
       const createdGoogleUser = await createGoogleUser(response?.user);
+      Toast({ message: "Google Signup Successful", type: "success" });
       return createdGoogleUser;
-    } catch (error) {}
+    } catch (error: any) {
+      Toast({
+        message: error.message,
+        type: "error",
+      });
+    }
   }
 );
 
@@ -57,8 +75,13 @@ export const googleSignInHandler = createAsyncThunk(
     try {
       const response = await signInWithPopup(auth, googleAuthProvider);
       localStorage.setItem("breakout/user-id", response?.user?.uid);
+      Toast({ message: "Sign in Successful", type: "success" });
       return await getUserById(response?.user?.uid);
     } catch (error: any) {
+      Toast({
+        message: error.message,
+        type: "error",
+      });
       return undefined;
     }
   }
@@ -68,5 +91,11 @@ export const signOutHandler = createAsyncThunk("auth/user-logout", async () => {
   try {
     localStorage.removeItem("breakout/user-id");
     await signOut(auth);
-  } catch (error) {}
+    Toast({ message: "Sign out Successful", type: "success" });
+  } catch (error: any) {
+    Toast({
+      message: error.message,
+      type: "error",
+    });
+  }
 });

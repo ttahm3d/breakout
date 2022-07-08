@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, googleAuthProvider, db, app } from "../../configs/firebase";
+import { db } from "../../configs/firebase";
 import { IAuth, SignUpType, UserType } from "../../types";
 
 export const createUser = async (signupData: SignUpType, userId: string) => {

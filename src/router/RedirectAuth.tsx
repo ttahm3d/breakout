@@ -4,9 +4,10 @@ import { useAppSelector } from "../hooks";
 export default function RedirectAuth() {
   const location = useLocation();
   const { user } = useAppSelector((s) => s.authReducer);
+  const uid = localStorage.getItem("breakout/user-id");
 
-  return user !== undefined ? (
-    <Navigate to="/home" state={{ from: location }} />
+  return uid || user !== undefined ? (
+    <Navigate to="/home" state={{ from: location }} replace={true} />
   ) : (
     <Outlet />
   );

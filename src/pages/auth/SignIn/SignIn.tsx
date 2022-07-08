@@ -27,15 +27,18 @@ export default function SingIn(): JSX.Element {
   };
   const navigate = useNavigate();
 
-  const { state: location }: any = useLocation();
-  console.log(location);
+  const location: any = useLocation();
 
   const dispatch = useAppDispatch();
 
   const handleSubmit = (signInData: SignInType, { resetForm }: any) => {
     dispatch(signInHandler(signInData));
     resetForm();
-    navigate("/home", { replace: true });
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else {
+      navigate("/home");
+    }
   };
 
   const validationSchema = Yup.object({

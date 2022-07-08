@@ -6,7 +6,7 @@ export default function RequireAuth() {
   const { user } = useAppSelector((s) => s.authReducer);
   const uid = localStorage.getItem("breakout/user-id");
 
-  return user !== undefined || uid ? (
+  return uid || user !== undefined ? (
     <Outlet />
   ) : (
     <Navigate to="/auth/signin" state={{ from: location }} replace />

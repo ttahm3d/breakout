@@ -15,6 +15,7 @@ export type SignInType = {
 };
 
 export type UserType = {
+  uid: string | undefined;
   firstName: string | undefined;
   lastName: string | undefined;
   userName: string | any;

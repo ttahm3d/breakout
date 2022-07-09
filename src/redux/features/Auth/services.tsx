@@ -13,6 +13,7 @@ import { IAuth, SignUpType, UserType, SignInType } from "../../../types";
 export const createUser = async (signupData: SignUpType, userId: string) => {
   try {
     const user: UserType = {
+      uid: userId,
       firstName: signupData.firstName,
       lastName: signupData.lastName,
       userName:
@@ -52,6 +53,7 @@ export const createGoogleUser = async (gUser: IAuth) => {
   try {
     if (gUser?.displayName) {
       const user: UserType = {
+        uid: gUser?.uid,
         firstName: gUser?.displayName?.split(" ")[0],
         lastName: gUser?.displayName?.split(" ")[1],
         userName:

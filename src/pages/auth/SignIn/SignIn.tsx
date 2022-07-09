@@ -7,7 +7,7 @@ import { Button, FormikField, NavigationLink } from "../../../components";
 import {
   googleSignInHandler,
   signInHandler,
-} from "../../../redux/services/authServices";
+} from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
 import { SignInType } from "../../../types";
 import { useLocation, useNavigate } from "react-router-dom";

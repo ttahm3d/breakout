@@ -6,8 +6,8 @@ import {
   signOutHandler,
   signInHandler,
   signUpHandler,
-} from "../services/authServices";
-import { getUserDetails } from "../services/userServices";
+  getUserDetails,
+} from "./thunk";
 
 type AuthType = {
   user: DocumentData | undefined;

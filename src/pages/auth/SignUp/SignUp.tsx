@@ -7,7 +7,7 @@ import { Button, FormikField, NavigationLink } from "../../../components";
 import {
   signUpHandler,
   googleSignUpHandler,
-} from "../../../redux/services/authServices";
+} from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
 import { SignUpType } from "../../../types";
 

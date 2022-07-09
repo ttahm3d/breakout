@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { Content } from "../../styles/globals";
+import ProfileHeader from "./ProfileHeader";
 
 export default function LandingPage(): JSX.Element {
   return (
     <Content>
       <Container>
-        <div>Profile</div>
+        <ProfileHeader />
         <div>Other stuff</div>
       </Container>
     </Content>
@@ -15,4 +16,8 @@ export default function LandingPage(): JSX.Element {
 const Container = styled.section`
   display: grid;
   grid-template-columns: 3fr 1fr;
+
+  @media screen and (max-width: 56.25em) {
+    grid-template-columns: 1fr;
+  }
 `;

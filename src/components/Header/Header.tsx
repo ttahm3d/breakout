@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Container } from "../../styles/globals";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { signOutHandler } from "../../redux/services/authServices";
+import { signOutHandler } from "../../redux/features/Auth/thunk";
 import { useState } from "react";
 
 type HeaderProps = {

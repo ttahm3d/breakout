@@ -13,7 +13,7 @@ import { Container, MainContainer, Page } from "./styles/globals";
 import { useLocation } from "react-router-dom";
 import Router from "./router";
 import { useEffect } from "react";
-import { getUserDetails } from "./redux/services/userServices";
+import { getUserDetails } from "./redux/features/Auth/thunk";
 
 function App(): JSX.Element {
   const [theme, setTheme] = useLocalStorage("breakout-theme", "light");

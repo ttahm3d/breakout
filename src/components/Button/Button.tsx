@@ -34,7 +34,7 @@ const Button = (props: IButtonProps) => {
 
 const IconButton = (props: IIconButtonProps) => {
   const { icon, ...rest } = props;
-  return <StyledIconButton {...rest}>{props.icon}</StyledIconButton>;
+  return <StyledIconButton {...rest}>{icon}</StyledIconButton>;
 };
 
 export { Button, IconButton };
@@ -110,9 +110,15 @@ const StyledIconButton = styled.button`
   color: ${(props) => props.theme.colors.violet12};
   align-items: center;
   border-radius: 0.25rem;
-  padding: 0.25rem;
   display: flex;
+  font-size: 14px;
+  width: 25px;
+  height: 25px;
   justify-content: center;
+
+  :hover {
+    background-color: ${(props) => props.theme.colors.violet3};
+  }
 
   :focus {
     outline: 1px solid ${(props) => props.theme.colors.violet7};

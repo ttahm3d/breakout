@@ -34,7 +34,7 @@ export const signOutHandler = createAsyncThunk(
   async () => await userLogout()
 );
 
-export const getUserDetails = createAsyncThunk(
+export const loggedInUserInfo = createAsyncThunk(
   "auth/user-info",
   async (userId: string) => {
     try {

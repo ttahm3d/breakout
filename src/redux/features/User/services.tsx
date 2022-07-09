@@ -13,14 +13,3 @@ export const getUserByUsername = async (userName: string) => {
     return error;
   }
 };
-
-export const getUserDetails = createAsyncThunk(
-  "user/user-details",
-  async (userName: string) => {
-    try {
-      return await getUserByUsername(userName);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);

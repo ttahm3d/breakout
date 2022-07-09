@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
-import { getUserDetails } from "./userServices";
+import { getUserInfo } from "./thunk";
 
 type UsersType = {
-  currentUser: DocumentData | undefined;
+  user: DocumentData | undefined;
   loading: boolean;
 };
 
 const initialState: UsersType = {
-  currentUser: undefined,
+  user: undefined,
   loading: false,
 };
 
@@ -16,5 +16,18 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getUserInfo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUserInfo.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(getUserInfo.rejected, (state) => {
+        state.loading = false;
+        state.user = undefined;
+      });
+  },
 });

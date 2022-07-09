@@ -18,7 +18,7 @@ type MenuItemType = {
 };
 
 export default function NavMenu(): JSX.Element {
-  const { user } = useAppSelector((s) => s.authReducer);
+  const { currentUser } = useAppSelector((s) => s.authReducer);
 
   const menuItems: MenuItemType[] = useMemo(() => {
     return [
@@ -50,7 +50,7 @@ export default function NavMenu(): JSX.Element {
         id: 5,
         icon: AiOutlineUser,
         text: "Profile",
-        path: `/profile/${user?.userName}`,
+        path: `/profile/${currentUser?.userName}`,
       },
     ];
   }, []);

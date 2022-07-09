@@ -6,16 +6,16 @@ import {
   signOutHandler,
   signInHandler,
   signUpHandler,
-  getUserDetails,
+  loggedInUserInfo,
 } from "./thunk";
 
 type AuthType = {
-  user: DocumentData | undefined;
+  currentUser: DocumentData | undefined;
   loading: boolean;
 };
 
 const initialState: AuthType = {
-  user: undefined,
+  currentUser: undefined,
   loading: false,
 };
 
@@ -24,10 +24,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     signUp: (state, action) => {
-      state.user = action.payload;
+      state.currentUser = action.payload;
     },
     signOut: (state) => {
-      state.user = undefined;
+      state.currentUser = undefined;
     },
   },
   extraReducers: (builder) => {
@@ -37,66 +37,66 @@ const authSlice = createSlice({
       })
       .addCase(googleSignInHandler.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.currentUser = action.payload;
       })
       .addCase(googleSignInHandler.rejected, (state) => {
         state.loading = false;
-        state.user = undefined;
+        state.currentUser = undefined;
       })
       .addCase(signUpHandler.pending, (state) => {
         state.loading = true;
       })
       .addCase(signUpHandler.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.currentUser = action.payload;
       })
       .addCase(signUpHandler.rejected, (state) => {
         state.loading = false;
-        state.user = undefined;
+        state.currentUser = undefined;
       })
       .addCase(signOutHandler.pending, (state) => {
         state.loading = true;
       })
       .addCase(signOutHandler.fulfilled, (state) => {
         state.loading = false;
-        state.user = undefined;
+        state.currentUser = undefined;
       })
       .addCase(signOutHandler.rejected, (state) => {
         state.loading = false;
-        state.user = undefined;
+        state.currentUser = undefined;
       })
       .addCase(googleSignUpHandler.pending, (state) => {
         state.loading = true;
       })
       .addCase(googleSignUpHandler.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.currentUser = action.payload;
       })
       .addCase(googleSignUpHandler.rejected, (state) => {
         state.loading = false;
-        state.user = undefined;
+        state.currentUser = undefined;
       })
-      .addCase(getUserDetails.pending, (state) => {
+      .addCase(loggedInUserInfo.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getUserDetails.fulfilled, (state, action) => {
+      .addCase(loggedInUserInfo.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.currentUser = action.payload;
       })
-      .addCase(getUserDetails.rejected, (state) => {
+      .addCase(loggedInUserInfo.rejected, (state) => {
         state.loading = false;
-        state.user = undefined;
+        state.currentUser = undefined;
       })
       .addCase(signInHandler.pending, (state) => {
         state.loading = true;
       })
       .addCase(signInHandler.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.currentUser = action.payload;
       })
       .addCase(signInHandler.rejected, (state) => {
         state.loading = false;
-        state.user = undefined;
+        state.currentUser = undefined;
       });
   },
 });

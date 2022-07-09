@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { IconType } from "react-icons";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import {
@@ -7,6 +8,7 @@ import {
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useAppSelector } from "../../hooks";
 
 type MenuItemType = {
   id: number;
@@ -15,40 +17,44 @@ type MenuItemType = {
   path: string;
 };
 
-const menuItems: MenuItemType[] = [
-  {
-    id: 1,
-    icon: AiOutlineHome,
-    text: "Home",
-    path: "/home",
-  },
-  {
-    id: 2,
-    icon: MdOutlineExplore,
-    text: "Explore",
-    path: "/explore",
-  },
-  {
-    id: 3,
-    icon: MdPeopleOutline,
-    text: "Discover",
-    path: "/discover",
-  },
-  {
-    id: 4,
-    icon: MdOutlineBookmarkBorder,
-    text: "Bookmarks",
-    path: "/bookmarks",
-  },
-  {
-    id: 5,
-    icon: AiOutlineUser,
-    text: "Profile",
-    path: "/profile",
-  },
-];
-
 export default function NavMenu(): JSX.Element {
+  const { user } = useAppSelector((s) => s.authReducer);
+
+  const menuItems: MenuItemType[] = useMemo(() => {
+    return [
+      {
+        id: 1,
+        icon: AiOutlineHome,
+        text: "Home",
+        path: "/home",
+      },
+      {
+        id: 2,
+        icon: MdOutlineExplore,
+        text: "Explore",
+        path: "/explore",
+      },
+      {
+        id: 3,
+        icon: MdPeopleOutline,
+        text: "Discover",
+        path: "/discover",
+      },
+      {
+        id: 4,
+        icon: MdOutlineBookmarkBorder,
+        text: "Bookmarks",
+        path: "/bookmarks",
+      },
+      {
+        id: 5,
+        icon: AiOutlineUser,
+        text: "Profile",
+        path: `/profile/${user?.userName}`,
+      },
+    ];
+  }, []);
+
   return (
     <MenuBar>
       <MenuItemsContainer>

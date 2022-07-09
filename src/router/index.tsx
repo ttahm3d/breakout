@@ -1,9 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Loader from "../components/Loader/Loader";
-import RenderWithMenu from "./RenderWithMenu";
+import RequireAuth from "./RequireAuth";
+import RedirectAuth from "./RedirectAuth";
 
 const LandingPage = lazy(() => import("../pages/landingpage/LandingPage"));
+const SingIn = lazy(() => import("../pages/auth/SignIn/SignIn"));
+const SignUp = lazy(() => import("../pages/auth/SignUp/SignUp"));
 const Home = lazy(() => import("../pages/home/Home"));
 const Explore = lazy(() => import("../pages/explore/Explore"));
 const Discover = lazy(() => import("../pages/discover/Discover"));
@@ -15,7 +18,13 @@ export default function Router(): JSX.Element {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route element={<RenderWithMenu />}>
+        <Route element={<RedirectAuth />}>
+          <Route path="/auth">
+            <Route path="/auth/signin" element={<SingIn />} />
+            <Route path="/auth/signup" element={<SignUp />} />
+          </Route>
+        </Route>
+        <Route element={<RequireAuth />}>
           <Route path="/home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/discover" element={<Discover />} />

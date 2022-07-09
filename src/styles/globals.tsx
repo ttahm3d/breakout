@@ -1,18 +1,23 @@
 import styled from "styled-components";
 
+type MainContainerProps = {
+  showNavMenu?: boolean;
+};
+
 const Container = styled.section`
-  width: min(100% - 2rem, 80em);
+  width: min(100% - 2rem, 95em);
   margin: 0 auto;
 `;
 
-const MainContainer = styled.main`
+const MainContainer = styled.main<MainContainerProps>`
   display: grid;
   grid-template-columns: 1fr;
 
   @media screen and (min-width: 56.25em) {
-    grid-template-columns: 1fr 5fr;
-    gap: 2rem;
+    grid-template-columns: ${({ showNavMenu }) =>
+      showNavMenu ? "1fr 5fr" : "1fr"};
   }
+  gap: 2rem;
 `;
 
 const Content = styled.section`

@@ -3,9 +3,9 @@ import { getUserByUsername } from "./services";
 
 export const getUserInfo = createAsyncThunk(
   "user/user-details",
-  async (userName: string) => {
+  async (userId: string) => {
     try {
-      return await getUserByUsername(userName);
+      return await getUserByUsername(userId);
     } catch (error) {
       console.log(error);
     }

@@ -1,13 +1,12 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../configs/firebase";
 
-export const getUserByUsername = async (userId: string) => {
+export const getUserByUsername = async (userName: string) => {
   try {
-    const docRef = doc(db, "users", userId);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data();
-    }
+    const q = query(collection(db, "users"), where("userName", "==", userName));
+    const userDocs = await getDocs(q);
+    const user = userDocs.docs.map((u) => ({ ...u.data() }));
+    return user;
   } catch (error: any) {
     return error;
   }

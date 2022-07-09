@@ -29,7 +29,7 @@ export default function Router(): JSX.Element {
           <Route path="/explore" element={<Explore />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
-          <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/profile/:userName" element={<Profile />} />
         </Route>
       </Routes>
     </Suspense>

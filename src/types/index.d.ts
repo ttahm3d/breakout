@@ -15,10 +15,11 @@ export type SignInType = {
 };
 
 export type UserType = {
-  firstName: string | any;
-  lastName: string | any;
-  email: string | any;
-  photoURL: string | any;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  userName: string | any;
+  email: string | null;
+  photoURL: string | null;
   followers: [User] | [];
   following: [User] | [];
   bio: string;

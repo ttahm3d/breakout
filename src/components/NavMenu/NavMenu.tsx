@@ -53,7 +53,7 @@ export default function NavMenu(): JSX.Element {
         path: `/profile/${currentUser?.userName}`,
       },
     ];
-  }, []);
+  }, [currentUser?.userName]);
 
   return (
     <MenuBar>

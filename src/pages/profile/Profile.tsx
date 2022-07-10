@@ -10,17 +10,15 @@ export default function LandingPage(): JSX.Element {
   const { userName } = useParams();
   const dispatch = useAppDispatch();
 
-  console.log(userName);
-
   useEffect(() => {
     if (userName) dispatch(getUserInfo(userName));
-  }, [userName]);
+  }, [userName, dispatch]);
 
   return (
     <Content>
       <Container>
         <ProfileHeader />
-        <div>Other stuff</div>
+        {/* <div>Other stuff</div> */}
       </Container>
     </Content>
   );

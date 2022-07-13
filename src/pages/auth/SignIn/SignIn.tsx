@@ -4,6 +4,7 @@ import styled from "styled-components";
 import * as Yup from "yup";
 import { useAppDispatch } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
+import { FlexCenter } from "../../../styles/globals";
 import {
   googleSignInHandler,
   signInHandler,
@@ -142,10 +143,4 @@ const LoginBtn = styled(Button)`
     margin: 1rem 0;
     width: 18.025rem;
   }
-`;
-
-const FlexCenter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

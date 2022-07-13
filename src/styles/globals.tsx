@@ -31,4 +31,10 @@ const Page = styled.div`
   min-height: 100vh;
 `;
 
-export { Container, Content, MainContainer, Page };
+const FlexCenter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export { Container, Content, FlexCenter, MainContainer, Page };

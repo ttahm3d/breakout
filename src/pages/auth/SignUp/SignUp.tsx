@@ -9,6 +9,7 @@ import {
   googleSignUpHandler,
 } from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
+import { FlexCenter } from "../../../styles/globals";
 import { SignUpType } from "../../../types";
 
 type FieldType = {
@@ -143,10 +144,4 @@ const LoginBtn = styled(Button)`
     margin: 1rem 0;
     width: 18.025rem;
   }
-`;
-
-const FlexCenter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

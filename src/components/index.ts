@@ -2,6 +2,7 @@ import { Button } from "./Button/Button";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import FormikField from "./FormikField/FormikField";
+import Modal from "./Modal/Modal";
 import NavigationLink from "./Link/Link";
 import NavMenu from "./NavMenu/NavMenu";
 import Loader, { LoaderCircle } from "./Loader/Loader";
@@ -15,6 +16,7 @@ export {
   FormikField,
   Loader,
   LoaderCircle,
+  Modal,
   NavigationLink,
   NavMenu,
   ScrollToTop,

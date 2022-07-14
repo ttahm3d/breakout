@@ -43,8 +43,7 @@ const StyledModalContainer = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: ${(props) => props.theme.colors.plum9};
-  opacity: 0.65;
+  background-color: rgba(37, 30, 64, 0.698);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +54,7 @@ const StyledModalContainer = styled.div`
 const StyledModal = styled.div`
   width: min(30rem, 90vw);
   max-height: 80vh;
-  background-color: ${(props) => props.theme.colors.slate2};
+  background-color: ${(props) => props.theme.colors.mauve2};
 `;
 
 const ModalHeader = styled.div`
@@ -64,13 +63,14 @@ const ModalHeader = styled.div`
   padding-bottom: 0.5rem;
   align-items: center;
   font-size: 1.2rem;
+  font-weight: 600;
 `;
 
 const CloseIcon = styled(IconButton)`
   margin-left: auto;
-  background-color: ${(props) => props.theme.colors.red5} !important;
+  background-color: ${(props) => props.theme.colors.red3} !important;
   border: 1px solid ${(props) => props.theme.colors.red7};
-  color: ${(props) => props.theme.colors.red7};
+  color: ${(props) => props.theme.colors.red10};
 
   :hover {
     background-color: ${(props) => props.theme.colors.red5};

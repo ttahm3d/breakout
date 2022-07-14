@@ -3,10 +3,27 @@ import { Button, Loader } from "../../components";
 import { useAppSelector } from "../../hooks";
 import { AiOutlineLink } from "react-icons/ai";
 import { FlexCenter } from "../../styles/globals";
+import { useState } from "react";
+import FollowersDialog from "./Dialogs/FollowersDialog";
+import FollowingDialog from "./Dialogs/FollowingDialog";
+import EditProfileDialog from "./Dialogs/EditProfileDialog";
 
 export default function ProfileHeader(): JSX.Element {
   const { user, loading } = useAppSelector((s) => s.userReducer);
   const { currentUser } = useAppSelector((s) => s.authReducer);
+
+  const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
+  const [showFollowersDialog, setShowFollowersDialog] =
+    useState<boolean>(false);
+  const [showFollowingDialog, setShowFollowingDialog] =
+    useState<boolean>(false);
+
+  const openEditDialog = () => setShowEditDialog(true);
+  const closeEditDialog = () => setShowEditDialog(false);
+  const openFollowersDialog = () => setShowFollowersDialog(true);
+  const closeFollowersDialog = () => setShowFollowersDialog(false);
+  const openFollowingDialog = () => setShowFollowingDialog(true);
+  const closeFollowingDialog = () => setShowFollowingDialog(false);
 
   if (loading) return <Loader />;
 
@@ -27,7 +44,10 @@ export default function ProfileHeader(): JSX.Element {
         </UserInfo>
         <>
           {user?.email === currentUser?.email ? (
-            <Button variant="primary__cta" radius={0.25}>
+            <Button
+              variant="primary__cta"
+              radius={0.25}
+              onClick={openEditDialog}>
               Edit Profile
             </Button>
           ) : (
@@ -51,15 +71,27 @@ export default function ProfileHeader(): JSX.Element {
         </WebsiteLink>
       </>
       <FollowFollowers>
-        <FFCount>
+        <FFCount onClick={openFollowersDialog}>
           <div className="count">{user?.followers?.length}</div>
           <div className="text">Followers</div>
         </FFCount>
-        <FFCount>
+        <FFCount onClick={openFollowingDialog}>
           <div className="count">{user?.following?.length}</div>
           <div className="text">Followers</div>
         </FFCount>
       </FollowFollowers>
+      <EditProfileDialog
+        showEditDialog={showEditDialog}
+        closeEditDialog={closeEditDialog}
+      />
+      <FollowersDialog
+        showFollowersDialog={showFollowersDialog}
+        closeFollowersDialog={closeFollowersDialog}
+      />
+      <FollowingDialog
+        showFollowingDialog={showFollowingDialog}
+        closeFollowingDialog={closeFollowingDialog}
+      />
     </BannerSection>
   );
 }
@@ -132,9 +164,16 @@ const FFCount = styled.div`
   display: flex;
   gap: 0.5rem;
   padding: 1rem 0;
+  cursor: pointer;
 
   .text {
     color: ${(props) => props.theme.colors.slate9};
+
+    :hover {
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+      color: ${(props) => props.theme.colors.slate11};
+    }
   }
 `;
 

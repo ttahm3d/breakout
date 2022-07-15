@@ -43,7 +43,7 @@ const StyledModalContainer = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: rgba(37, 30, 64, 0.698);
+  background-color: rgba(37, 30, 64, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +54,7 @@ const StyledModalContainer = styled.div`
 const StyledModal = styled.div`
   width: min(30rem, 90vw);
   max-height: 80vh;
-  background-color: ${(props) => props.theme.colors.mauve2};
+  background-color: ${(props) => props.theme.colors.violet1};
 `;
 
 const ModalHeader = styled.div`

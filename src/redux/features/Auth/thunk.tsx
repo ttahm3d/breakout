@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { SignInType, SignUpType } from "../../../types";
+import { SignInType, SignUpType, EditUserType } from "../../../types";
 import {
   getUserById,
   googleSignIn,
@@ -7,6 +7,7 @@ import {
   emailPasswordSignUp,
   emailPasswordSignIn,
   userLogout,
+  updateUser,
 } from "./services";
 
 export const signInHandler = createAsyncThunk(
@@ -42,5 +43,14 @@ export const loggedInUserInfo = createAsyncThunk(
     } catch (error) {
       console.log(error);
     }
+  }
+);
+
+export const updateUserDetails = createAsyncThunk(
+  "auth/user-update",
+  async (editUserData: EditUserType) => {
+    try {
+      return await updateUser(editUserData);
+    } catch (error) {}
   }
 );

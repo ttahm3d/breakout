@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,7 +8,13 @@ import {
 import { auth, googleAuthProvider } from "../../../configs/firebase";
 import { Toast } from "../../../components";
 import { db } from "../../../configs/firebase";
-import { IAuth, SignUpType, UserType, SignInType } from "../../../types";
+import {
+  IAuth,
+  SignUpType,
+  UserType,
+  SignInType,
+  EditUserType,
+} from "../../../types";
 
 export const createUser = async (signupData: SignUpType, userId: string) => {
   try {
@@ -151,5 +157,18 @@ export const userLogout = async () => {
       message: error.message,
       type: "error",
     });
+  }
+};
+
+export const updateUser = async (editUserData: EditUserType) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const userRef = doc(db, "users", uid);
+      await updateDoc(userRef, editUserData);
+      return await getUserById(uid);
+    }
+  } catch (error: any) {
+    Toast({ message: error?.message, type: "error" });
   }
 };

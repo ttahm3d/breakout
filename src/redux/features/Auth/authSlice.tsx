@@ -7,6 +7,7 @@ import {
   signInHandler,
   signUpHandler,
   loggedInUserInfo,
+  updateUserDetails,
 } from "./thunk";
 
 type AuthType = {
@@ -95,6 +96,17 @@ const authSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(signInHandler.rejected, (state) => {
+        state.loading = false;
+        state.currentUser = undefined;
+      })
+      .addCase(updateUserDetails.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateUserDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(updateUserDetails.rejected, (state) => {
         state.loading = false;
         state.currentUser = undefined;
       });

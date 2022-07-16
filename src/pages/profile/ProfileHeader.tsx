@@ -10,7 +10,9 @@ import EditProfileDialog from "./Dialogs/EditProfileDialog";
 
 export default function ProfileHeader(): JSX.Element {
   const { user, loading } = useAppSelector((s) => s.userReducer);
-  const { currentUser } = useAppSelector((s) => s.authReducer);
+  const { currentUser, loading: authLoading } = useAppSelector(
+    (s) => s.authReducer
+  );
 
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
   const [showFollowersDialog, setShowFollowersDialog] =
@@ -25,7 +27,7 @@ export default function ProfileHeader(): JSX.Element {
   const openFollowingDialog = () => setShowFollowingDialog(true);
   const closeFollowingDialog = () => setShowFollowingDialog(false);
 
-  if (loading) return <Loader />;
+  if (loading || authLoading) return <Loader />;
 
   return (
     <BannerSection>
@@ -57,19 +59,18 @@ export default function ProfileHeader(): JSX.Element {
           )}
         </>
       </InfoContainer>
-      <Bio>
-        {user?.bio
-          ? user?.bio
-          : "Your bio is empty. Edit profile to add new bio"}{" "}
-      </Bio>
-      <>
-        <WebsiteLink>
+      <Bio>{user?.bio && user?.bio}</Bio>
+      {user?.website && (
+        <WebsiteLink
+          href={`${user?.website}`}
+          rel="noopener noreferer"
+          target="_blank">
           <FlexCenter>
             <AiOutlineLink />
           </FlexCenter>
-          Website
+          {user?.website}
         </WebsiteLink>
-      </>
+      )}
       <FollowFollowers>
         <FFCount onClick={openFollowersDialog}>
           <div className="count">{user?.followers?.length}</div>
@@ -131,7 +132,7 @@ const ProfileImage = styled.div`
 
   @media screen and (max-width: 540px) {
     img {
-      width: 60px;
+      width: 55px;
     }
   }
 `;
@@ -154,7 +155,7 @@ const Bio = styled.div`
   font-size: 0.85rem;
 `;
 
-const WebsiteLink = styled.div`
+const WebsiteLink = styled.a`
   display: flex;
   gap: 0.5rem;
   color: ${(props) => props.theme.colors.plum10};

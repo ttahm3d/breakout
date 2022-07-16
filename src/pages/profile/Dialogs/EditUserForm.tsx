@@ -1,5 +1,7 @@
 import { Form, Formik } from "formik";
 import { useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import * as Yup from "yup";
 import { Button, FormikField } from "../../../components";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
@@ -24,12 +26,14 @@ export default function EditUserForm({
     userName: curUser?.userName || "",
   };
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (editUserData: EditUserType) => {
     if (curUser?.uid) {
       dispatch(updateUserDetails(editUserData));
       dispatch(loggedInUserInfo(curUser?.uid));
       dispatch(getUserInfo(curUser?.userName));
+      navigate(`/profile/${editUserData?.userName}`, { replace: true });
       closeEditForm();
     }
   };
@@ -82,14 +86,30 @@ export default function EditUserForm({
               type={field.type}
             />
           ))}
-          <Button
-            variant="secondary__cta"
-            type="submit"
-            disabled={!formik?.dirty}>
-            Save Changes
-          </Button>
+          <BtnContainer>
+            <Button
+              variant="primary__outline"
+              radius={0.25}
+              onClick={closeEditForm}>
+              Cancel
+            </Button>
+            <Button
+              variant="secondary__cta"
+              type="submit"
+              radius={0.25}
+              disabled={!formik?.dirty}>
+              Save Changes
+            </Button>
+          </BtnContainer>
         </Form>
       )}
     </Formik>
   );
 }
+
+const BtnContainer = styled.div`
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+`;

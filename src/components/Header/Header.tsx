@@ -39,7 +39,7 @@ export default function Header({
               <>
                 <UserInfo
                   onClick={toggleDropdown}
-                  onMouseEnter={openDropdown}
+                  // onMouseEnter={openDropdown}
                   onMouseLeave={closeDropdown}>
                   <UserImage className="image">
                     <img

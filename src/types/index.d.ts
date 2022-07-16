@@ -26,3 +26,17 @@ export type UserType = {
   bio: string;
   website: string;
 };
+
+export type FieldType = {
+  id: string;
+  type: string;
+  name: string;
+  label: string;
+  placeholder?: string;
+};
+
+export type EditUserType = {
+  bio?: string;
+  website?: string;
+  userName?: string;
+};

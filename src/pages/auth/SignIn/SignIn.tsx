@@ -10,16 +10,9 @@ import {
   signInHandler,
 } from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
-import { SignInType } from "../../../types";
+import { SignInType, FieldType } from "../../../types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Content } from "../../../styles/globals";
-
-type FieldType = {
-  id: string;
-  type: string;
-  name: string;
-  label: string;
-};
 
 export default function SingIn(): JSX.Element {
   const initialValues: SignInType = {

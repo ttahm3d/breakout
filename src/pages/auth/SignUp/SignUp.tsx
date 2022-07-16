@@ -10,14 +10,7 @@ import {
 } from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
 import { FlexCenter } from "../../../styles/globals";
-import { SignUpType } from "../../../types";
-
-type FieldType = {
-  id: string;
-  type: string;
-  name: string;
-  label: string;
-};
+import { SignUpType, FieldType } from "../../../types";
 
 export default function SignUp(): JSX.Element {
   const dispatch = useAppDispatch();

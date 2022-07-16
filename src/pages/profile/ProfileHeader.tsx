@@ -77,7 +77,7 @@ export default function ProfileHeader(): JSX.Element {
         </FFCount>
         <FFCount onClick={openFollowingDialog}>
           <div className="count">{user?.following?.length}</div>
-          <div className="text">Followers</div>
+          <div className="text">Following</div>
         </FFCount>
       </FollowFollowers>
       <EditProfileDialog

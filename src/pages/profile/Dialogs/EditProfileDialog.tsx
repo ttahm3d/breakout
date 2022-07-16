@@ -17,7 +17,7 @@ export default function EditProfileDialog({
       closeModal={closeEditDialog}
       header="Edit Profile">
       <Container>
-        <EditUserForm />
+        <EditUserForm closeEditForm={closeEditDialog} />
       </Container>
     </Modal>
   );

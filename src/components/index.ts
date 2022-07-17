@@ -8,6 +8,7 @@ import NavMenu from "./NavMenu/NavMenu";
 import Loader, { LoaderCircle } from "./Loader/Loader";
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import Toast, { ToastComponent } from "./Toast/Toast";
+import UserCard from "./UserCard/Card";
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   ScrollToTop,
   Toast,
   ToastComponent,
+  UserCard,
 };

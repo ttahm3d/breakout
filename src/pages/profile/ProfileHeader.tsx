@@ -99,6 +99,8 @@ export default function ProfileHeader(): JSX.Element {
 
 const BannerSection = styled.section`
   border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+  background-color: ${(props) => props.theme.colors.violet3};
+  padding: 0.5rem;
 `;
 
 const InfoContainer = styled.div`
@@ -146,19 +148,23 @@ const FullName = styled.div`
 `;
 
 const UserName = styled.div`
+  margin-top: -0.5rem;
   color: ${(props) => props.theme.colors.mauve10};
 `;
 
 const Bio = styled.div`
   margin-top: 1rem;
   color: ${(props) => props.theme.colors.gray12};
-  font-size: 0.85rem;
 `;
 
 const WebsiteLink = styled.a`
   display: flex;
-  gap: 0.5rem;
-  color: ${(props) => props.theme.colors.plum10};
+  gap: 0.25rem;
+  color: ${(props) => props.theme.colors.plum11};
+
+  :hover {
+    color: ${(props) => props.theme.colors.plum10};
+  }
 `;
 
 const FFCount = styled.div`

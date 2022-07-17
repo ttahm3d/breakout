@@ -22,5 +22,6 @@ import { violet as violetDark } from "@radix-ui/colors/types/dark/violet";
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: any;
+    title: string;
   }
 }

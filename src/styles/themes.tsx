@@ -42,6 +42,7 @@ const LightTheme = {
     white: "#fff",
     black: "#000",
   },
+  title: "light",
 };
 
 const DarkTheme = {
@@ -61,6 +62,7 @@ const DarkTheme = {
     white: "#fff",
     black: "#000",
   },
+  title: "dark",
 };
 
 export { LightTheme, DarkTheme };

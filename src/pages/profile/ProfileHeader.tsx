@@ -101,6 +101,7 @@ const BannerSection = styled.section`
   border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
   background-color: ${(props) => props.theme.colors.violet3};
   padding: 0.5rem;
+  border-radius: 0.25rem;
 `;
 
 const InfoContainer = styled.div`

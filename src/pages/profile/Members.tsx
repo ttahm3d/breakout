@@ -25,8 +25,13 @@ export default function Members(): JSX.Element {
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.violet3};
+  border-radius: 0.25rem;
   padding: 0.5rem;
   height: max-content;
+
+  h3 {
+    padding-bottom: 1rem;
+  }
 
   @media screen and (max-width: 56.25em) {
     display: none;

@@ -7,7 +7,7 @@ interface IButtonProps {
   margin?: number;
   radius?: number;
   children?: JSX.Element | string;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
 }
@@ -18,8 +18,16 @@ interface IIconButtonProps extends IButtonProps {
 }
 
 const Button = (props: IButtonProps) => {
-  const { variant, fullwidth, margin, radius, children, type, disabled } =
-    props;
+  const {
+    variant,
+    fullwidth,
+    margin,
+    radius,
+    children,
+    type,
+    disabled,
+    onClick,
+  } = props;
 
   return (
     <StyledButton
@@ -29,6 +37,7 @@ const Button = (props: IButtonProps) => {
       radius={radius}
       type={type}
       disabled={disabled}
+      onClick={onClick}
       {...props}>
       {children}
     </StyledButton>

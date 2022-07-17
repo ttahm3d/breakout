@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
-import { getUserInfo } from "./thunk";
+import { getUserInfo, getUsers } from "./thunk";
 
 type UsersType = {
   user: DocumentData | undefined;
   loading: boolean;
+  otherUsers: DocumentData[] | undefined;
 };
 
 const initialState: UsersType = {
   user: undefined,
   loading: false,
+  otherUsers: [],
 };
 
 const usersSlice = createSlice({
@@ -28,6 +30,17 @@ const usersSlice = createSlice({
       .addCase(getUserInfo.rejected, (state) => {
         state.loading = false;
         state.user = undefined;
+      })
+      .addCase(getUsers.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.otherUsers = action.payload;
+      })
+      .addCase(getUsers.rejected, (state) => {
+        state.loading = false;
+        state.otherUsers = [];
       });
   },
 });

@@ -11,3 +11,14 @@ export const getUserByUsername = async (userName: string) => {
     return error;
   }
 };
+
+export const getOtherUsers = async (uid: string) => {
+  try {
+    const q = query(collection(db, "users"), where("uid", "!=", uid));
+    const userDocs = await getDocs(q);
+    const otherUsers = userDocs.docs.map((u) => ({ ...u.data() }));
+    return otherUsers;
+  } catch (error: any) {
+    return error;
+  }
+};

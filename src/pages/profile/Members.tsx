@@ -15,7 +15,7 @@ export default function Members(): JSX.Element {
 
   return (
     <Container>
-      <h3>Who to Follow</h3>
+      <h3>Who to Follow?</h3>
       {users?.map((user) => (
         <UserCard user={user} key={user?.uid} />
       ))}
@@ -24,7 +24,12 @@ export default function Members(): JSX.Element {
 }
 
 const Container = styled.div`
-  background-color: ${(props) => props.theme.colors.violet3};
+  background-color: ${(props) => {
+    if (props.theme.title === "dark") {
+      return props.theme.colors.violet2;
+    }
+    return props.theme.colors.violet3;
+  }};
   border-radius: 0.25rem;
   padding: 0.5rem;
   height: max-content;

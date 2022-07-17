@@ -17,7 +17,7 @@ const MainContainer = styled.main<MainContainerProps>`
     grid-template-columns: ${({ showNavMenu }) =>
       showNavMenu ? "1fr 5fr" : "1fr"};
   }
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 const Content = styled.section`

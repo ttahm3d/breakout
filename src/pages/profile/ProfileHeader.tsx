@@ -3,7 +3,7 @@ import { Button, Loader } from "../../components";
 import { useAppSelector } from "../../hooks";
 import { AiOutlineLink } from "react-icons/ai";
 import { FlexCenter } from "../../styles/globals";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FollowersDialog from "./Dialogs/FollowersDialog";
 import FollowingDialog from "./Dialogs/FollowingDialog";
 import EditProfileDialog from "./Dialogs/EditProfileDialog";
@@ -26,6 +26,11 @@ export default function ProfileHeader(): JSX.Element {
   const closeFollowersDialog = () => setShowFollowersDialog(false);
   const openFollowingDialog = () => setShowFollowingDialog(true);
   const closeFollowingDialog = () => setShowFollowingDialog(false);
+
+  useEffect(() => {
+    closeFollowersDialog();
+    closeFollowingDialog();
+  }, [user?.userName]);
 
   if (loading || authLoading) return <Loader />;
 
@@ -86,10 +91,12 @@ export default function ProfileHeader(): JSX.Element {
         closeEditDialog={closeEditDialog}
       />
       <FollowersDialog
+        followers={user?.followers}
         showFollowersDialog={showFollowersDialog}
         closeFollowersDialog={closeFollowersDialog}
       />
       <FollowingDialog
+        following={user?.following}
         showFollowingDialog={showFollowingDialog}
         closeFollowingDialog={closeFollowingDialog}
       />

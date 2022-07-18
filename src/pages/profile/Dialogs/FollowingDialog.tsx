@@ -1,12 +1,15 @@
+import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
-import { Modal } from "../../../components";
+import { Modal, NavigationLink, UserCard } from "../../../components";
 
 type DialogProps = {
   showFollowingDialog: boolean;
   closeFollowingDialog: () => void;
+  following: any;
 };
 
 export default function FollowingDialog({
+  following,
   showFollowingDialog,
   closeFollowingDialog,
 }: DialogProps): JSX.Element {
@@ -15,11 +18,37 @@ export default function FollowingDialog({
       showModal={showFollowingDialog}
       closeModal={closeFollowingDialog}
       header="Following">
-      <Container>Following Dialog</Container>
+      <Container>
+        {following?.length !== 0 ? (
+          <>
+            {following.map((user: DocumentData) => (
+              <UserCard key={user?.uid} user={user} showBtn={false} />
+            ))}
+          </>
+        ) : (
+          <div className="message__container">
+            <p>You are not following anyone</p>
+            <NavigationLink to="/explore">
+              Check other people on Breakout
+            </NavigationLink>
+          </div>
+        )}
+      </Container>
     </Modal>
   );
 }
 
 const Container = styled.div`
   padding: 1rem;
+
+  p {
+    color: ${(props) => props.theme.colors.slate11};
+  }
+
+  .message__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 `;

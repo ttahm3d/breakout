@@ -1,12 +1,15 @@
+import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
-import { Modal } from "../../../components";
+import { Modal, NavigationLink, UserCard } from "../../../components";
 
 type DialogProps = {
   showFollowersDialog: boolean;
   closeFollowersDialog: () => void;
+  followers: any;
 };
 
 export default function FollowersDialog({
+  followers,
   showFollowersDialog,
   closeFollowersDialog,
 }: DialogProps): JSX.Element {
@@ -15,7 +18,22 @@ export default function FollowersDialog({
       showModal={showFollowersDialog}
       closeModal={closeFollowersDialog}
       header="Followers">
-      <Container>Followers</Container>
+      <Container>
+        {followers?.length !== 0 ? (
+          <>
+            {followers.map((user: DocumentData) => (
+              <UserCard key={user?.uid} user={user} showBtn={false} />
+            ))}
+          </>
+        ) : (
+          <div className="message__container">
+            <p>You are not following anyone</p>
+            <NavigationLink to="/explore">
+              Check other people on Breakout
+            </NavigationLink>
+          </div>
+        )}
+      </Container>
     </Modal>
   );
 }

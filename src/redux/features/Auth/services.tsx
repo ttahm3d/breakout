@@ -185,9 +185,9 @@ export const followUser = async (otherUid: string) => {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
       const userRef = doc(db, "users", uid);
+      const otherUserRef = doc(db, "users", otherUid);
       const otherUserData = await getUserById(otherUid);
       const userData = await getUserById(uid);
-      const otherUserRef = doc(db, "users", otherUid);
       await updateDoc(userRef, {
         following: arrayUnion({
           bio: otherUserData?.bio,
@@ -210,6 +210,7 @@ export const followUser = async (otherUid: string) => {
           website: userData?.website,
         }),
       });
+      return await getUserById(uid);
     }
   } catch (error) {
     console.log(error);
@@ -246,6 +247,7 @@ export const unfollowUser = async (otherUid: string) => {
           website: userData?.website,
         }),
       });
+      return await getUserById(uid);
     }
   } catch (error) {
     console.log(error);

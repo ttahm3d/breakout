@@ -8,6 +8,8 @@ import {
   signUpHandler,
   loggedInUserInfo,
   updateUserDetails,
+  followUserHandler,
+  unfollowUserHandler,
 } from "./thunk";
 
 type AuthType = {
@@ -107,6 +109,29 @@ const authSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(updateUserDetails.rejected, (state) => {
+        state.loading = false;
+        state.currentUser = undefined;
+      })
+      .addCase(followUserHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(followUserHandler.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(followUserHandler.rejected, (state) => {
+        state.loading = false;
+        state.currentUser = undefined;
+      })
+      .addCase(unfollowUserHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(unfollowUserHandler.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log(action.payload);
+        state.currentUser = action.payload;
+      })
+      .addCase(unfollowUserHandler.rejected, (state) => {
         state.loading = false;
         state.currentUser = undefined;
       });

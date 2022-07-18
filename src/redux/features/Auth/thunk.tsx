@@ -8,6 +8,8 @@ import {
   emailPasswordSignIn,
   userLogout,
   updateUser,
+  followUser,
+  unfollowUser,
 } from "./services";
 
 export const signInHandler = createAsyncThunk(
@@ -48,9 +50,15 @@ export const loggedInUserInfo = createAsyncThunk(
 
 export const updateUserDetails = createAsyncThunk(
   "auth/user-update",
-  async (editUserData: EditUserType) => {
-    try {
-      return await updateUser(editUserData);
-    } catch (error) {}
-  }
+  async (editUserData: EditUserType) => await updateUser(editUserData)
+);
+
+export const followUserHandler = createAsyncThunk(
+  "auth/follow-user",
+  async (otherUserId: string) => await followUser(otherUserId)
+);
+
+export const unfollowUserHandler = createAsyncThunk(
+  "auth/unfollow-user",
+  async (otherUserId: string) => await unfollowUser(otherUserId)
 );

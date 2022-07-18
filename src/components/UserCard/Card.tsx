@@ -1,12 +1,52 @@
+import { DocumentData } from "firebase/firestore";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  followUserHandler,
+  unfollowUserHandler,
+} from "../../redux/features/Auth/thunk";
+import { getUserInfo } from "../../redux/features/User/thunk";
 import { Button } from "../Button/Button";
 
-export default function UserCard({ user }: any): JSX.Element {
-  const handleClick = (e: any) => {
+type CardProps = {
+  user: DocumentData;
+  showBtn?: boolean;
+};
+
+export default function UserCard({
+  user,
+  showBtn = true,
+}: CardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((s) => s.authReducer.currentUser);
+
+  const handleClick = (e: any, user: any) => {
     e.stopPropagation();
-    console.log("testing follow btn");
+    dispatch(followUserHandler(user?.uid));
   };
+
+  const handleFollow = (e: Event, user: any) => {
+    dispatch(followUserHandler(user?.uid));
+    dispatch(getUserInfo(user?.userName));
+  };
+
+  const handleUnfollow = (e: Event, user: any) => {
+    console.log("test", user);
+    dispatch(unfollowUserHandler(user?.uid));
+    dispatch(getUserInfo(user?.userName));
+  };
+
+  const followingIds = useMemo(() => {
+    return currentUser?.following?.reduce((acc: string[], cur: any) => {
+      return [...acc, cur?.uid];
+    }, []);
+  }, [currentUser]);
+
+  const isAlreadyBeingFollowed = followingIds.some(
+    (id: string) => id === user?.uid
+  );
 
   return (
     <Container>
@@ -21,14 +61,25 @@ export default function UserCard({ user }: any): JSX.Element {
           <div className="profile__text--username">&#64;{user?.userName}</div>
         </Link>
       </div>
-      <div className="profile__button">
-        <Button
-          variant="primary__block"
-          radius={0.25}
-          onClick={(e: any) => handleClick(e)}>
-          Follow
-        </Button>
-      </div>
+      {showBtn && (
+        <div className="profile__button">
+          {isAlreadyBeingFollowed ? (
+            <Button
+              variant="primary__cta"
+              radius={0.25}
+              onClick={(e: any) => handleUnfollow(e, user)}>
+              Following
+            </Button>
+          ) : (
+            <Button
+              variant="primary__block"
+              radius={0.25}
+              onClick={(e: any) => handleFollow(e, user)}>
+              Follow
+            </Button>
+          )}
+        </div>
+      )}
     </Container>
   );
 }
@@ -66,5 +117,6 @@ const Container = styled.div`
 
   .profile__button {
     align-self: center;
+    justify-self: end;
   }
 `;

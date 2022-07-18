@@ -3,7 +3,7 @@ import { Content } from "../../styles/globals";
 import ProfileHeader from "./ProfileHeader";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUserInfo } from "../../redux/features/User/thunk";
 import Members from "./Members";
 
@@ -11,9 +11,11 @@ export default function LandingPage(): JSX.Element {
   const { userName } = useParams();
   const dispatch = useAppDispatch();
 
+  const { user } = useAppSelector((s) => s.userReducer);
+
   useEffect(() => {
     if (userName) dispatch(getUserInfo(userName));
-  }, [userName, dispatch]);
+  }, [userName, dispatch, user?.following?.length, user?.followers?.length]);
 
   return (
     <Content>

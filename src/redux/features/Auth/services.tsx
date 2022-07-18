@@ -1,4 +1,11 @@
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -29,7 +36,7 @@ export const createUser = async (signupData: SignUpType, userId: string) => {
         9000,
       email: signupData.email,
       photoURL:
-        "https://res.cloudinary.com/dut75albw/image/upload/v1656740158/breakout/user_czi25a.png",
+        "https://res.cloudinary.com/dut75albw/image/upload/v1658120196/breakout/default_user.png",
       followers: [],
       following: [],
       bio: "",
@@ -170,5 +177,77 @@ export const updateUser = async (editUserData: EditUserType) => {
     }
   } catch (error: any) {
     Toast({ message: error?.message, type: "error" });
+  }
+};
+
+export const followUser = async (otherUid: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const userRef = doc(db, "users", uid);
+      const otherUserData = await getUserById(otherUid);
+      const userData = await getUserById(uid);
+      const otherUserRef = doc(db, "users", otherUid);
+      await updateDoc(userRef, {
+        following: arrayUnion({
+          bio: otherUserData?.bio,
+          firstName: otherUserData?.firstName,
+          lastName: otherUserData?.lastName,
+          photoURL: otherUserData?.photoURL,
+          uid: otherUserData?.uid,
+          userName: otherUserData?.userName,
+          website: otherUserData?.website,
+        }),
+      });
+      await updateDoc(otherUserRef, {
+        followers: arrayUnion({
+          bio: userData?.bio,
+          firstName: userData?.firstName,
+          lastName: userData?.lastName,
+          photoURL: userData?.photoURL,
+          uid: userData?.uid,
+          userName: userData?.userName,
+          website: userData?.website,
+        }),
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const unfollowUser = async (otherUid: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const userRef = doc(db, "users", uid);
+      const otherUserData = await getUserById(otherUid);
+      const userData = await getUserById(uid);
+      const otherUserRef = doc(db, "users", otherUid);
+      await updateDoc(userRef, {
+        following: arrayRemove({
+          bio: otherUserData?.bio,
+          firstName: otherUserData?.firstName,
+          lastName: otherUserData?.lastName,
+          photoURL: otherUserData?.photoURL,
+          uid: otherUserData?.uid,
+          userName: otherUserData?.userName,
+          website: otherUserData?.website,
+        }),
+      });
+      await updateDoc(otherUserRef, {
+        followers: arrayRemove({
+          bio: userData?.bio,
+          firstName: userData?.firstName,
+          lastName: userData?.lastName,
+          photoURL: userData?.photoURL,
+          uid: userData?.uid,
+          userName: userData?.userName,
+          website: userData?.website,
+        }),
+      });
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

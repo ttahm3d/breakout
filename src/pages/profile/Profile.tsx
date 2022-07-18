@@ -11,7 +11,10 @@ export default function LandingPage(): JSX.Element {
   const { userName } = useParams();
   const dispatch = useAppDispatch();
 
-  const { user } = useAppSelector((s) => s.userReducer);
+  const { user, loading } = useAppSelector((s) => s.userReducer);
+  const { currentUser, loading: authLoading } = useAppSelector(
+    (s) => s.authReducer
+  );
 
   useEffect(() => {
     if (userName) dispatch(getUserInfo(userName));

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button, Loader } from "../../components";
 import { useAppSelector } from "../../hooks";
-import { AiOutlineLink } from "react-icons/ai";
+import { AiFillEdit, AiOutlineLink } from "react-icons/ai";
 import { FlexCenter } from "../../styles/globals";
 import { useEffect, useState } from "react";
 import FollowersDialog from "./Dialogs/FollowersDialog";
@@ -127,7 +127,7 @@ const Banner = styled.div`
 
 const ProfileImage = styled.div`
   position: absolute;
-  top: 75%;
+  bottom: -10%;
   width: 80px;
   left: 2%;
   display: flex;
@@ -194,4 +194,10 @@ const FFCount = styled.div`
 const FollowFollowers = styled.div`
   display: flex;
   gap: 2rem;
+`;
+
+const ChangeImgIcon = styled.div`
+  position: absolute;
+  bottom: -10%;
+  left: 5%;
 `;

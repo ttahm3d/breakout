@@ -21,7 +21,7 @@ export default function FollowersDialog({
       <Container>
         {followers?.length !== 0 ? (
           <>
-            {followers.map((user: DocumentData) => (
+            {followers?.map((user: DocumentData) => (
               <UserCard key={user?.uid} user={user} showBtn={false} />
             ))}
           </>

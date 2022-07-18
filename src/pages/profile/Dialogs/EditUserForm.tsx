@@ -40,8 +40,8 @@ export default function EditUserForm({
 
   const validationSchema = Yup.object({
     userName: Yup.string().required(),
-    bio: Yup.string().required(),
-    website: Yup.string().required().url(),
+    bio: Yup.string(),
+    website: Yup.string().url(),
   });
 
   const fields: FieldType[] = useMemo(() => {

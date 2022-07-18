@@ -44,7 +44,7 @@ export default function UserCard({
     }, []);
   }, [currentUser]);
 
-  const isAlreadyBeingFollowed = followingIds.some(
+  const isAlreadyBeingFollowed = followingIds?.some(
     (id: string) => id === user?.uid
   );
 
@@ -66,14 +66,14 @@ export default function UserCard({
           {isAlreadyBeingFollowed ? (
             <Button
               variant="primary__cta"
-              radius={0.25}
+              radius={3}
               onClick={(e: any) => handleUnfollow(e, user)}>
               Following
             </Button>
           ) : (
             <Button
               variant="primary__block"
-              radius={0.25}
+              radius={3}
               onClick={(e: any) => handleFollow(e, user)}>
               Follow
             </Button>

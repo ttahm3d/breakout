@@ -1,14 +1,19 @@
 import styled from "styled-components";
 import { Button, Loader } from "../../components";
-import { useAppSelector } from "../../hooks";
-import { AiFillEdit, AiOutlineLink } from "react-icons/ai";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { AiOutlineLink } from "react-icons/ai";
 import { FlexCenter } from "../../styles/globals";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import FollowersDialog from "./Dialogs/FollowersDialog";
 import FollowingDialog from "./Dialogs/FollowingDialog";
 import EditProfileDialog from "./Dialogs/EditProfileDialog";
+import {
+  followUserHandler,
+  unfollowUserHandler,
+} from "../../redux/features/Auth/thunk";
 
 export default function ProfileHeader(): JSX.Element {
+  const dispatch = useAppDispatch();
   const { user, loading } = useAppSelector((s) => s.userReducer);
   const { currentUser, loading: authLoading } = useAppSelector(
     (s) => s.authReducer
@@ -31,6 +36,16 @@ export default function ProfileHeader(): JSX.Element {
     closeFollowersDialog();
     closeFollowingDialog();
   }, [user?.userName]);
+
+  const followingIds = useMemo(() => {
+    return currentUser?.following?.reduce((acc: string[], cur: any) => {
+      return [...acc, cur?.uid];
+    }, []);
+  }, [currentUser]);
+
+  const isAlreadyBeingFollowed = followingIds.some(
+    (id: string) => id === user?.uid
+  );
 
   if (loading || authLoading) return <Loader />;
 
@@ -58,9 +73,23 @@ export default function ProfileHeader(): JSX.Element {
               Edit Profile
             </Button>
           ) : (
-            <Button variant="primary__cta" radius={0.25}>
-              Follow
-            </Button>
+            <>
+              {isAlreadyBeingFollowed ? (
+                <Button
+                  variant="primary__cta"
+                  radius={3}
+                  onClick={() => dispatch(unfollowUserHandler(user?.uid))}>
+                  Unfollow
+                </Button>
+              ) : (
+                <Button
+                  variant="primary__cta"
+                  radius={3}
+                  onClick={() => dispatch(followUserHandler(user?.uid))}>
+                  Follow
+                </Button>
+              )}
+            </>
           )}
         </>
       </InfoContainer>

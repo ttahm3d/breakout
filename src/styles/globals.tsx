@@ -5,7 +5,7 @@ type MainContainerProps = {
 };
 
 const Container = styled.section`
-  width: min(100% - 2rem, 95em);
+  width: min(100% - 2rem, 80em);
   margin: 0 auto;
 `;
 
@@ -17,7 +17,7 @@ const MainContainer = styled.main<MainContainerProps>`
     grid-template-columns: ${({ showNavMenu }) =>
       showNavMenu ? "1fr 5fr" : "1fr"};
   }
-  gap: 2rem;
+  gap: 0.5rem;
 `;
 
 const Content = styled.section`
@@ -31,4 +31,10 @@ const Page = styled.div`
   min-height: 100vh;
 `;
 
-export { Container, Content, MainContainer, Page };
+const FlexCenter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export { Container, Content, FlexCenter, MainContainer, Page };

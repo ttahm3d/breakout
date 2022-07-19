@@ -15,12 +15,28 @@ export type SignInType = {
 };
 
 export type UserType = {
-  firstName: string | any;
-  lastName: string | any;
-  email: string | any;
-  photoURL: string | any;
+  uid: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  userName: string | any;
+  email: string | null;
+  photoURL: string | null;
   followers: [User] | [];
   following: [User] | [];
   bio: string;
   website: string;
+};
+
+export type FieldType = {
+  id: string;
+  type: string;
+  name: string;
+  label: string;
+  placeholder?: string;
+};
+
+export type EditUserType = {
+  bio?: string;
+  website?: string;
+  userName?: string;
 };

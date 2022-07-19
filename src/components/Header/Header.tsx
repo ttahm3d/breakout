@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Container } from "../../styles/globals";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { signOutHandler } from "../../redux/services/authServices";
+import { signOutHandler } from "../../redux/features/Auth/thunk";
 import { useState } from "react";
 
 type HeaderProps = {
@@ -20,7 +20,7 @@ export default function Header({
 }: HeaderProps): JSX.Element {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
-  const { user } = useAppSelector((s) => s.authReducer);
+  const { currentUser } = useAppSelector((s) => s.authReducer);
   const dispatch = useAppDispatch();
 
   const toggleDropdown = () => setShowDropdown((s) => !s);
@@ -35,21 +35,21 @@ export default function Header({
             <img src={BreakoutLogo} alt="Breakout Logo" />
           </Logo>
           <NavItems>
-            {user !== undefined ? (
+            {currentUser !== undefined ? (
               <>
                 <UserInfo
                   onClick={toggleDropdown}
-                  onMouseEnter={openDropdown}
+                  // onMouseEnter={openDropdown}
                   onMouseLeave={closeDropdown}>
                   <UserImage className="image">
                     <img
-                      src={user.photoURL}
-                      alt={user.firstName}
+                      src={currentUser.photoURL}
+                      alt={currentUser.firstName}
                       width={24}
                       height={24}
                     />
                   </UserImage>
-                  Hi {user.firstName}
+                  Hi {currentUser.firstName}
                   {showDropdown && (
                     <Dropdown>
                       <DropdownItem>Profile</DropdownItem>
@@ -99,6 +99,7 @@ const NavItems = styled.div`
   margin-left: auto;
   display: flex;
   gap: 1rem;
+  align-items: center;
 `;
 
 const Logo = styled.div`

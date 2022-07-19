@@ -13,7 +13,7 @@ import { Container, MainContainer, Page } from "./styles/globals";
 import { useLocation } from "react-router-dom";
 import Router from "./router";
 import { useEffect } from "react";
-import { getUserDetails } from "./redux/services/userServices";
+import { loggedInUserInfo } from "./redux/features/Auth/thunk";
 
 function App(): JSX.Element {
   const [theme, setTheme] = useLocalStorage("breakout-theme", "light");
@@ -26,7 +26,7 @@ function App(): JSX.Element {
 
   const uid = localStorage.getItem("breakout/user-id");
   useEffect(() => {
-    if (uid) dispatch(getUserDetails(uid));
+    if (uid) dispatch(loggedInUserInfo(uid));
   }, [uid, dispatch]);
 
   const showNavMenu =

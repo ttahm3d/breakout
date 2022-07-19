@@ -4,21 +4,15 @@ import styled from "styled-components";
 import * as Yup from "yup";
 import { useAppDispatch } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
+import { FlexCenter } from "../../../styles/globals";
 import {
   googleSignInHandler,
   signInHandler,
-} from "../../../redux/services/authServices";
+} from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
-import { SignInType } from "../../../types";
+import { SignInType, FieldType } from "../../../types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Content } from "../../../styles/globals";
-
-type FieldType = {
-  id: string;
-  type: string;
-  name: string;
-  label: string;
-};
 
 export default function SingIn(): JSX.Element {
   const initialValues: SignInType = {
@@ -142,10 +136,4 @@ const LoginBtn = styled(Button)`
     margin: 1rem 0;
     width: 18.025rem;
   }
-`;
-
-const FlexCenter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

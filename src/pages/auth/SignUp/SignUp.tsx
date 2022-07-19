@@ -7,16 +7,10 @@ import { Button, FormikField, NavigationLink } from "../../../components";
 import {
   signUpHandler,
   googleSignUpHandler,
-} from "../../../redux/services/authServices";
+} from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
-import { SignUpType } from "../../../types";
-
-type FieldType = {
-  id: string;
-  type: string;
-  name: string;
-  label: string;
-};
+import { FlexCenter } from "../../../styles/globals";
+import { SignUpType, FieldType } from "../../../types";
 
 export default function SignUp(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -143,10 +137,4 @@ const LoginBtn = styled(Button)`
     margin: 1rem 0;
     width: 18.025rem;
   }
-`;
-
-const FlexCenter = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

@@ -3,10 +3,10 @@ import { useAppSelector } from "../hooks";
 
 export default function RequireAuth() {
   const location = useLocation();
-  const { user } = useAppSelector((s) => s.authReducer);
+  const { currentUser } = useAppSelector((s) => s.authReducer);
   const uid = localStorage.getItem("breakout/user-id");
 
-  return uid || user !== undefined ? (
+  return uid || currentUser !== undefined ? (
     <Outlet />
   ) : (
     <Navigate to="/auth/signin" state={{ from: location }} replace />

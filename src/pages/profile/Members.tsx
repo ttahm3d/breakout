@@ -31,6 +31,7 @@ const Container = styled.div`
     return props.theme.colors.violet3;
   }};
   border-radius: 0.25rem;
+  margin-left: 0.5rem;
   padding: 0.5rem;
   height: max-content;
 

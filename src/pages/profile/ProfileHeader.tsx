@@ -56,7 +56,10 @@ export default function ProfileHeader(): JSX.Element {
       {!loading || authLoading ? (
         <>
           <Banner>
-            <img src="https://picsum.photos/1000/300" alt="profile header" />
+            <img
+              src="https://res.cloudinary.com/dut75albw/image/upload/v1658239278/breakout/commonHeader.jpg"
+              alt="profile header"
+            />
             <ProfileImage>
               <img src={user?.photoURL} alt={`${user?.firstName}'s profile`} />
               {user?.email === currentUser?.email && (

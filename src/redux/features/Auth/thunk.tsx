@@ -10,6 +10,7 @@ import {
   updateUser,
   followUser,
   unfollowUser,
+  updatePhotoURL,
 } from "./services";
 
 export const signInHandler = createAsyncThunk(
@@ -61,4 +62,9 @@ export const followUserHandler = createAsyncThunk(
 export const unfollowUserHandler = createAsyncThunk(
   "auth/unfollow-user",
   async (otherUserId: string) => await unfollowUser(otherUserId)
+);
+
+export const profilePicChangeHandler = createAsyncThunk(
+  "auth/user-profilepic",
+  async (file: any) => updatePhotoURL(file)
 );

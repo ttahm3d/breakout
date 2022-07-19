@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button, Loader } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { AiOutlineLink } from "react-icons/ai";
+import { AiOutlineLink, AiOutlineCamera } from "react-icons/ai";
 import { FlexCenter } from "../../styles/globals";
 import { useEffect, useMemo, useState } from "react";
 import FollowersDialog from "./Dialogs/FollowersDialog";
@@ -11,6 +11,7 @@ import {
   followUserHandler,
   unfollowUserHandler,
 } from "../../redux/features/Auth/thunk";
+import PhotoDialog from "./Dialogs/PhotoDialog";
 
 export default function ProfileHeader(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export default function ProfileHeader(): JSX.Element {
   );
 
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
+  const [showPhotoDialog, setShowPhotoDialog] = useState<boolean>(false);
   const [showFollowersDialog, setShowFollowersDialog] =
     useState<boolean>(false);
   const [showFollowingDialog, setShowFollowingDialog] =
@@ -27,6 +29,8 @@ export default function ProfileHeader(): JSX.Element {
 
   const openEditDialog = () => setShowEditDialog(true);
   const closeEditDialog = () => setShowEditDialog(false);
+  const openPhotoDialog = () => setShowPhotoDialog(true);
+  const closePhotoDialog = () => setShowPhotoDialog(false);
   const openFollowersDialog = () => setShowFollowersDialog(true);
   const closeFollowersDialog = () => setShowFollowersDialog(false);
   const openFollowingDialog = () => setShowFollowingDialog(true);
@@ -43,95 +47,93 @@ export default function ProfileHeader(): JSX.Element {
     }, []);
   }, [currentUser]);
 
-  const isAlreadyBeingFollowed = followingIds.some(
+  const isAlreadyBeingFollowed = followingIds?.some(
     (id: string) => id === user?.uid
   );
 
-  if (loading || authLoading) return <Loader />;
-
   return (
     <BannerSection>
-      <Banner>
-        <img src="https://picsum.photos/1000/300" alt="profile header" />
-        <ProfileImage>
-          <img src={user?.photoURL} alt={`${user?.firstName}'s profile`} />
-        </ProfileImage>
-      </Banner>
-      <InfoContainer>
-        <UserInfo>
-          <FullName>
-            {user?.firstName}&nbsp;{user?.lastName}
-          </FullName>
-          <UserName>&#64;{user?.userName}</UserName>
-        </UserInfo>
+      {!loading || authLoading ? (
         <>
-          {user?.email === currentUser?.email ? (
-            <BtnGroup>
-              <Button variant="secondary__cta">Change profile picture</Button>
+          <Banner>
+            <img src="https://picsum.photos/1000/300" alt="profile header" />
+            <ProfileImage>
+              <img src={user?.photoURL} alt={`${user?.firstName}'s profile`} />
+              {user?.email === currentUser?.email && (
+                <FlexCenter className="icon" onClick={openPhotoDialog}>
+                  <AiOutlineCamera />
+                </FlexCenter>
+              )}
+            </ProfileImage>
+          </Banner>
+          <InfoContainer>
+            <UserInfo>
+              <FullName>
+                {user?.firstName}&nbsp;{user?.lastName}
+              </FullName>
+              <UserName>&#64;{user?.userName}</UserName>
+            </UserInfo>
+            {user?.email === currentUser?.email ? (
               <Button
                 variant="primary__cta"
                 radius={0.25}
                 onClick={openEditDialog}>
                 Edit Profile
               </Button>
-            </BtnGroup>
-          ) : (
-            <BtnGroup>
-              {isAlreadyBeingFollowed ? (
-                <Button
-                  variant="primary__cta"
-                  radius={3}
-                  onClick={() => dispatch(unfollowUserHandler(user?.uid))}>
-                  Unfollow
-                </Button>
-              ) : (
-                <Button
-                  variant="primary__cta"
-                  radius={3}
-                  onClick={() => dispatch(followUserHandler(user?.uid))}>
-                  Follow
-                </Button>
-              )}
-            </BtnGroup>
+            ) : (
+              <Button
+                variant="primary__cta"
+                radius={3}
+                onClick={() => dispatch(followUserHandler(user?.uid))}>
+                Follow
+              </Button>
+            )}
+          </InfoContainer>
+          <Bio>{user?.bio && user?.bio}</Bio>
+          {user?.website && (
+            <WebsiteLink
+              href={`${user?.website}`}
+              rel="noopener noreferer"
+              target="_blank">
+              <FlexCenter>
+                <AiOutlineLink />
+              </FlexCenter>
+              {user?.website}
+            </WebsiteLink>
           )}
+          <FollowFollowers>
+            <FFCount onClick={openFollowersDialog}>
+              <div className="count">{user?.followers?.length}</div>
+              <div className="text">Followers</div>
+            </FFCount>
+            <FFCount onClick={openFollowingDialog}>
+              <div className="count">{user?.following?.length}</div>
+              <div className="text">Following</div>
+            </FFCount>
+          </FollowFollowers>
+          <EditProfileDialog
+            showEditDialog={showEditDialog}
+            closeEditDialog={closeEditDialog}
+          />
+          <FollowersDialog
+            followers={user?.followers}
+            showFollowersDialog={showFollowersDialog}
+            closeFollowersDialog={closeFollowersDialog}
+          />
+          <FollowingDialog
+            following={user?.following}
+            showFollowingDialog={showFollowingDialog}
+            closeFollowingDialog={closeFollowingDialog}
+          />
+          <PhotoDialog
+            user={user}
+            showPhotoDialog={showPhotoDialog}
+            closePhotoDialog={closePhotoDialog}
+          />
         </>
-      </InfoContainer>
-      <Bio>{user?.bio && user?.bio}</Bio>
-      {user?.website && (
-        <WebsiteLink
-          href={`${user?.website}`}
-          rel="noopener noreferer"
-          target="_blank">
-          <FlexCenter>
-            <AiOutlineLink />
-          </FlexCenter>
-          {user?.website}
-        </WebsiteLink>
+      ) : (
+        "dontshow"
       )}
-      <FollowFollowers>
-        <FFCount onClick={openFollowersDialog}>
-          <div className="count">{user?.followers?.length}</div>
-          <div className="text">Followers</div>
-        </FFCount>
-        <FFCount onClick={openFollowingDialog}>
-          <div className="count">{user?.following?.length}</div>
-          <div className="text">Following</div>
-        </FFCount>
-      </FollowFollowers>
-      <EditProfileDialog
-        showEditDialog={showEditDialog}
-        closeEditDialog={closeEditDialog}
-      />
-      <FollowersDialog
-        followers={user?.followers}
-        showFollowersDialog={showFollowersDialog}
-        closeFollowersDialog={closeFollowersDialog}
-      />
-      <FollowingDialog
-        following={user?.following}
-        showFollowingDialog={showFollowingDialog}
-        closeFollowingDialog={closeFollowingDialog}
-      />
     </BannerSection>
   );
 }
@@ -142,38 +144,56 @@ const BannerSection = styled.section`
   border-radius: 0.25rem;
 `;
 
-const InfoContainer = styled.div`
-  display: grid;
-  grid-template-columns: 5fr 3fr;
-  padding: 2rem 0 0;
-
-  @media screen and (max-width: 420px) {
-    padding: 1.75rem 0 0;
-  }
-`;
-
-const Banner = styled.div`
-  position: relative;
-`;
+const Banner = styled.div``;
 
 const ProfileImage = styled.div`
-  position: absolute;
-  bottom: -10%;
+  position: relative;
   width: 80px;
-  left: 2%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   img {
     border-radius: 50%;
+    margin-top: -2.5rem;
+    margin-left: 2rem;
     border: 4px solid ${(props) => props.theme.colors.slate1};
+  }
+
+  .icon {
+    color: ${(props) => props.theme.colors.plum9};
+    background-color: ${(props) => props.theme.colors.plum3};
+    border: 1px solid ${(props) => props.theme.colors.plum7};
+    border-radius: 50%;
+    padding: 0.25rem;
+    position: absolute;
+    cursor: pointer;
+    right: -1rem;
+    bottom: 0;
+
+    :hover {
+      background-color: ${(props) => props.theme.colors.plum4};
+    }
+
+    :active {
+      background-color: ${(props) => props.theme.colors.plum5};
+    }
   }
 
   @media screen and (max-width: 540px) {
     img {
-      width: 55px;
+      /* width: 55px; */
     }
+  }
+`;
+
+const InfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media screen and (max-width: 420px) {
+    padding: 1.75rem 0 0;
   }
 `;
 

@@ -7,14 +7,24 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth, googleAuthProvider } from "../../../configs/firebase";
+import {
+  auth,
+  db,
+  googleAuthProvider,
+  storage,
+} from "../../../configs/firebase";
 import { Toast } from "../../../components";
-import { db } from "../../../configs/firebase";
 import {
   IAuth,
   SignUpType,
@@ -22,6 +32,7 @@ import {
   SignInType,
   EditUserType,
 } from "../../../types";
+import { toast } from "react-hot-toast";
 
 export const createUser = async (signupData: SignUpType, userId: string) => {
   try {
@@ -247,6 +258,38 @@ export const unfollowUser = async (otherUid: string) => {
           website: userData?.website,
         }),
       });
+      return await getUserById(uid);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeUserProfileImage = async (file: any) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const loading = toast.loading("Uploading image...");
+      const storageRef = ref(storage, `/users/${file?.name}`);
+      const uploadTask = await uploadBytesResumable(storageRef, file);
+      const pathName = uploadTask?.ref?.toString();
+      const uploadedPictureRef = ref(storage, pathName);
+      toast.success("Profile picture change successfully", { id: loading });
+      const url = await getDownloadURL(uploadedPictureRef);
+      console.log(url);
+      return url;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updatePhotoURL = async (path: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const userRef = doc(db, "users", uid);
+      await updateDoc(userRef, { photoURL: path });
       return await getUserById(uid);
     }
   } catch (error) {

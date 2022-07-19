@@ -5,7 +5,7 @@ type MainContainerProps = {
 };
 
 const Container = styled.section`
-  width: min(100% - 2rem, 95em);
+  width: min(100% - 2rem, 80em);
   margin: 0 auto;
 `;
 
@@ -17,7 +17,7 @@ const MainContainer = styled.main<MainContainerProps>`
     grid-template-columns: ${({ showNavMenu }) =>
       showNavMenu ? "1fr 5fr" : "1fr"};
   }
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 const Content = styled.section`

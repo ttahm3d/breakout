@@ -10,6 +10,7 @@ import {
   updateUserDetails,
   followUserHandler,
   unfollowUserHandler,
+  profilePicChangeHandler,
 } from "./thunk";
 
 type AuthType = {
@@ -128,10 +129,20 @@ const authSlice = createSlice({
       })
       .addCase(unfollowUserHandler.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload);
         state.currentUser = action.payload;
       })
       .addCase(unfollowUserHandler.rejected, (state) => {
+        state.loading = false;
+        state.currentUser = undefined;
+      })
+      .addCase(profilePicChangeHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(profilePicChangeHandler.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(profilePicChangeHandler.rejected, (state) => {
         state.loading = false;
         state.currentUser = undefined;
       });

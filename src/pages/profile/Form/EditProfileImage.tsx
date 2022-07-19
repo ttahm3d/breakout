@@ -51,7 +51,10 @@ export default function EditProfileImage({
         onChange={(e: any) => handleFileChange(e.target.files[0])}
       />
       <BtnGroup>
-        <Button variant="primary__cta" onClick={closePhotoDialog} radius={0.25}>
+        <Button
+          variant="primary__outline"
+          onClick={closePhotoDialog}
+          radius={0.25}>
           Cancel
         </Button>
         <Button

@@ -40,3 +40,9 @@ export type EditUserType = {
   website?: string;
   userName?: string;
 };
+
+export type PostType = {
+  text: string;
+  imageURL?: any;
+  imgAltText?: string;
+};

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Modal } from "../../../components";
-import EditUserForm from "./EditUserForm";
+import EditUserForm from "../Form/EditUserForm";
 
 type DialogProps = {
   showEditDialog: boolean;

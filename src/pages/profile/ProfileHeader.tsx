@@ -66,14 +66,17 @@ export default function ProfileHeader(): JSX.Element {
         </UserInfo>
         <>
           {user?.email === currentUser?.email ? (
-            <Button
-              variant="primary__cta"
-              radius={0.25}
-              onClick={openEditDialog}>
-              Edit Profile
-            </Button>
+            <BtnGroup>
+              <Button variant="secondary__cta">Change profile picture</Button>
+              <Button
+                variant="primary__cta"
+                radius={0.25}
+                onClick={openEditDialog}>
+                Edit Profile
+              </Button>
+            </BtnGroup>
           ) : (
-            <>
+            <BtnGroup>
               {isAlreadyBeingFollowed ? (
                 <Button
                   variant="primary__cta"
@@ -89,7 +92,7 @@ export default function ProfileHeader(): JSX.Element {
                   Follow
                 </Button>
               )}
-            </>
+            </BtnGroup>
           )}
         </>
       </InfoContainer>
@@ -140,9 +143,8 @@ const BannerSection = styled.section`
 `;
 
 const InfoContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 5fr 3fr;
   padding: 2rem 0 0;
 
   @media screen and (max-width: 420px) {
@@ -225,8 +227,8 @@ const FollowFollowers = styled.div`
   gap: 2rem;
 `;
 
-const ChangeImgIcon = styled.div`
-  position: absolute;
-  bottom: -10%;
-  left: 5%;
+const BtnGroup = styled.div`
+  align-self: center;
+  display: flex;
+  justify-content: space-between;
 `;

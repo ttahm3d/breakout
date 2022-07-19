@@ -68,7 +68,7 @@ export default function UserCard({
               variant="primary__cta"
               radius={3}
               onClick={(e: any) => handleUnfollow(e, user)}>
-              Following
+              Unfollow
             </Button>
           ) : (
             <Button

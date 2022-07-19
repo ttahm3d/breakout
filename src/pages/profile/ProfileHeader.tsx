@@ -84,12 +84,23 @@ export default function ProfileHeader(): JSX.Element {
                 Edit Profile
               </Button>
             ) : (
-              <Button
-                variant="primary__cta"
-                radius={3}
-                onClick={() => dispatch(followUserHandler(user?.uid))}>
-                Follow
-              </Button>
+              <>
+                {isAlreadyBeingFollowed ? (
+                  <Button
+                    variant="primary__cta"
+                    radius={3}
+                    onClick={() => dispatch(unfollowUserHandler(user?.uid))}>
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    variant="primary__cta"
+                    radius={3}
+                    onClick={() => dispatch(followUserHandler(user?.uid))}>
+                    Follow
+                  </Button>
+                )}
+              </>
             )}
           </InfoContainer>
           <Bio>{user?.bio && user?.bio}</Bio>
@@ -134,9 +145,7 @@ export default function ProfileHeader(): JSX.Element {
             closePhotoDialog={closePhotoDialog}
           />
         </>
-      ) : (
-        "dontshow"
-      )}
+      ) : null}
     </BannerSection>
   );
 }

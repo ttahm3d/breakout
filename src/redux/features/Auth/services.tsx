@@ -47,7 +47,7 @@ export const createUser = async (signupData: SignUpType, userId: string) => {
         9000,
       email: signupData.email,
       photoURL:
-        "https://res.cloudinary.com/dut75albw/image/upload/v1658120196/breakout/default_user.png",
+        "https://res.cloudinary.com/dut75albw/image/upload/v1658120718/breakout/default_user_1_oemavu.png",
       followers: [],
       following: [],
       bio: "",

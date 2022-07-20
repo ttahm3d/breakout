@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Loader } from "../../components";
-import AddPost from "../../components/Posts/AddPost";
+import Members from "../../components/OtherUsers/Members";
+import AddPost from "../../components/PostsForm/AddPost";
 import { useAppSelector } from "../../hooks";
-import { Content } from "../../styles/globals";
+import Posts from "./Posts";
 
 export default function Home() {
   const { loading } = useAppSelector((s) => s.authReducer);
@@ -13,8 +14,11 @@ export default function Home() {
     <Container>
       <div>
         <AddPost />
+        <Posts />
       </div>
-      <h4>Other users</h4>
+      <div className="right-side">
+        <Members />
+      </div>
     </Container>
   );
 }
@@ -23,5 +27,17 @@ const Container = styled.div`
   padding: 0.5rem 0;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  gap: 1rem;
+  gap: 0.5rem;
+
+  .right-side {
+    border-left: 1px solid ${(props) => props.theme.colors.violet7};
+  }
+
+  @media screen and (max-width: 56.25em) {
+    grid-template-columns: 1fr;
+
+    .right-side {
+      border: none;
+    }
+  }
 `;

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import { UserCard } from "../../components";
+import { UserCard } from "..";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUsers } from "../../redux/features/User/thunk";
 

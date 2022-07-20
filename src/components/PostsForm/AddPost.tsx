@@ -26,8 +26,12 @@ export default function AddPost(): JSX.Element {
 
   const handleImage = async (file: any) => {
     const url = await uploadPostPhoto(file);
-    console.log(url);
     setPost((post) => ({ ...post, imageURL: url }));
+  };
+
+  const handlePostSubmission = (post: PostType) => {
+    dispatch(createPost(post));
+    setPost(initalValues);
   };
 
   return (
@@ -87,7 +91,8 @@ export default function AddPost(): JSX.Element {
         <Button
           variant="primary__block"
           radius={0.25}
-          onClick={() => dispatch(createPost(post))}>
+          disabled={!post.content}
+          onClick={() => handlePostSubmission(post)}>
           Post
         </Button>
       </BtnGroup>

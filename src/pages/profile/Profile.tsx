@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUserInfo } from "../../redux/features/User/thunk";
-import Members from "./Members";
+import Members from "../../components/OtherUsers/Members";
 import { getPostsByUserName } from "../../redux/features/Posts/thunk";
 import Posts from "./Posts";
 

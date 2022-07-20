@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUserInfo } from "../../redux/features/User/thunk";
 import Members from "./Members";
+import { getPostsByUserName } from "../../redux/features/Posts/thunk";
 
 export default function LandingPage(): JSX.Element {
   const { userName } = useParams();
@@ -14,7 +15,10 @@ export default function LandingPage(): JSX.Element {
   const { user } = useAppSelector((s) => s.userReducer);
 
   useEffect(() => {
-    if (userName) dispatch(getUserInfo(userName));
+    if (userName) {
+      dispatch(getUserInfo(userName));
+      dispatch(getPostsByUserName(userName));
+    }
   }, [userName, dispatch, user?.following?.length, user?.followers?.length]);
 
   return (

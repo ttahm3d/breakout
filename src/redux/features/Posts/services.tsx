@@ -18,8 +18,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 export const getAllPostsHandler = async () => {
   try {
     const q = query(collection(db, "posts"), orderBy("timeStamp", "desc"));
-    const userDocs = await getDocs(q);
-    const posts = userDocs.docs.map((p) => ({ ...p.data() }));
+    const postsDocs = await getDocs(q);
+    const posts = postsDocs.docs.map((p) => ({ ...p.data() }));
     return posts;
   } catch (error) {
     toast.error("Unable to fetch posts. Try later");
@@ -33,17 +33,41 @@ export const getPostsByUsernameHandler = async (userName: string) => {
       where("userName", "==", userName),
       orderBy("timeStamp", "desc")
     );
-    const userDocs = await getDocs(q);
-    const posts = userDocs.docs.map((p) => ({ ...p.data() }));
+    const postsDocs = await getDocs(q);
+    const posts = postsDocs.docs.map((p) => ({ ...p.data() }));
     return posts;
   } catch (error) {
-    toast.error("Unable to fetch posts. Try later");
+    console.error(error);
   }
 };
 
+// TODO: Dont see the requirement now to work on this
 export const getPostsByIdHandler = async () => {};
 
-export const getPostsOfFollowingHandler = async () => {};
+export const getPostsOfFollowingHandler = async () => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const user = await getUserById(uid);
+      const followingIds = user?.following?.reduce(
+        (acc: string[], cur: any) => {
+          return [...acc, cur?.uid];
+        },
+        []
+      );
+      const q = query(
+        collection(db, "posts"),
+        where("userId", "in", [...followingIds, uid]),
+        orderBy("timeStamp", "desc")
+      );
+      const postsDocs = await getDocs(q);
+      const posts = postsDocs.docs.map((p) => ({ ...p.data() }));
+      return posts;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const createPostHandler = async (postData: PostType) => {
   try {

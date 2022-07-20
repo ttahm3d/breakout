@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import Router from "./router";
 import { useEffect } from "react";
 import { loggedInUserInfo } from "./redux/features/Auth/thunk";
+import { getAllPosts } from "./redux/features/Posts/thunk";
 
 function App(): JSX.Element {
   const [theme, setTheme] = useLocalStorage("breakout-theme", "light");
@@ -27,6 +28,7 @@ function App(): JSX.Element {
   const uid = localStorage.getItem("breakout/user-id");
   useEffect(() => {
     if (uid) dispatch(loggedInUserInfo(uid));
+    dispatch(getAllPosts());
   }, [uid, dispatch]);
 
   const showNavMenu =

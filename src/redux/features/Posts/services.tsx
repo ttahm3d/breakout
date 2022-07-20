@@ -1,7 +1,10 @@
 import {
   addDoc,
+  arrayRemove,
+  arrayUnion,
   collection,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -41,8 +44,17 @@ export const getPostsByUsernameHandler = async (userName: string) => {
   }
 };
 
-// TODO: Dont see the requirement now to work on this
-export const getPostsByIdHandler = async () => {};
+export const getPostsByIdHandler = async (postId: string) => {
+  try {
+    const docRef = doc(db, "posts", postId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+  } catch (error: any) {
+    return error;
+  }
+};
 
 export const getPostsOfFollowingHandler = async () => {
   try {
@@ -69,7 +81,17 @@ export const getPostsOfFollowingHandler = async () => {
   }
 };
 
-export const editPostHandler = async (postId: string) => {};
+export const editPostHandler = async (args: any) => {
+  try {
+    const { postId, postData } = args;
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      // const postRef = doc(db, "posts", postId);
+    }
+  } catch (error: any) {
+    console.log(error);
+  }
+};
 
 export const createPostHandler = async (postData: PostType) => {
   try {
@@ -119,6 +141,78 @@ export const uploadPostPhoto = async (file: any) => {
       toast.success("Image added successfully", { id: loading });
       const url = await getDownloadURL(uploadedPostPic);
       return url;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const likePostHandler = async (postId: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const userData = await getUserById(uid);
+      const postData = await getPostsByIdHandler(postId);
+      const userRef = doc(db, "users", uid);
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(userRef, {
+        likes: arrayUnion({
+          ...postData,
+        }),
+      });
+      await updateDoc(postRef, {
+        likes: arrayUnion({
+          uid,
+          userName: userData?.userName,
+          fullName: `${userData?.firstName} ${userData?.lastName}`,
+        }),
+      });
+      const posts = await getAllPostsHandler();
+      const timelinePosts = await getPostsOfFollowingHandler();
+      const postsOfCurrentUser = await getPostsByUsernameHandler(
+        userData?.userName
+      );
+      return {
+        posts,
+        timelinePosts,
+        postsOfCurrentUser,
+      };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const unlikePostHandler = async (postId: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const userData = await getUserById(uid);
+      const postData = await getPostsByIdHandler(postId);
+      const userRef = doc(db, "users", uid);
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(userRef, {
+        likes: arrayRemove({
+          ...postData,
+        }),
+      });
+      await updateDoc(postRef, {
+        likes: arrayRemove({
+          uid,
+          userName: userData?.userName,
+          fullName: `${userData?.firstName} ${userData?.lastName}`,
+        }),
+      });
+      const posts = await getAllPostsHandler();
+      const timelinePosts = await getPostsOfFollowingHandler();
+      const postsOfCurrentUser = await getPostsByUsernameHandler(
+        userData?.userName
+      );
+      return {
+        posts,
+        timelinePosts,
+        postsOfCurrentUser,
+      };
     }
   } catch (error) {
     console.log(error);

@@ -15,15 +15,17 @@ export type SignInType = {
 };
 
 export type UserType = {
-  uid: string | undefined;
-  firstName: string | undefined;
-  lastName: string | undefined;
-  userName: string | any;
+  bio: string;
+  bookmarks: any[];
   email: string | null;
-  photoURL: string | null;
+  firstName: string | undefined;
   followers: [User] | [];
   following: [User] | [];
-  bio: string;
+  lastName: string | undefined;
+  likes: any[];
+  photoURL: string | null;
+  uid: string | undefined;
+  userName: string | any;
   website: string;
 };
 

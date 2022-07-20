@@ -6,6 +6,7 @@ import { IoEllipsisVertical } from "react-icons/io5";
 import { FlexCenter } from "../../styles/globals";
 import { IconType } from "react-icons/lib";
 import { useAppSelector } from "../../hooks";
+import { likePostHandler } from "../../redux/features/Posts/services";
 
 type PostCardProps = {
   post: DocumentData;
@@ -29,7 +30,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     {
       id: "like",
       icon: AiOutlineLike,
-      actionHandler: () => console.log("like"),
+      actionHandler: () => likePostHandler(post?.pid),
       text: "Like",
     },
     {
@@ -216,6 +217,12 @@ const Action = styled.div`
     return props.theme.colors.violet3;
   }};
   border-bottom: 0.5px solid ${(props) => props.theme.colors.violet3};
+  color: ${(props) => {
+    if (props.theme.title === "dark") {
+      return props.theme.colors.violet9;
+    }
+    return props.theme.colors.violet9;
+  }};
 
   .icon {
     font-size: 1rem;
@@ -230,9 +237,9 @@ const Action = styled.div`
     }};
     color: ${(props) => {
       if (props.theme.title === "dark") {
-        return props.theme.colors.violet8;
+        return props.theme.colors.violet10;
       }
-      return props.theme.colors.violet8;
+      return props.theme.colors.violet10;
     }};
   }
 `;

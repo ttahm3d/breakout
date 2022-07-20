@@ -42,7 +42,15 @@ export type EditUserType = {
 };
 
 export type PostType = {
-  text: string;
+  comments?: any[];
+  content: string;
+  fullName?: string;
   imageURL?: any;
   imgAltText?: string;
+  likes?: any[];
+  pid?: string;
+  userName?: string;
+  userId?: string;
+  userImgURL?: string;
+  timeStamp?: any;
 };

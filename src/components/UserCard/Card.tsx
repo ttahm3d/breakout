@@ -22,18 +22,14 @@ export default function UserCard({
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((s) => s.authReducer.currentUser);
 
-  const handleClick = (e: any, user: any) => {
-    e.stopPropagation();
-    dispatch(followUserHandler(user?.uid));
-  };
-
   const handleFollow = (e: Event, user: any) => {
+    e.stopPropagation();
     dispatch(followUserHandler(user?.uid));
     dispatch(getUserInfo(user?.userName));
   };
 
   const handleUnfollow = (e: Event, user: any) => {
-    console.log("test", user);
+    e.stopPropagation();
     dispatch(unfollowUserHandler(user?.uid));
     dispatch(getUserInfo(user?.userName));
   };

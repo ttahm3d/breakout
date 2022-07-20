@@ -82,12 +82,14 @@ export default function AddPost(): JSX.Element {
         </>
       )}
       <BtnGroup>
-        <Button
-          variant="primary__outline"
-          radius={0.25}
-          onClick={() => setPost(initalValues)}>
-          Cancel
-        </Button>
+        {post?.content && (
+          <Button
+            variant="primary__outline"
+            radius={0.25}
+            onClick={() => setPost(initalValues)}>
+            Cancel
+          </Button>
+        )}
         <Button
           variant="primary__block"
           radius={0.25}
@@ -152,6 +154,7 @@ const PostImageInput = styled.input`
 
 const FileEmojiPicker = styled.div`
   display: flex;
+  padding: 0.5rem 0;
   gap: 0.5rem;
   font-size: 1.25rem;
 

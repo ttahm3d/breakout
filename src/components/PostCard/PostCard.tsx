@@ -198,6 +198,7 @@ const Action = styled.div`
   padding: 0.5rem 0;
   font-size: smaller;
   gap: 1rem;
+  cursor: pointer;
   background-color: ${(props) => {
     if (props.theme.title === "dark") {
       return props.theme.colors.violet2;

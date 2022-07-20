@@ -5,6 +5,7 @@ import { MdOutlineComment, MdOutlineBookmarkAdd } from "react-icons/md";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { FlexCenter } from "../../styles/globals";
 import { IconType } from "react-icons/lib";
+import { useAppSelector } from "../../hooks";
 
 type PostCardProps = {
   post: DocumentData;
@@ -17,7 +18,13 @@ type ActionType = {
   text: string;
 };
 
+const getProfileUser = (users: DocumentData[] | undefined, userId: string) =>
+  users?.find((user) => user?.uid === userId);
+
 export default function PostCard({ post }: PostCardProps): JSX.Element {
+  const { otherUsers: users } = useAppSelector((s) => s.userReducer);
+  const { currentUser: user } = useAppSelector((s) => s.authReducer);
+  const postUser = getProfileUser(users, post?.userId);
   const actions: ActionType[] = [
     {
       id: "like",
@@ -43,7 +50,10 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     <PostContainer>
       <PostHeader>
         <PostProfileImage>
-          <img src={post?.userImgURL} alt={`${post?.userName}'s profile`} />
+          <img
+            src={postUser?.photoURL || user?.photoURL}
+            alt={`${post?.userName}'s profile`}
+          />
         </PostProfileImage>
         <PostUserInfo>
           <PostFullName>{post?.fullName}</PostFullName>

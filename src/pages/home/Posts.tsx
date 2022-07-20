@@ -3,11 +3,11 @@ import PostCard from "../../components/PostCard/PostCard";
 import { useAppSelector } from "../../hooks";
 
 export default function Posts(): JSX.Element {
-  const { postsOfFollowingUsers } = useAppSelector((s) => s.postsReducer);
+  const { timelinePosts } = useAppSelector((s) => s.postsReducer);
 
   return (
     <Container>
-      {postsOfFollowingUsers?.map((post) => (
+      {timelinePosts?.map((post) => (
         <PostCard key={post?.pid} post={post} />
       ))}
     </Container>

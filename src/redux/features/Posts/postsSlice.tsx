@@ -10,14 +10,14 @@ import {
 type PostStateType = {
   posts: DocumentData[] | undefined;
   postsOfCurrentUser: DocumentData[] | undefined;
-  postsOfFollowingUsers: DocumentData[] | undefined;
+  timelinePosts: DocumentData[] | undefined;
   loading: boolean;
 };
 
 const initialState: PostStateType = {
   posts: [],
   postsOfCurrentUser: [],
-  postsOfFollowingUsers: [],
+  timelinePosts: [],
   loading: false,
 };
 
@@ -32,11 +32,15 @@ const postsSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts = action.payload;
+        state.posts = action.payload?.posts;
+        state.postsOfCurrentUser = action.payload?.postsOfCurrentUser;
+        state.timelinePosts = action.payload?.timelinePosts;
       })
       .addCase(createPost.rejected, (state) => {
         state.loading = false;
         state.posts = undefined;
+        state.postsOfCurrentUser = undefined;
+        state.timelinePosts = undefined;
       })
       .addCase(getAllPosts.pending, (state) => {
         state.loading = true;
@@ -65,11 +69,11 @@ const postsSlice = createSlice({
       })
       .addCase(getPostsOfFollowing.fulfilled, (state, action) => {
         state.loading = false;
-        state.postsOfFollowingUsers = action.payload;
+        state.timelinePosts = action.payload;
       })
       .addCase(getPostsOfFollowing.rejected, (state) => {
         state.loading = false;
-        state.postsOfFollowingUsers = undefined;
+        state.timelinePosts = undefined;
       });
   },
 });

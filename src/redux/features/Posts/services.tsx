@@ -69,6 +69,8 @@ export const getPostsOfFollowingHandler = async () => {
   }
 };
 
+export const editPostHandler = async (postId: string) => {};
+
 export const createPostHandler = async (postData: PostType) => {
   try {
     const uid = localStorage.getItem("breakout/user-id");
@@ -89,7 +91,16 @@ export const createPostHandler = async (postData: PostType) => {
       const postDoc = await addDoc(collection(db, "posts"), post);
       const postRef = doc(db, "posts", postDoc.id);
       await updateDoc(postRef, { pid: postDoc?.id });
-      return await getAllPostsHandler();
+      const posts = await getAllPostsHandler();
+      const timelinePosts = await getPostsOfFollowingHandler();
+      const postsOfCurrentUser = await getPostsByUsernameHandler(
+        user?.userName
+      );
+      return {
+        posts,
+        timelinePosts,
+        postsOfCurrentUser,
+      };
     }
   } catch (error) {
     console.log(error);

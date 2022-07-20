@@ -269,8 +269,9 @@ export const changeUserProfileImage = async (file: any) => {
   try {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
+      const user = await getUserById(uid);
       const loading = toast.loading("Uploading image...");
-      const storageRef = ref(storage, `/users/${file?.name}`);
+      const storageRef = ref(storage, `/users/${user?.userName}`);
       const uploadTask = await uploadBytesResumable(storageRef, file);
       const pathName = uploadTask?.ref?.toString();
       const uploadedPictureRef = ref(storage, pathName);

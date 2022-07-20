@@ -34,6 +34,8 @@ const Container = styled.div`
   margin-left: 0.5rem;
   padding: 0.5rem;
   height: max-content;
+  position: sticky;
+  top: 4.5rem;
 
   h3 {
     padding-bottom: 1rem;

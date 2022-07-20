@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUserInfo } from "../../redux/features/User/thunk";
 import Members from "./Members";
 import { getPostsByUserName } from "../../redux/features/Posts/thunk";
+import Posts from "./Posts";
 
 export default function LandingPage(): JSX.Element {
   const { userName } = useParams();
@@ -25,6 +26,7 @@ export default function LandingPage(): JSX.Element {
     <Container>
       <div className="left-side">
         <ProfileHeader />
+        <Posts />
       </div>
       <div className="right-side">
         <Members />
@@ -36,7 +38,7 @@ export default function LandingPage(): JSX.Element {
 const Container = styled.section`
   display: grid;
   grid-template-columns: 3fr 1fr;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0.5rem 0;
 
   .right-side {

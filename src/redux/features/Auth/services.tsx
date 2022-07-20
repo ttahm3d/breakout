@@ -50,6 +50,8 @@ export const createUser = async (signupData: SignUpType, userId: string) => {
         "https://res.cloudinary.com/dut75albw/image/upload/v1658120718/breakout/default_user_1_oemavu.png",
       followers: [],
       following: [],
+      bookmarks: [],
+      likes: [],
       bio: "",
       website: "",
     };
@@ -88,6 +90,8 @@ export const createGoogleUser = async (gUser: IAuth) => {
         photoURL: gUser.photoURL,
         followers: [],
         following: [],
+        bookmarks: [],
+        likes: [],
         bio: "",
         website: "",
       };

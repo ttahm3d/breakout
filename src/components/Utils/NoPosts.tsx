@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BreakoutBanner from "../../assets/backgrounds/BreakoutBanner.svg";
+import { FlexCenter } from "../../styles/globals";
+import NavigationLink from "../Link/Link";
 
 interface Props {
   message: string;
@@ -16,12 +19,54 @@ export default function NoPosts({
 }: Props): JSX.Element {
   return (
     <Container>
-      <h4>{message}</h4>
-      <img src={BreakoutBanner} alt="Breakout banner" />
+      <FlexCenter className="image">
+        <img src={BreakoutBanner} alt="Breakout banner" width={150} />
+      </FlexCenter>
+      <div className="message">{message}</div>
+      {redirect && redirectPath && (
+        <div className="redirection">
+          <div className="redicrect__text">{redirectText}</div>
+          <Link to={`/${redirectPath}`} className="redirect__path">
+            {redirectPath}
+          </Link>
+        </div>
+      )}
     </Container>
   );
 }
 
 const Container = styled.div`
   padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .message {
+    color: ${(props) => props.theme.colors.mauve10};
+  }
+
+  .redirection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .redicrect__text {
+    padding: 0.5rem 0;
+  }
+
+  .redirect__path {
+    border-radius: 0.25rem;
+    border: 1px solid ${(props) => props.theme.colors.plum7};
+    padding: 0.5rem 0.75rem;
+    color: ${(props) => props.theme.colors.plum10};
+    background-color: ${(props) => props.theme.colors.plum3};
+  }
+
+  img {
+    opacity: 0.7;
+  }
 `;

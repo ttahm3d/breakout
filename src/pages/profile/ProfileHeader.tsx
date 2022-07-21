@@ -218,7 +218,6 @@ const FullName = styled.div`
 `;
 
 const UserName = styled.div`
-  margin-top: -0.5rem;
   color: ${(props) => props.theme.colors.mauve10};
 `;
 

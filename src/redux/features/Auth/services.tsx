@@ -281,7 +281,6 @@ export const changeUserProfileImage = async (file: any) => {
       const uploadedPictureRef = ref(storage, pathName);
       toast.success("Profile picture change successfully", { id: loading });
       const url = await getDownloadURL(uploadedPictureRef);
-      console.log(url);
       return url;
     }
   } catch (error) {

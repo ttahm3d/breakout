@@ -4,7 +4,7 @@ import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import {
   MdOutlineExplore,
   MdPeopleOutline,
-  MdOutlineBookmarkBorder,
+  MdOutlineBookmarks,
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -42,7 +42,7 @@ export default function NavMenu(): JSX.Element {
       },
       {
         id: 4,
-        icon: MdOutlineBookmarkBorder,
+        icon: MdOutlineBookmarks,
         text: "Bookmarks",
         path: "/bookmarks",
       },

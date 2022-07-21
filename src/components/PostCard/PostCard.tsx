@@ -1,14 +1,21 @@
 import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
 import { AiFillHeart, AiOutlineHeart, AiOutlineTag } from "react-icons/ai";
-import { MdOutlineComment, MdOutlineBookmarkAdd } from "react-icons/md";
+import {
+  MdOutlineComment,
+  MdOutlineBookmarkAdd,
+  MdBookmark,
+} from "react-icons/md";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { FlexCenter } from "../../styles/globals";
 import { IconType } from "react-icons/lib";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { likePostHandler } from "../../redux/features/Posts/services";
-import { dispatch } from "react-hot-toast/dist/core/store";
-import { likePost, unLikePost } from "../../redux/features/Posts/thunk";
+import {
+  addBookmark,
+  likePost,
+  removeBookmark,
+  unLikePost,
+} from "../../redux/features/Posts/thunk";
 import { useState } from "react";
 import LikesDialog from "./LikesDialog";
 
@@ -29,6 +36,9 @@ const getProfileUser = (users: DocumentData[] | undefined, userId: string) =>
 const checkIfPostIsLiked = (post: DocumentData | undefined, uid: string) =>
   post?.likes.some((p: any) => p?.uid === uid);
 
+const checkIfPostIsBookmarked = (post: DocumentData | undefined, uid: string) =>
+  post?.bookmarks?.some((p: any) => p?.uid === uid);
+
 export default function PostCard({ post }: PostCardProps): JSX.Element {
   const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
 
@@ -41,6 +51,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
 
   const postUser = getProfileUser(users, post?.userId);
   const isLiked = checkIfPostIsLiked(post, user?.uid);
+  const isBookmarked = checkIfPostIsBookmarked(post, user?.uid);
 
   const actions: ActionType[] = [
     {
@@ -51,9 +62,11 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     },
     {
       id: "bookmark",
-      icon: MdOutlineBookmarkAdd,
-      actionHandler: () => console.log("bookmark"),
-      text: "Bookmark",
+      icon: isBookmarked ? MdBookmark : MdOutlineBookmarkAdd,
+      actionHandler: isBookmarked
+        ? () => dispatch(removeBookmark(post?.pid))
+        : () => dispatch(addBookmark(post?.pid)),
+      text: isBookmarked ? "Bookmarked" : "Bookmark",
     },
     {
       id: "like",
@@ -134,7 +147,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
 
 const PostContainer = styled.article`
   padding: 1rem 0.5rem;
-  border-bottom: 1px solid ${(props) => props.theme.colors.violet8};
+  border-bottom: 1px solid ${(props) => props.theme.colors.violet6};
 
   :hover {
     background-color: ${(props) => {
@@ -172,6 +185,7 @@ const PostProfileImage = styled.div`
 
   img {
     border-radius: 50%;
+    aspect-ratio: 1;
     border: 2px solid ${(props) => props.theme.colors.slate1};
   }
 `;

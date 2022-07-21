@@ -44,6 +44,7 @@ export type EditUserType = {
 };
 
 export type PostType = {
+  bookmarks?: any[];
   comments?: any[];
   content: string;
   fullName?: string;

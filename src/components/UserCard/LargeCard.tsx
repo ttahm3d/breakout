@@ -141,11 +141,11 @@ const Container = styled.div`
 
   .profile__text--fullname {
     color: ${(props) => props.theme.colors.gray12};
+    font-size: 1.5rem;
     font-weight: 600;
   }
 
   .profile__text--username {
-    font-size: 14px;
     color: ${(props) => props.theme.colors.mauve11};
   }
 

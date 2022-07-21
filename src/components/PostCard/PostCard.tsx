@@ -1,12 +1,16 @@
 import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
-import { AiOutlineLike, AiOutlineTag } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineTag } from "react-icons/ai";
 import { MdOutlineComment, MdOutlineBookmarkAdd } from "react-icons/md";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { FlexCenter } from "../../styles/globals";
 import { IconType } from "react-icons/lib";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { likePostHandler } from "../../redux/features/Posts/services";
+import { dispatch } from "react-hot-toast/dist/core/store";
+import { likePost, unLikePost } from "../../redux/features/Posts/thunk";
+import { useState } from "react";
+import LikesDialog from "./LikesDialog";
 
 type PostCardProps = {
   post: DocumentData;
@@ -15,24 +19,30 @@ type PostCardProps = {
 type ActionType = {
   id: string;
   icon: IconType;
-  actionHandler: (x: any) => any;
+  actionHandler: any;
   text: string;
 };
 
 const getProfileUser = (users: DocumentData[] | undefined, userId: string) =>
   users?.find((user) => user?.uid === userId);
 
+const checkIfPostIsLiked = (post: DocumentData | undefined, uid: string) =>
+  post?.likes.some((p: any) => p?.uid === uid);
+
 export default function PostCard({ post }: PostCardProps): JSX.Element {
+  const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
+
+  const openLikesDialog = () => setShowLikesDialog(true);
+  const closeLikesDialog = () => setShowLikesDialog(false);
+
+  const dispatch = useAppDispatch();
   const { otherUsers: users } = useAppSelector((s) => s.userReducer);
   const { currentUser: user } = useAppSelector((s) => s.authReducer);
+
   const postUser = getProfileUser(users, post?.userId);
+  const isLiked = checkIfPostIsLiked(post, user?.uid);
+
   const actions: ActionType[] = [
-    {
-      id: "like",
-      icon: AiOutlineLike,
-      actionHandler: () => likePostHandler(post?.pid),
-      text: "Like",
-    },
     {
       id: "comment",
       icon: MdOutlineComment,
@@ -44,6 +54,14 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
       icon: MdOutlineBookmarkAdd,
       actionHandler: () => console.log("bookmark"),
       text: "Bookmark",
+    },
+    {
+      id: "like",
+      icon: isLiked ? AiFillHeart : AiOutlineHeart,
+      actionHandler: isLiked
+        ? () => dispatch(unLikePost(post?.pid))
+        : () => dispatch(likePost(post?.pid)),
+      text: isLiked ? "Liked" : "Like",
     },
   ];
 
@@ -84,12 +102,18 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
           </PostImageContainer>
         )}
       </PostBody>
-      <PostStats>
-        {post?.likes.length === 0 ? (
-          <small>Be the first one to like</small>
-        ) : (
-          <small>Liked by {post?.likes?.length} people</small>
-        )}
+      <PostStats onClick={openLikesDialog}>
+        {isLiked
+          ? post?.likes?.length > 1
+            ? `You and ${post?.likes?.length - 1} others liked this`
+            : "You liked this"
+          : post?.likes?.length > 1
+          ? `${post?.likes[0]?.firstName} & ${
+              post?.likes?.length - 1
+            } other liked this`
+          : post?.likes?.length
+          ? `${post?.likes[0]?.firstName} liked this`
+          : "Be the first one to like this"}
       </PostStats>
       <PostActions>
         {actions.map((action) => (
@@ -99,6 +123,11 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
           </Action>
         ))}
       </PostActions>
+      <LikesDialog
+        showLikesDialog={showLikesDialog}
+        closeLikesDialog={closeLikesDialog}
+        likes={post?.likes}
+      />
     </PostContainer>
   );
 }
@@ -113,6 +142,12 @@ const PostContainer = styled.article`
         return props.theme.colors.violet2;
       }
       return props.theme.colors.violet2;
+    }};
+    opacity: ${(props) => {
+      if (props.theme.title === "dark") {
+        return 1;
+      }
+      return 1;
     }};
   }
 
@@ -143,6 +178,7 @@ const PostProfileImage = styled.div`
 
 const PostUserInfo = styled.div`
   justify-self: start;
+  align-self: center;
 `;
 
 const PostFullName = styled.div`
@@ -192,9 +228,16 @@ const PostImageAltText = styled.div`
 `;
 
 const PostStats = styled.div`
+  display: flex;
+  font-size: smaller;
   padding: 0.5rem;
   border-top: 0.5px solid ${(props) => props.theme.colors.violet4};
   border-bottom: 0.5px solid ${(props) => props.theme.colors.violet4};
+  cursor: pointer;
+
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 const PostActions = styled.div`
@@ -216,7 +259,7 @@ const Action = styled.div`
     }
     return props.theme.colors.violet3;
   }};
-  border-bottom: 0.5px solid ${(props) => props.theme.colors.violet3};
+  border-bottom: 0.5px solid ${(props) => props.theme.colors.violet4};
   color: ${(props) => {
     if (props.theme.title === "dark") {
       return props.theme.colors.violet9;
@@ -240,6 +283,15 @@ const Action = styled.div`
         return props.theme.colors.violet10;
       }
       return props.theme.colors.violet10;
+    }};
+  }
+
+  :active {
+    background-color: ${(props) => {
+      if (props.theme.title === "dark") {
+        return props.theme.colors.violet5;
+      }
+      return props.theme.colors.violet5;
     }};
   }
 `;

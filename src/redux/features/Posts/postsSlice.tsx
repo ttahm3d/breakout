@@ -1,23 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
-import {
-  createPost,
-  getAllPosts,
-  getPostsByUserName,
-  getPostsOfFollowing,
-} from "./thunk";
+import { createPost, getAllPosts, likePost, unLikePost } from "./thunk";
 
 type PostStateType = {
   posts: DocumentData[] | undefined;
-  postsOfCurrentUser: DocumentData[] | undefined;
-  timelinePosts: DocumentData[] | undefined;
   loading: boolean;
 };
 
 const initialState: PostStateType = {
   posts: [],
-  postsOfCurrentUser: [],
-  timelinePosts: [],
   loading: false,
 };
 
@@ -33,14 +24,10 @@ const postsSlice = createSlice({
       .addCase(createPost.fulfilled, (state, action) => {
         state.loading = false;
         state.posts = action.payload?.posts;
-        state.postsOfCurrentUser = action.payload?.postsOfCurrentUser;
-        state.timelinePosts = action.payload?.timelinePosts;
       })
       .addCase(createPost.rejected, (state) => {
         state.loading = false;
         state.posts = undefined;
-        state.postsOfCurrentUser = undefined;
-        state.timelinePosts = undefined;
       })
       .addCase(getAllPosts.pending, (state) => {
         state.loading = true;
@@ -53,27 +40,27 @@ const postsSlice = createSlice({
         state.loading = false;
         state.posts = undefined;
       })
-      .addCase(getPostsByUserName.pending, (state) => {
+      .addCase(likePost.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getPostsByUserName.fulfilled, (state, action) => {
+      .addCase(likePost.fulfilled, (state, action) => {
         state.loading = false;
-        state.postsOfCurrentUser = action.payload;
+        state.posts = action.payload;
       })
-      .addCase(getPostsByUserName.rejected, (state) => {
+      .addCase(likePost.rejected, (state) => {
         state.loading = false;
-        state.postsOfCurrentUser = undefined;
+        state.posts = undefined;
       })
-      .addCase(getPostsOfFollowing.pending, (state) => {
+      .addCase(unLikePost.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getPostsOfFollowing.fulfilled, (state, action) => {
+      .addCase(unLikePost.fulfilled, (state, action) => {
         state.loading = false;
-        state.timelinePosts = action.payload;
+        state.posts = action.payload;
       })
-      .addCase(getPostsOfFollowing.rejected, (state) => {
+      .addCase(unLikePost.rejected, (state) => {
         state.loading = false;
-        state.timelinePosts = undefined;
+        state.posts = undefined;
       });
   },
 });

@@ -151,32 +151,19 @@ export const likePostHandler = async (postId: string) => {
   try {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
-      const userData = await getUserById(uid);
-      const postData = await getPostsByIdHandler(postId);
-      const userRef = doc(db, "users", uid);
-      const postRef = doc(db, "posts", postId);
-      await updateDoc(userRef, {
-        likes: arrayUnion({
-          ...postData,
-        }),
-      });
-      await updateDoc(postRef, {
-        likes: arrayUnion({
-          uid,
-          userName: userData?.userName,
-          fullName: `${userData?.firstName} ${userData?.lastName}`,
-        }),
-      });
-      const posts = await getAllPostsHandler();
-      const timelinePosts = await getPostsOfFollowingHandler();
-      const postsOfCurrentUser = await getPostsByUsernameHandler(
-        userData?.userName
-      );
-      return {
-        posts,
-        timelinePosts,
-        postsOfCurrentUser,
+      const user = await getUserById(uid);
+      const userData = {
+        uid,
+        userName: user?.userName,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        photoURL: user?.photoURL,
       };
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(postRef, {
+        likes: arrayUnion(userData),
+      });
+      return await getAllPostsHandler();
     }
   } catch (error) {
     console.log(error);
@@ -187,32 +174,19 @@ export const unlikePostHandler = async (postId: string) => {
   try {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
-      const userData = await getUserById(uid);
-      const postData = await getPostsByIdHandler(postId);
-      const userRef = doc(db, "users", uid);
-      const postRef = doc(db, "posts", postId);
-      await updateDoc(userRef, {
-        likes: arrayRemove({
-          ...postData,
-        }),
-      });
-      await updateDoc(postRef, {
-        likes: arrayRemove({
-          uid,
-          userName: userData?.userName,
-          fullName: `${userData?.firstName} ${userData?.lastName}`,
-        }),
-      });
-      const posts = await getAllPostsHandler();
-      const timelinePosts = await getPostsOfFollowingHandler();
-      const postsOfCurrentUser = await getPostsByUsernameHandler(
-        userData?.userName
-      );
-      return {
-        posts,
-        timelinePosts,
-        postsOfCurrentUser,
+      const user = await getUserById(uid);
+      const likedPost = {
+        uid,
+        userName: user?.userName,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        photoURL: user?.photoURL,
       };
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(postRef, {
+        likes: arrayRemove(likedPost),
+      });
+      return await getAllPostsHandler();
     }
   } catch (error) {
     console.log(error);

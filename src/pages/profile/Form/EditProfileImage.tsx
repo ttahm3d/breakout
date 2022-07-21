@@ -71,6 +71,7 @@ export default function EditProfileImage({
 const Container = styled.div`
   .image {
     border-radius: 50%;
+    aspect-ratio: 1;
   }
 `;
 

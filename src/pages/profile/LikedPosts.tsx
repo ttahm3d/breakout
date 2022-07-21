@@ -4,16 +4,15 @@ import { Loader, NoPosts } from "../../components";
 import PostCard from "../../components/PostCard/PostCard";
 import { useAppSelector } from "../../hooks";
 
-const getPostsOfCurrentUser = (
-  posts: DocumentData[] | undefined,
-  uid: string
-) => posts && posts?.filter((post) => post?.userId === uid);
+const getLikedPosts = (posts: DocumentData[] | undefined, uid: string) =>
+  posts &&
+  posts?.filter((post) => post?.likes?.find((p: any) => p.uid === uid));
 
-export default function Posts(): JSX.Element {
+export default function LikedPosts(): JSX.Element {
   const { posts, loading } = useAppSelector((s) => s.postsReducer);
   const { user } = useAppSelector((s) => s.userReducer);
 
-  const postsOfCurrentUser = getPostsOfCurrentUser(posts, user?.uid);
+  const likedPosts = getLikedPosts(posts, user?.uid);
 
   if (loading) return <Loader />;
 
@@ -21,16 +20,16 @@ export default function Posts(): JSX.Element {
     <>
       {!loading ? (
         <>
-          {postsOfCurrentUser?.length === 0 ? (
+          {likedPosts?.length === 0 ? (
             <NoPosts
-              message="No posts to show"
+              message="You haven't liked any posts so far."
               redirect={true}
-              redirectText="Discover other people"
-              redirectPath="discover"
+              // redirectText="Discover other people"
+              redirectPath="home"
             />
           ) : (
             <Container>
-              {postsOfCurrentUser?.map((post) => (
+              {likedPosts?.map((post) => (
                 <PostCard key={post?.pid} post={post} />
               ))}
             </Container>

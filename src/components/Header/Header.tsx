@@ -24,7 +24,7 @@ export default function Header({
   const dispatch = useAppDispatch();
 
   const toggleDropdown = () => setShowDropdown((s) => !s);
-  const openDropdown = () => setShowDropdown(true);
+  // const openDropdown = () => setShowDropdown(true);
   const closeDropdown = () => setShowDropdown(false);
 
   return (
@@ -52,7 +52,12 @@ export default function Header({
                   Hi {currentUser.firstName}
                   {showDropdown && (
                     <Dropdown>
-                      <DropdownItem>Profile</DropdownItem>
+                      <DropdownItem
+                        onClick={() =>
+                          navigate(`/profile/${currentUser?.userName}`)
+                        }>
+                        Profile
+                      </DropdownItem>
                       <DropdownItem onClick={() => dispatch(signOutHandler())}>
                         Sign Out
                       </DropdownItem>

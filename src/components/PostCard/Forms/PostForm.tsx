@@ -24,7 +24,7 @@ export default function PostForm({
   };
 
   return (
-    <div>
+    <FormContainer>
       <Textarea
         id="post-text"
         value={post?.content}
@@ -82,9 +82,13 @@ export default function PostForm({
           </Button>
         ))}
       </BtnGroup>
-    </div>
+    </FormContainer>
   );
 }
+
+const FormContainer = styled.div`
+  padding: 0 1rem;
+`;
 
 const Textarea = styled.textarea`
   min-height: 6rem;

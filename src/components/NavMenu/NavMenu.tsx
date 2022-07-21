@@ -1,14 +1,16 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { IconType } from "react-icons";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import {
-  MdOutlineExplore,
+  // MdOutlineExplore,
   MdPeopleOutline,
   MdOutlineBookmarks,
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "..";
 import { useAppSelector } from "../../hooks";
+import AddDialog from "../PostCard/Dialogs/AddDialog";
 
 type MenuItemType = {
   id: number;
@@ -18,7 +20,11 @@ type MenuItemType = {
 };
 
 export default function NavMenu(): JSX.Element {
+  const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const { currentUser } = useAppSelector((s) => s.authReducer);
+
+  const openAddDialog = () => setShowAddDialog(true);
+  const closeAddDialog = () => setShowAddDialog(false);
 
   const menuItems: MenuItemType[] = useMemo(() => {
     return [
@@ -28,12 +34,12 @@ export default function NavMenu(): JSX.Element {
         text: "Home",
         path: "/home",
       },
-      {
-        id: 2,
-        icon: MdOutlineExplore,
-        text: "Explore",
-        path: "/explore",
-      },
+      // {
+      //   id: 2,
+      //   icon: MdOutlineExplore,
+      //   text: "Explore",
+      //   path: "/explore",
+      // },
       {
         id: 3,
         icon: MdPeopleOutline,
@@ -57,6 +63,15 @@ export default function NavMenu(): JSX.Element {
 
   return (
     <MenuBar>
+      <BtnContainer>
+        <AddPostBtn
+          fullwidth
+          variant="primary__block"
+          radius={0.25}
+          onClick={openAddDialog}>
+          Add Post
+        </AddPostBtn>
+      </BtnContainer>
       <MenuItemsContainer>
         {menuItems.map((item) => (
           <MenuItem to={item.path} key={item.id}>
@@ -65,6 +80,10 @@ export default function NavMenu(): JSX.Element {
           </MenuItem>
         ))}
       </MenuItemsContainer>
+      <AddDialog
+        showAddDialog={showAddDialog}
+        closeAddDialog={closeAddDialog}
+      />
     </MenuBar>
   );
 }
@@ -87,6 +106,14 @@ const MenuBar = styled.aside`
     min-height: fit-content;
     margin: 0;
   }
+`;
+
+const BtnContainer = styled.div`
+  margin: 1rem 0;
+`;
+
+const AddPostBtn = styled(Button)`
+  padding: 0.5rem 0.75rem;
 `;
 
 const MenuItemsContainer = styled.div`

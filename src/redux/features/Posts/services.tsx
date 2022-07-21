@@ -81,18 +81,6 @@ export const getPostsOfFollowingHandler = async () => {
   }
 };
 
-export const editPostHandler = async (args: any) => {
-  try {
-    const { postId, postData } = args;
-    const uid = localStorage.getItem("breakout/user-id");
-    if (uid) {
-      // const postRef = doc(db, "posts", postId);
-    }
-  } catch (error: any) {
-    console.log(error);
-  }
-};
-
 export const createPostHandler = async (postData: PostType) => {
   try {
     const uid = localStorage.getItem("breakout/user-id");
@@ -104,6 +92,7 @@ export const createPostHandler = async (postData: PostType) => {
         content: postData?.content,
         imageURL: postData?.imageURL,
         imgAltText: postData?.imgAltText,
+        isEdited: false,
         fullName: `${user?.firstName} ${user?.lastName}`,
         likes: [],
         timeStamp: serverTimestamp(),
@@ -198,7 +187,6 @@ export const addBookmarkHandler = async (postId: string) => {
   try {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
-      console.log(postId);
       const user = await getUserById(uid);
       const userData = {
         uid,
@@ -233,6 +221,25 @@ export const removeBookmarkHandler = async (postId: string) => {
       const postRef = doc(db, "posts", postId);
       await updateDoc(postRef, {
         bookmarks: arrayRemove(userData),
+      });
+      return await getAllPostsHandler();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const editPostHandler = async (postData: PostType) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid && postData?.pid) {
+      const postRef = doc(db, "posts", postData?.pid);
+      await updateDoc(postRef, {
+        content: postData?.content,
+        imageURL: postData?.imageURL,
+        imgAltText: postData?.imgAltText,
+        isEdited: true,
+        timestamps: serverTimestamp(),
       });
       return await getAllPostsHandler();
     }

@@ -50,6 +50,7 @@ export type PostType = {
   fullName?: string;
   imageURL?: any;
   imgAltText?: string;
+  isEdited: boolean;
   likes?: any[];
   pid?: string;
   userName?: string;

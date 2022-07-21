@@ -3,6 +3,7 @@ import { DocumentData } from "firebase/firestore";
 import {
   addBookmark,
   createPost,
+  editPost,
   getAllPosts,
   likePost,
   removeBookmark,
@@ -88,6 +89,17 @@ const postsSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(removeBookmark.rejected, (state) => {
+        state.loading = false;
+        state.posts = undefined;
+      })
+      .addCase(editPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(editPost.rejected, (state) => {
         state.loading = false;
         state.posts = undefined;
       });

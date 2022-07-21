@@ -39,6 +39,9 @@ const checkIfPostIsLiked = (post: DocumentData | undefined, uid: string) =>
 const checkIfPostIsBookmarked = (post: DocumentData | undefined, uid: string) =>
   post?.bookmarks?.some((p: any) => p?.uid === uid);
 
+const checkIfUserAllowedToEditDelete = (postUserId: string, uid: string) =>
+  postUserId === uid;
+
 export default function PostCard({ post }: PostCardProps): JSX.Element {
   const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
 
@@ -52,6 +55,10 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
   const postUser = getProfileUser(users, post?.userId);
   const isLiked = checkIfPostIsLiked(post, user?.uid);
   const isBookmarked = checkIfPostIsBookmarked(post, user?.uid);
+  const isAllowedToEditDelete = checkIfUserAllowedToEditDelete(
+    post?.userId,
+    user?.uid
+  );
 
   const actions: ActionType[] = [
     {
@@ -91,11 +98,13 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
           <PostFullName>{post?.fullName}</PostFullName>
           <PostUserName>&#64;{post?.userName}</PostUserName>
         </PostUserInfo>
-        <PostOptions>
-          <FlexCenter>
-            <IoEllipsisVertical />
-          </FlexCenter>
-        </PostOptions>
+        {isAllowedToEditDelete && (
+          <PostOptions>
+            <FlexCenter>
+              <IoEllipsisVertical />
+            </FlexCenter>
+          </PostOptions>
+        )}
       </PostHeader>
       <PostBody>
         <PostContent>{post?.content}</PostContent>
@@ -298,6 +307,11 @@ const Action = styled.div`
       }
       return props.theme.colors.violet10;
     }};
+  }
+
+  :focus {
+    outline: 1px solid ${(props) => props.theme.colors.violet6};
+    outline-offset: 1px;
   }
 
   :active {

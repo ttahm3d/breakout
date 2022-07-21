@@ -24,6 +24,7 @@ import {
   checkIfUserAllowedToEditDelete,
   getProfileUser,
 } from "./Utils";
+import EditDialog from "./Dialogs/EditDialog";
 
 type PostCardProps = {
   post: DocumentData;
@@ -37,11 +38,15 @@ type ActionType = {
 };
 
 export default function PostCard({ post }: PostCardProps): JSX.Element {
-  const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
   const [showOptions, setShowOptions] = useState<boolean>(false);
+
+  const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
+  const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
 
   const openLikesDialog = () => setShowLikesDialog(true);
   const closeLikesDialog = () => setShowLikesDialog(false);
+  const openEditDialog = () => setShowEditDialog(true);
+  const closeEditDialog = () => setShowEditDialog(false);
 
   const dispatch = useAppDispatch();
   const { otherUsers: users } = useAppSelector((s) => s.userReducer);
@@ -59,7 +64,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     {
       id: "edit",
       text: "Edit Post",
-      actionHandler: () => console.log("editpost"),
+      actionHandler: openEditDialog,
     },
     {
       id: "delet",
@@ -169,6 +174,11 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
         showLikesDialog={showLikesDialog}
         closeLikesDialog={closeLikesDialog}
         likes={post?.likes}
+      />
+      <EditDialog
+        showEditDialog={showEditDialog}
+        closeEditDialog={closeEditDialog}
+        postData={post}
       />
     </PostContainer>
   );

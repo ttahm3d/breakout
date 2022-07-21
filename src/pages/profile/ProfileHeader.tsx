@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Loader } from "../../components";
+import { Button } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { AiOutlineLink, AiOutlineCamera } from "react-icons/ai";
 import { FlexCenter } from "../../styles/globals";
@@ -257,10 +257,4 @@ const FFCount = styled.div`
 const FollowFollowers = styled.div`
   display: flex;
   gap: 2rem;
-`;
-
-const BtnGroup = styled.div`
-  align-self: center;
-  display: flex;
-  justify-content: space-between;
 `;

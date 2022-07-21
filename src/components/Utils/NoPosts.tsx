@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BreakoutBanner from "../../assets/backgrounds/BreakoutBanner.svg";
 import { FlexCenter } from "../../styles/globals";
-import NavigationLink from "../Link/Link";
 
 interface Props {
   message: string;

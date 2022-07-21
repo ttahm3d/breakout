@@ -21,7 +21,7 @@ export default function Bookmarks(): JSX.Element {
 
   useEffect(() => {
     dispatch(getAllPosts());
-  }, []);
+  }, [dispatch]);
 
   if (loading) return <Loader />;
 

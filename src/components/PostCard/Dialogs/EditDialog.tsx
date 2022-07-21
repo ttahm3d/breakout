@@ -2,7 +2,6 @@ import { serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
 import { useAppDispatch } from "../../../hooks";
-import { editPostHandler } from "../../../redux/features/Posts/services";
 import { editPost } from "../../../redux/features/Posts/thunk";
 import { PostType } from "../../../types";
 import Modal from "../../Modal/Modal";

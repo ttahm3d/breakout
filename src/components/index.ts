@@ -3,6 +3,7 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import FormikField from "./FormikField/FormikField";
 import Input from "./Input/Input";
+import LargeUserCard from "./UserCard/LargeCard";
 import Loader, { LoaderCircle } from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 import NavigationLink from "./Link/Link";
@@ -18,6 +19,7 @@ export {
   Footer,
   FormikField,
   Input,
+  LargeUserCard,
   Loader,
   LoaderCircle,
   Modal,

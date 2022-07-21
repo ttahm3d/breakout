@@ -12,6 +12,7 @@ import { IconType } from "react-icons/lib";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   addBookmark,
+  deletePost,
   likePost,
   removeBookmark,
   unLikePost,
@@ -25,6 +26,7 @@ import {
   getProfileUser,
 } from "./Utils";
 import EditDialog from "./Dialogs/EditDialog";
+import DeleteDialog from "./Dialogs/DeleteDialog";
 
 type PostCardProps = {
   post: DocumentData;
@@ -42,11 +44,14 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
 
   const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
 
   const openLikesDialog = () => setShowLikesDialog(true);
   const closeLikesDialog = () => setShowLikesDialog(false);
   const openEditDialog = () => setShowEditDialog(true);
   const closeEditDialog = () => setShowEditDialog(false);
+  const openDeleteDialog = () => setShowDeleteDialog(true);
+  const closeDeleteDialog = () => setShowDeleteDialog(false);
 
   const dispatch = useAppDispatch();
   const { otherUsers: users } = useAppSelector((s) => s.userReducer);
@@ -69,7 +74,22 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     {
       id: "delet",
       text: "Delete Post",
-      actionHandler: () => console.log("Delete"),
+      actionHandler: openDeleteDialog,
+    },
+  ];
+
+  const deleteActions = [
+    {
+      id: "cancel",
+      variant: "primary__outline",
+      text: "Cancel",
+      actionHandler: closeDeleteDialog,
+    },
+    {
+      id: "delete",
+      variant: "primary__block",
+      text: "Delete",
+      actionHandler: () => dispatch(deletePost(post?.pid)),
     },
   ];
 
@@ -179,6 +199,11 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
         showEditDialog={showEditDialog}
         closeEditDialog={closeEditDialog}
         postData={post}
+      />
+      <DeleteDialog
+        showDeleteDialog={showDeleteDialog}
+        closeDeleteDialog={closeDeleteDialog}
+        actions={deleteActions}
       />
     </PostContainer>
   );

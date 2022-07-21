@@ -2,6 +2,7 @@ import { DocumentData } from "firebase/firestore";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { Loader, NoPosts } from "../../components";
+import Members from "../../components/OtherUsers/Members";
 import PostCard from "../../components/PostCard/PostCard";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllPosts } from "../../redux/features/Posts/thunk";
@@ -44,6 +45,9 @@ export default function Bookmarks(): JSX.Element {
           )}
         </>
       ) : null}
+      <div className="right-side">
+        <Members />
+      </div>
     </Container>
   );
 }
@@ -52,7 +56,11 @@ const Container = styled.div`
   padding: 0.5rem 0;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  gap: 1rem;
+  gap: 0.5rem;
+
+  .right-side {
+    border-left: 1px solid ${(props) => props.theme.colors.violet7};
+  }
 `;
 
 const PostsContainer = styled.div`

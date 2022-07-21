@@ -2,6 +2,7 @@ import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
 import { Loader, NoPosts } from "../../components";
 import PostCard from "../../components/PostCard/PostCard";
+import AllCaughtUp from "../../components/Utils/AllCaughtUp";
 import { useAppSelector } from "../../hooks";
 
 const getPostsOfCurrentUser = (
@@ -33,6 +34,7 @@ export default function Posts(): JSX.Element {
               {postsOfCurrentUser?.map((post) => (
                 <PostCard key={post?.pid} post={post} />
               ))}
+              <AllCaughtUp message="That's all the posts you have made till date. Add new?" />
             </Container>
           )}
         </>

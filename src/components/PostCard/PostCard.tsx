@@ -247,7 +247,7 @@ const PostUserName = styled.div`
 const PostOptions = styled.div`
   font-size: 1.25rem;
   align-self: center;
-  justify-self: flex-end;
+  justify-self: center;
   padding: 0.25rem;
   position: relative;
   cursor: pointer;

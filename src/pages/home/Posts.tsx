@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import styled from "styled-components";
 import { NoPosts } from "../../components";
 import PostCard from "../../components/PostCard/PostCard";
+import AllCaughtUp from "../../components/Utils/AllCaughtUp";
 import { useAppSelector } from "../../hooks";
 
 export default function Posts(): JSX.Element {
@@ -39,6 +40,7 @@ export default function Posts(): JSX.Element {
           {timelinePosts?.map((post) => (
             <PostCard key={post?.pid} post={post} />
           ))}
+          <AllCaughtUp />
         </Container>
       )}
     </>

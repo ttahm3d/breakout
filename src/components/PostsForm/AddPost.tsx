@@ -14,12 +14,14 @@ export default function AddPost(): JSX.Element {
     content: "",
     imageURL: "",
     imgAltText: "",
+    isEdited: false,
   };
 
   const [post, setPost] = useState<PostType>({
     content: "",
     imageURL: "",
     imgAltText: "",
+    isEdited: false,
   });
 
   const dispatch = useAppDispatch();

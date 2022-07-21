@@ -17,7 +17,13 @@ import {
   unLikePost,
 } from "../../redux/features/Posts/thunk";
 import { useState } from "react";
-import LikesDialog from "./LikesDialog";
+import LikesDialog from "./Dialogs/LikesDialog";
+import {
+  checkIfPostIsBookmarked,
+  checkIfPostIsLiked,
+  checkIfUserAllowedToEditDelete,
+  getProfileUser,
+} from "./Utils";
 
 type PostCardProps = {
   post: DocumentData;
@@ -30,20 +36,9 @@ type ActionType = {
   text: string;
 };
 
-const getProfileUser = (users: DocumentData[] | undefined, userId: string) =>
-  users?.find((user) => user?.uid === userId);
-
-const checkIfPostIsLiked = (post: DocumentData | undefined, uid: string) =>
-  post?.likes.some((p: any) => p?.uid === uid);
-
-const checkIfPostIsBookmarked = (post: DocumentData | undefined, uid: string) =>
-  post?.bookmarks?.some((p: any) => p?.uid === uid);
-
-const checkIfUserAllowedToEditDelete = (postUserId: string, uid: string) =>
-  postUserId === uid;
-
 export default function PostCard({ post }: PostCardProps): JSX.Element {
   const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
   const openLikesDialog = () => setShowLikesDialog(true);
   const closeLikesDialog = () => setShowLikesDialog(false);
@@ -59,6 +54,19 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     post?.userId,
     user?.uid
   );
+
+  const options = [
+    {
+      id: "edit",
+      text: "Edit Post",
+      actionHandler: () => console.log("editpost"),
+    },
+    {
+      id: "delet",
+      text: "Delete Post",
+      actionHandler: () => console.log("Delete"),
+    },
+  ];
 
   const actions: ActionType[] = [
     {
@@ -99,10 +107,22 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
           <PostUserName>&#64;{post?.userName}</PostUserName>
         </PostUserInfo>
         {isAllowedToEditDelete && (
-          <PostOptions>
+          <PostOptions onClick={() => setShowOptions((s) => !s)}>
             <FlexCenter>
               <IoEllipsisVertical />
             </FlexCenter>
+            {showOptions && (
+              <div className="options__container">
+                {options.map((option) => (
+                  <div
+                    className="option"
+                    key={option.id}
+                    onClick={option.actionHandler}>
+                    {option.text}
+                  </div>
+                ))}
+              </div>
+            )}
           </PostOptions>
         )}
       </PostHeader>
@@ -127,12 +147,12 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
       <PostStats onClick={openLikesDialog}>
         {isLiked
           ? post?.likes?.length > 1
-            ? `You and ${post?.likes?.length - 1} others liked this`
+            ? `You and ${post?.likes?.length - 1} other(s) liked this`
             : "You liked this"
           : post?.likes?.length > 1
           ? `${post?.likes[0]?.firstName} & ${
               post?.likes?.length - 1
-            } other liked this`
+            } other(s) liked this`
           : post?.likes?.length
           ? `${post?.likes[0]?.firstName} liked this`
           : "Be the first one to like this"}
@@ -218,6 +238,41 @@ const PostOptions = styled.div`
   font-size: 1.25rem;
   align-self: center;
   justify-self: flex-end;
+  padding: 0.25rem;
+  position: relative;
+  cursor: pointer;
+
+  :hover {
+    background-color: ${(props) => props.theme.colors.violet4};
+  }
+
+  .options__container {
+    font-size: 14px;
+    position: absolute;
+    width: 8rem;
+    right: 0;
+    top: 110%;
+  }
+
+  .option {
+    background-color: ${(props) => props.theme.colors.violet4};
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+
+    :hover {
+      background-color: ${(props) => props.theme.colors.violet4};
+      outline: 1px solid ${(props) => props.theme.colors.violet8};
+      outline-offset: -1px;
+    }
+
+    :active {
+      background-color: ${(props) => props.theme.colors.violet5};
+    }
+
+    :not(:last-child) {
+      border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+    }
+  }
 `;
 
 const PostBody = styled.div`

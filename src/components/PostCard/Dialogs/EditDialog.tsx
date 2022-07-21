@@ -1,3 +1,4 @@
+import { serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
 import { useAppDispatch } from "../../../hooks";
@@ -25,6 +26,7 @@ export default function EditDialog({
     imgAltText: postData?.imgAltText || "",
     isEdited: false,
     pid: postData?.pid,
+    timeStamp: postData?.timeStamp,
   };
 
   const [post, setPost] = useState<PostType>({
@@ -33,14 +35,23 @@ export default function EditDialog({
     imgAltText: postData?.imgAltText || "",
     isEdited: true,
     pid: postData?.pid,
+    timeStamp: serverTimestamp(),
   });
 
   const isValidEdit = (initialValues: PostType, post: PostType) => {
-    const { content: initContent } = initialValues;
-    const { content } = post;
+    const {
+      content: initContent,
+      imgAltText: initAltText,
+      imageURL: initImgURL,
+    } = initialValues;
+    const { content, imgAltText, imageURL } = post;
 
     const isValidAdd = post?.content !== "";
-    const isValueSame = !(initContent === content);
+    const isValueSame = !(
+      initContent === content &&
+      initAltText === imgAltText &&
+      initImgURL === imageURL
+    );
 
     return isValidAdd && isValueSame;
   };
@@ -77,6 +88,7 @@ export default function EditDialog({
     <Modal
       showModal={showEditDialog}
       closeModal={closeEditDialog}
+      size="md"
       header="Edit post">
       <Container>
         <PostForm post={post} setPost={setPost} actions={actions} />

@@ -7,20 +7,26 @@ type ModalType = {
   children: JSX.Element | string;
   header?: string;
   showModal: boolean;
+  size?: "sm" | "md" | "lg";
   closeModal: () => void;
 };
+
+interface IModal {
+  size?: "sm" | "md" | "lg";
+}
 
 export default function Modal({
   children,
   header,
   showModal,
   closeModal,
+  size = "sm",
 }: ModalType) {
   return ReactDOM.createPortal(
     <>
       {showModal && (
         <StyledModalContainer onClick={closeModal}>
-          <StyledModal onClick={(e) => e.stopPropagation()}>
+          <StyledModal size={size} onClick={(e) => e.stopPropagation()}>
             <ModalHeader>
               <div>{header}</div>
               <CloseIcon
@@ -51,19 +57,39 @@ const StyledModalContainer = styled.div`
   transition: all 0.3s linear;
 `;
 
-const StyledModal = styled.div`
-  width: min(30rem, 90vw);
-  max-height: 80vh;
+const StyledModal = styled.div<IModal>`
+  width: ${(props) => {
+    if (props.size === "md") return `min(50rem, 90vw)`;
+    return "30rem";
+  }};
+  max-height: 60vh;
   background-color: ${(props) => props.theme.colors.violet1};
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${(props) => props.theme.colors.pink5};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.colors.pink8};
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${(props) => props.theme.colors.pink9};
+  }
 `;
 
 const ModalHeader = styled.div`
   padding: 1rem;
   display: flex;
-  padding-bottom: 0.5rem;
   align-items: center;
   font-size: 1.2rem;
   font-weight: 600;
+  background-color: ${(props) => props.theme.colors.violet2};
 `;
 
 const CloseIcon = styled(IconButton)`

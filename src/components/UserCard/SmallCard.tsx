@@ -60,19 +60,19 @@ export default function SmallUserCard({
       {showBtn && (
         <div className="profile__button">
           {isAlreadyBeingFollowed ? (
-            <Button
+            <FFButton
               variant="primary__cta"
               radius={3}
               onClick={(e: any) => handleUnfollow(e, user)}>
               Unfollow
-            </Button>
+            </FFButton>
           ) : (
-            <Button
+            <FFButton
               variant="primary__block"
               radius={3}
               onClick={(e: any) => handleFollow(e, user)}>
               Follow
-            </Button>
+            </FFButton>
           )}
         </div>
       )}
@@ -116,4 +116,9 @@ const Container = styled.div`
     align-self: center;
     justify-self: end;
   }
+`;
+
+const FFButton = styled(Button)`
+  width: 80px;
+  font-size: 0.88rem;
 `;

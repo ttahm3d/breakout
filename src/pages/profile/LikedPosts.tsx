@@ -24,7 +24,7 @@ export default function LikedPosts(): JSX.Element {
             <NoPosts
               message="You haven't liked any posts so far."
               redirect={true}
-              // redirectText="Discover other people"
+              redirectText="Checkout other posts that you might find interesting"
               redirectPath="home"
             />
           ) : (

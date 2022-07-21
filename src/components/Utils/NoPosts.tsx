@@ -59,11 +59,9 @@ const Container = styled.div`
   }
 
   .redirect__path {
-    border-radius: 0.25rem;
-    border: 1px solid ${(props) => props.theme.colors.plum7};
     padding: 0.5rem 0.75rem;
     color: ${(props) => props.theme.colors.plum10};
-    background-color: ${(props) => props.theme.colors.plum3};
+    border-bottom: 1px solid ${(props) => props.theme.colors.plum7};
   }
 
   img {

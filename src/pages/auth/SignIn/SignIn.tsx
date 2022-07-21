@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
 import { FlexCenter } from "../../../styles/globals";
 import {
-  googleSignInHandler,
+  googleSignUpHandler,
   signInHandler,
 } from "../../../redux/features/Auth/thunk";
 import GoogleLogo from "../../../assets/icons/GoogleLogo.svg";
@@ -95,7 +95,7 @@ export default function SingIn(): JSX.Element {
                 variant="primary__outline"
                 fullwidth
                 radius={0.25}
-                onClick={() => dispatch(googleSignInHandler())}>
+                onClick={() => dispatch(googleSignUpHandler())}>
                 <FlexCenter>
                   <FlexCenter>
                     <img src={GoogleLogo} alt="Google Logo" />

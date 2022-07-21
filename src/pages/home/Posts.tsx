@@ -1,6 +1,7 @@
 import { DocumentData } from "firebase/firestore";
 import { useMemo } from "react";
 import styled from "styled-components";
+import { NoPosts } from "../../components";
 import PostCard from "../../components/PostCard/PostCard";
 import { useAppSelector } from "../../hooks";
 
@@ -25,11 +26,22 @@ export default function Posts(): JSX.Element {
   const timelinePosts = getTimelinePosts(posts, followingIds);
 
   return (
-    <Container>
-      {timelinePosts?.map((post) => (
-        <PostCard key={post?.pid} post={post} />
-      ))}
-    </Container>
+    <>
+      {timelinePosts?.length === 0 ? (
+        <NoPosts
+          message="No posts to show"
+          redirect={true}
+          redirectText="Discover others on Breakout or add a post yourself."
+          redirectPath="discover"
+        />
+      ) : (
+        <Container>
+          {timelinePosts?.map((post) => (
+            <PostCard key={post?.pid} post={post} />
+          ))}
+        </Container>
+      )}
+    </>
   );
 }
 

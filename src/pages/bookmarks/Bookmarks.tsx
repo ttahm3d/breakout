@@ -61,6 +61,14 @@ const Container = styled.div`
   .right-side {
     border-left: 1px solid ${(props) => props.theme.colors.violet7};
   }
+
+  @media screen and (max-width: 56.25em) {
+    grid-template-columns: 1fr;
+
+    .right-side {
+      border: none;
+    }
+  }
 `;
 
 const PostsContainer = styled.div`

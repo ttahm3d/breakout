@@ -185,7 +185,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
 }
 
 const PostContainer = styled.article`
-  padding: 1rem 0.5rem;
+  padding: 1rem 0rem 0;
   border-bottom: 1px solid ${(props) => props.theme.colors.violet6};
 
   :hover {

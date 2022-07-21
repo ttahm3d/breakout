@@ -2,10 +2,12 @@ import { DocumentData } from "firebase/firestore";
 import { AiOutlineCamera } from "react-icons/ai";
 import { BsEmojiSmile } from "react-icons/bs";
 import styled from "styled-components";
+import Picker from "emoji-picker-react";
 import { uploadPostPhoto } from "../../../redux/features/Posts/services";
 import { FlexCenter } from "../../../styles/globals";
 import { PostType } from "../../../types";
 import { Button } from "../../Button/Button";
+import { useState } from "react";
 
 type FormProps = {
   post: DocumentData | PostType;
@@ -18,9 +20,18 @@ export default function PostForm({
   setPost,
   actions,
 }: FormProps): JSX.Element {
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+
+  const closeEmojiPicker = () => setShowEmojiPicker(false);
+
   const handleImage = async (file: any) => {
     const url = await uploadPostPhoto(file);
     setPost((post) => ({ ...post, imageURL: url }));
+  };
+
+  const onEmojiClick = (event: any, emojiObject: any) => {
+    setPost((p) => ({ ...p, content: p.content + emojiObject.emoji }));
+    closeEmojiPicker();
   };
 
   return (
@@ -32,22 +43,27 @@ export default function PostForm({
         onChange={(e) =>
           setPost((post) => ({ ...post, content: e.target.value }))
         }></Textarea>
-      <label htmlFor="post-image-input">
-        <PostImageInput
-          type="file"
-          name="imageURL"
-          id="post-image-input"
-          onChange={(e: any) => handleImage(e.target.files[0])}
-        />
-        <FileEmojiPicker>
+      <FileEmojiPicker>
+        <label htmlFor="post-image-input">
           <FlexCenter className="icon">
+            <PostImageInput
+              type="file"
+              name="imageURL"
+              id="post-image-input"
+              onChange={(e: any) => handleImage(e.target.files[0])}
+            />
             <AiOutlineCamera />
           </FlexCenter>
-          <FlexCenter className="icon">
-            <BsEmojiSmile />
-          </FlexCenter>
-        </FileEmojiPicker>
-      </label>
+        </label>
+        <FlexCenter className="icon emoji">
+          <BsEmojiSmile onClick={() => setShowEmojiPicker((s) => !s)} />
+          {showEmojiPicker && (
+            <EmojiPicker>
+              <Picker onEmojiClick={onEmojiClick} />
+            </EmojiPicker>
+          )}
+        </FlexCenter>
+      </FileEmojiPicker>
       {post?.imageURL && (
         <>
           <FlexCenter>
@@ -158,6 +174,10 @@ const FileEmojiPicker = styled.div`
       background-color: ${(props) => props.theme.colors.violet5};
     }
   }
+
+  .emoji {
+    position: relative;
+  }
 `;
 
 const BtnGroup = styled.div`
@@ -165,4 +185,11 @@ const BtnGroup = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
+`;
+
+const EmojiPicker = styled.div`
+  z-index: 3;
+  position: absolute;
+  left: 10px;
+  top: 110%; ;
 `;

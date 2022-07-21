@@ -3,6 +3,7 @@ import { PostType } from "../../../types";
 import {
   addBookmarkHandler,
   createPostHandler,
+  deletePostHandler,
   editPostHandler,
   getAllPostsHandler,
   getPostsByUsernameHandler,
@@ -55,4 +56,9 @@ export const removeBookmark = createAsyncThunk(
 export const editPost = createAsyncThunk(
   "posts/edit-post",
   async (postData: PostType) => await editPostHandler(postData)
+);
+
+export const deletePost = createAsyncThunk(
+  "posts/delete-post",
+  async (postId: string) => await deletePostHandler(postId)
 );

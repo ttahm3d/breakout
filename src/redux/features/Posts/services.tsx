@@ -3,6 +3,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -241,6 +242,18 @@ export const editPostHandler = async (postData: PostType) => {
         isEdited: true,
         timestamps: serverTimestamp(),
       });
+      return await getAllPostsHandler();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePostHandler = async (postId: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      await deleteDoc(doc(db, "posts", postId));
       return await getAllPostsHandler();
     }
   } catch (error) {

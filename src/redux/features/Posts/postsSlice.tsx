@@ -3,6 +3,7 @@ import { DocumentData } from "firebase/firestore";
 import {
   addBookmark,
   createPost,
+  deletePost,
   editPost,
   getAllPosts,
   likePost,
@@ -100,6 +101,17 @@ const postsSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(editPost.rejected, (state) => {
+        state.loading = false;
+        state.posts = undefined;
+      })
+      .addCase(deletePost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(deletePost.rejected, (state) => {
         state.loading = false;
         state.posts = undefined;
       });

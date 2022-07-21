@@ -21,7 +21,7 @@ export default function Bookmarks(): JSX.Element {
 const Container = styled.div`
   padding: 0.5rem 0;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 4fr 2fr;
   gap: 1rem;
 
   .profiles__container {

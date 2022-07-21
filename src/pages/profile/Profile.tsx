@@ -50,7 +50,7 @@ export default function LandingPage(): JSX.Element {
 
 const Container = styled.section`
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 4fr 2fr;
   gap: 0.5rem;
   padding: 0.5rem 0;
 

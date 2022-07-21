@@ -11,15 +11,19 @@ export default function Home() {
   if (loading) return <Loader />;
 
   return (
-    <Container>
-      <div>
-        <AddPost />
-        <Posts />
-      </div>
-      <div className="right-side">
-        <Members />
-      </div>
-    </Container>
+    <>
+      {!loading ? (
+        <Container>
+          <div>
+            <AddPost />
+            <Posts />
+          </div>
+          <div className="right-side">
+            <Members />
+          </div>
+        </Container>
+      ) : null}
+    </>
   );
 }
 

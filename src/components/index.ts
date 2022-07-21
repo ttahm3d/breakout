@@ -10,7 +10,7 @@ import NavMenu from "./NavMenu/NavMenu";
 import NoPosts from "./Utils/NoPosts";
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import Toast, { ToastComponent } from "./Toast/Toast";
-import UserCard from "./UserCard/Card";
+import SmallUserCard from "./UserCard/SmallCard";
 
 export {
   Button,
@@ -25,7 +25,7 @@ export {
   NavMenu,
   NoPosts,
   ScrollToTop,
+  SmallUserCard,
   Toast,
   ToastComponent,
-  UserCard,
 };

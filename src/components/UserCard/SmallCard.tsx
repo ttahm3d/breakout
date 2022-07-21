@@ -15,7 +15,7 @@ type CardProps = {
   showBtn?: boolean;
 };
 
-export default function UserCard({
+export default function SmallUserCard({
   user,
   showBtn = true,
 }: CardProps): JSX.Element {

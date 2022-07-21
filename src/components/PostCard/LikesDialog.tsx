@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Modal from "../Modal/Modal";
-import UserCard from "../UserCard/Card";
+import SmallUserCard from "../UserCard/SmallCard";
 
 type DialogProps = {
   showLikesDialog: boolean;
@@ -20,7 +20,7 @@ export default function LikesDialog({
       header="Liked by">
       <Container>
         {likes?.map((user: any) => (
-          <UserCard user={user} key={user?.uid} showBtn={false} />
+          <SmallUserCard user={user} key={user?.uid} showBtn={false} />
         ))}
       </Container>
     </Modal>

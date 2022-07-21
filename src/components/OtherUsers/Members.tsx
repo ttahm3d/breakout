@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import { UserCard } from "..";
+import { SmallUserCard } from "..";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUsers } from "../../redux/features/User/thunk";
 
@@ -17,7 +17,7 @@ export default function Members(): JSX.Element {
     <Container>
       <h3>Who to Follow?</h3>
       {users?.map((user) => (
-        <UserCard user={user} key={user?.uid} />
+        <SmallUserCard user={user} key={user?.uid} />
       ))}
     </Container>
   );

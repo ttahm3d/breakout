@@ -7,6 +7,7 @@ import Loader, { LoaderCircle } from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 import NavigationLink from "./Link/Link";
 import NavMenu from "./NavMenu/NavMenu";
+import NoPosts from "./Utils/NoPosts";
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
 import Toast, { ToastComponent } from "./Toast/Toast";
 import UserCard from "./UserCard/Card";
@@ -22,6 +23,7 @@ export {
   Modal,
   NavigationLink,
   NavMenu,
+  NoPosts,
   ScrollToTop,
   Toast,
   ToastComponent,

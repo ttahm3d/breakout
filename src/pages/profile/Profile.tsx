@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { Content } from "../../styles/globals";
 import ProfileHeader from "./ProfileHeader";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUserInfo } from "../../redux/features/User/thunk";
 import Members from "../../components/OtherUsers/Members";
-import { getPostsByUserName } from "../../redux/features/Posts/thunk";
 import Posts from "./Posts";
 
 export default function LandingPage(): JSX.Element {
@@ -18,7 +16,6 @@ export default function LandingPage(): JSX.Element {
   useEffect(() => {
     if (userName) {
       dispatch(getUserInfo(userName));
-      dispatch(getPostsByUserName(userName));
     }
   }, [userName, dispatch, user?.following?.length, user?.followers?.length]);
 

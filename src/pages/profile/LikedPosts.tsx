@@ -11,6 +11,7 @@ const getLikedPosts = (posts: DocumentData[] | undefined, uid: string) =>
 export default function LikedPosts(): JSX.Element {
   const { posts, loading } = useAppSelector((s) => s.postsReducer);
   const { user } = useAppSelector((s) => s.userReducer);
+  const { currentUser } = useAppSelector((s) => s.authReducer);
 
   const likedPosts = getLikedPosts(posts, user?.uid);
 
@@ -22,7 +23,11 @@ export default function LikedPosts(): JSX.Element {
         <>
           {likedPosts?.length === 0 ? (
             <NoPosts
-              message="You haven't liked any posts so far."
+              message={
+                currentUser?.email === user?.email
+                  ? "You have not like any of the posts"
+                  : `You haven't like any of ${user?.firstName}'s posts`
+              }
               redirect={true}
               redirectText="Checkout other posts that you might find interesting"
               redirectPath="home"

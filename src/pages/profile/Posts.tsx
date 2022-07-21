@@ -13,6 +13,7 @@ const getPostsOfCurrentUser = (
 export default function Posts(): JSX.Element {
   const { posts, loading } = useAppSelector((s) => s.postsReducer);
   const { user } = useAppSelector((s) => s.userReducer);
+  const { currentUser } = useAppSelector((s) => s.authReducer);
 
   const postsOfCurrentUser = getPostsOfCurrentUser(posts, user?.uid);
 
@@ -34,7 +35,13 @@ export default function Posts(): JSX.Element {
               {postsOfCurrentUser?.map((post) => (
                 <PostCard key={post?.pid} post={post} />
               ))}
-              <AllCaughtUp message="That's all the posts you have made till date. Add new?" />
+              <AllCaughtUp
+                message={
+                  currentUser?.email === user?.email
+                    ? "Thats all there to see"
+                    : `That's the end of ${user?.firstName}'s posts`
+                }
+              />
             </Container>
           )}
         </>

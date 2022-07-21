@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     background-color: ${(props) => props.theme.colors.violet1};
     color:  ${(props) => props.theme.colors.gray12};
-    font-family: "IBM Plex Sans Arabic", sans-serif;
+    font-family: "IBM Plex Sans", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

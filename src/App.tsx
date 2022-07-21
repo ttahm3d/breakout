@@ -15,6 +15,7 @@ import Router from "./router";
 import { useEffect } from "react";
 import { loggedInUserInfo } from "./redux/features/Auth/thunk";
 import { getAllPosts, getPostsOfFollowing } from "./redux/features/Posts/thunk";
+import { getUsers } from "./redux/features/User/thunk";
 
 function App(): JSX.Element {
   const [theme, setTheme] = useLocalStorage("breakout-theme", "light");
@@ -29,6 +30,7 @@ function App(): JSX.Element {
   useEffect(() => {
     if (uid) {
       dispatch(loggedInUserInfo(uid));
+      dispatch(getUsers(uid));
       dispatch(getAllPosts());
       dispatch(getPostsOfFollowing());
     }

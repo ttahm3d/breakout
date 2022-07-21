@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { LargeUserCard } from "../../components";
+import { LargeUserCard, Loader } from "../../components";
 import { useAppSelector } from "../../hooks";
 
 export default function Bookmarks(): JSX.Element {
-  const { otherUsers: users } = useAppSelector((s) => s.userReducer);
+  const { otherUsers: users, loading } = useAppSelector((s) => s.userReducer);
+
+  if (loading) return <Loader />;
 
   return (
     <Container>

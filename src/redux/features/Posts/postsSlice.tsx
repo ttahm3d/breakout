@@ -1,6 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
-import { createPost, getAllPosts, likePost, unLikePost } from "./thunk";
+import {
+  addBookmark,
+  createPost,
+  getAllPosts,
+  likePost,
+  removeBookmark,
+  unLikePost,
+} from "./thunk";
 
 type PostStateType = {
   posts: DocumentData[] | undefined;
@@ -59,6 +66,28 @@ const postsSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(unLikePost.rejected, (state) => {
+        state.loading = false;
+        state.posts = undefined;
+      })
+      .addCase(addBookmark.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addBookmark.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(addBookmark.rejected, (state) => {
+        state.loading = false;
+        state.posts = undefined;
+      })
+      .addCase(removeBookmark.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(removeBookmark.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(removeBookmark.rejected, (state) => {
         state.loading = false;
         state.posts = undefined;
       });

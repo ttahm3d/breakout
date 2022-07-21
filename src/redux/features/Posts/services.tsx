@@ -99,6 +99,7 @@ export const createPostHandler = async (postData: PostType) => {
     if (uid) {
       const user = await getUserById(uid);
       const post: PostType = {
+        bookmarks: [],
         comments: [],
         content: postData?.content,
         imageURL: postData?.imageURL,
@@ -175,7 +176,7 @@ export const unlikePostHandler = async (postId: string) => {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
       const user = await getUserById(uid);
-      const likedPost = {
+      const userData = {
         uid,
         userName: user?.userName,
         firstName: user?.firstName,
@@ -184,7 +185,54 @@ export const unlikePostHandler = async (postId: string) => {
       };
       const postRef = doc(db, "posts", postId);
       await updateDoc(postRef, {
-        likes: arrayRemove(likedPost),
+        likes: arrayRemove(userData),
+      });
+      return await getAllPostsHandler();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addBookmarkHandler = async (postId: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      console.log(postId);
+      const user = await getUserById(uid);
+      const userData = {
+        uid,
+        userName: user?.userName,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        photoURL: user?.photoURL,
+      };
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(postRef, {
+        bookmarks: arrayUnion(userData),
+      });
+      return await getAllPostsHandler();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeBookmarkHandler = async (postId: string) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const user = await getUserById(uid);
+      const userData = {
+        uid,
+        userName: user?.userName,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        photoURL: user?.photoURL,
+      };
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(postRef, {
+        bookmarks: arrayRemove(userData),
       });
       return await getAllPostsHandler();
     }

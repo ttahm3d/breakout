@@ -1,11 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { PostType } from "../../../types";
 import {
+  addBookmarkHandler,
   createPostHandler,
   getAllPostsHandler,
   getPostsByUsernameHandler,
   getPostsOfFollowingHandler,
   likePostHandler,
+  removeBookmarkHandler,
   unlikePostHandler,
 } from "./services";
 
@@ -37,4 +39,14 @@ export const likePost = createAsyncThunk(
 export const unLikePost = createAsyncThunk(
   "posts/unlike-post",
   async (postId: string) => await unlikePostHandler(postId)
+);
+
+export const addBookmark = createAsyncThunk(
+  "posts/add-bookmark",
+  async (postId: string) => await addBookmarkHandler(postId)
+);
+
+export const removeBookmark = createAsyncThunk(
+  "posts/remove-bookmark",
+  async (postId: string) => await removeBookmarkHandler(postId)
 );

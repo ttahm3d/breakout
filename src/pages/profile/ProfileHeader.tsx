@@ -167,6 +167,7 @@ const ProfileImage = styled.div`
 
   img {
     border-radius: 50%;
+    aspect-ratio: 1;
     margin-top: -2.5rem;
     margin-left: 2rem;
     border: 4px solid ${(props) => props.theme.colors.slate1};

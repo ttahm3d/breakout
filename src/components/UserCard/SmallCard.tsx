@@ -98,6 +98,7 @@ const Container = styled.div`
 
     img {
       border-radius: 50%;
+      aspect-ratio: 1;
     }
   }
 

@@ -14,7 +14,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db, storage } from "../../../configs/firebase";
-import { PostType } from "../../../types";
+import { CommentType, PostType } from "../../../types";
 import { getUserById } from "../Auth/services";
 import { toast } from "react-hot-toast";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -254,6 +254,30 @@ export const deletePostHandler = async (postId: string) => {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
       await deleteDoc(doc(db, "posts", postId));
+      return await getAllPostsHandler();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addCommentHandler = async (comment: CommentType) => {
+  try {
+    const uid = localStorage.getItem("breakout/user-id");
+    if (uid) {
+      const user = await getUserById(uid);
+      const postRef = doc(db, "posts", comment?.pid);
+      const commentData = {
+        text: comment?.text,
+        pid: comment?.pid,
+        uid,
+        userName: user?.userName,
+        photoURL: user?.photoURL,
+        fullName: `${user?.firstName} ${user?.lastName}`,
+      };
+      await updateDoc(postRef, {
+        comments: arrayUnion(commentData),
+      });
       return await getAllPostsHandler();
     }
   } catch (error) {

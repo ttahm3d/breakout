@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { PostType } from "../../../types";
+import { CommentType, PostType } from "../../../types";
 import {
   addBookmarkHandler,
+  addCommentHandler,
   createPostHandler,
   deletePostHandler,
   editPostHandler,
@@ -61,4 +62,9 @@ export const editPost = createAsyncThunk(
 export const deletePost = createAsyncThunk(
   "posts/delete-post",
   async (postId: string) => await deletePostHandler(postId)
+);
+
+export const addComment = createAsyncThunk(
+  "posts/add-comment",
+  async (comment: CommentType) => await addCommentHandler(comment)
 );

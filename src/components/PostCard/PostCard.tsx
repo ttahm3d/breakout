@@ -12,6 +12,7 @@ import { IconType } from "react-icons/lib";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   addBookmark,
+  addComment,
   deletePost,
   likePost,
   removeBookmark,
@@ -27,6 +28,8 @@ import {
 } from "./Utils";
 import EditDialog from "./Dialogs/EditDialog";
 import DeleteDialog from "./Dialogs/DeleteDialog";
+import { CommentType } from "../../types";
+import { Button } from "..";
 
 type PostCardProps = {
   post: DocumentData;
@@ -40,7 +43,12 @@ type ActionType = {
 };
 
 export default function PostCard({ post }: PostCardProps): JSX.Element {
+  const [showComment, setShowComment] = useState<boolean>(false);
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [comment, setComment] = useState<CommentType>({
+    pid: post?.pid,
+    text: "",
+  });
 
   const [showLikesDialog, setShowLikesDialog] = useState<boolean>(false);
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
@@ -64,6 +72,11 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     post?.userId,
     user?.uid
   );
+
+  const handleCommentSubmit = () => {
+    dispatch(addComment(comment));
+    setComment((c) => ({ ...c, text: "" }));
+  };
 
   const options = [
     {
@@ -97,7 +110,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
     {
       id: "comment",
       icon: MdOutlineComment,
-      actionHandler: () => console.log("comment"),
+      actionHandler: () => setShowComment((c) => !c),
       text: "Comment",
     },
     {
@@ -190,6 +203,45 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
           </Action>
         ))}
       </PostActions>
+      {showComment && (
+        <AddComment>
+          <CommentInput
+            type="text"
+            value={comment.text}
+            placeholder="Add a comment"
+            onChange={(e) =>
+              setComment((c) => ({ ...c, text: e.target.value }))
+            }
+          />
+          <CmtBtn
+            variant="secondary__block"
+            radius={0.25}
+            onClick={handleCommentSubmit}>
+            Add Comment
+          </CmtBtn>
+        </AddComment>
+      )}
+      {post?.comments?.length > 0 ? (
+        <Comments>
+          {post.comments?.map((comment: any) => (
+            <Comment key={comment?.text + comment?.text.length}>
+              <div className="image">
+                <img
+                  src={comment?.photoURL}
+                  alt={`${comment?.userName}'s avatar`}
+                />
+              </div>
+              <div className="header">
+                <div className="userinfo">
+                  <div className="fullname">{comment?.fullName}</div>
+                  <div className="userName">&#64;{comment?.userName}</div>
+                </div>
+                <div className="content">{comment?.text}</div>
+              </div>
+            </Comment>
+          ))}
+        </Comments>
+      ) : null}
       <LikesDialog
         showLikesDialog={showLikesDialog}
         closeLikesDialog={closeLikesDialog}
@@ -210,8 +262,8 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
 }
 
 const PostContainer = styled.article`
-  padding: 1rem 0rem 0;
-  border-bottom: 1px solid ${(props) => props.theme.colors.violet6};
+  padding: 1rem 0rem 0.5rem;
+  border-bottom: 2px solid ${(props) => props.theme.colors.violet8};
 
   :hover {
     background-color: ${(props) => {
@@ -411,5 +463,83 @@ const Action = styled.div`
       }
       return props.theme.colors.violet5;
     }};
+  }
+`;
+
+const AddComment = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+`;
+
+const CommentInput = styled.input`
+  width: 80%;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  background-color: inherit;
+  border: 1px solid ${(props) => props.theme.colors.violet8};
+  font-size: 1rem;
+  color: ${(props) => props.theme.colors.violet12};
+  border-radius: 0.25rem;
+
+  :focus {
+    outline: 1px solid ${(props) => props.theme.colors.violet8};
+  }
+`;
+
+const CmtBtn = styled(Button)`
+  font-size: 14px;
+  padding: 0.5rem 0.75rem;
+
+  :focus {
+    outline: 1px solid ${(props) => props.theme.colors.violet8};
+  }
+`;
+
+const Comments = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Comment = styled.div`
+  padding: 0.5rem;
+  background-color: ${(props) => props.theme.colors.violet3};
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+
+  :not(:last-child) {
+    border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+  }
+
+  .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      width: 60px;
+    }
+  }
+
+  .header {
+    grid-column: 2 / 6;
+    .userinfo {
+      .fullname {
+        color: ${(props) => props.theme.colors.slate12};
+        font-weight: 500;
+      }
+
+      .userName {
+        color: ${(props) => props.theme.colors.mauve10};
+      }
+    }
+  }
+
+  .content {
+    padding: 0.5rem;
+    background-color: ${(props) => props.theme.colors.violet2};
   }
 `;

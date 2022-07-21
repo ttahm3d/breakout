@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
 import {
   addBookmark,
+  addComment,
   createPost,
   deletePost,
   editPost,
@@ -112,6 +113,17 @@ const postsSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(deletePost.rejected, (state) => {
+        state.loading = false;
+        state.posts = undefined;
+      })
+      .addCase(addComment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload;
+      })
+      .addCase(addComment.rejected, (state) => {
         state.loading = false;
         state.posts = undefined;
       });

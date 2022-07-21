@@ -58,3 +58,12 @@ export type PostType = {
   userImgURL?: string;
   timeStamp?: any;
 };
+
+export type CommentType = {
+  pid: string;
+  text: string;
+  uid?: string;
+  userName?: string;
+  fullName?: string;
+  photoURL?: string;
+};

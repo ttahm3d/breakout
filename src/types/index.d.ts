@@ -15,15 +15,17 @@ export type SignInType = {
 };
 
 export type UserType = {
-  uid: string | undefined;
-  firstName: string | undefined;
-  lastName: string | undefined;
-  userName: string | any;
+  bio: string;
+  bookmarks: any[];
   email: string | null;
-  photoURL: string | null;
+  firstName: string | undefined;
   followers: [User] | [];
   following: [User] | [];
-  bio: string;
+  lastName: string | undefined;
+  likes: any[];
+  photoURL: string | null;
+  uid: string | undefined;
+  userName: string | any;
   website: string;
 };
 
@@ -39,4 +41,29 @@ export type EditUserType = {
   bio?: string;
   website?: string;
   userName?: string;
+};
+
+export type PostType = {
+  bookmarks?: any[];
+  comments?: any[];
+  content: string;
+  fullName?: string;
+  imageURL?: any;
+  imgAltText?: string;
+  isEdited: boolean;
+  likes?: any[];
+  pid?: string;
+  userName?: string;
+  userId?: string;
+  userImgURL?: string;
+  timeStamp?: any;
+};
+
+export type CommentType = {
+  pid: string;
+  text: string;
+  uid?: string;
+  userName?: string;
+  fullName?: string;
+  photoURL?: string;
 };

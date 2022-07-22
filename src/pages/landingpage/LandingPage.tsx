@@ -1,5 +1,11 @@
-import { Content } from "../../styles/globals";
+import Features from "./Features";
+import Hero from "./Hero";
 
-export default function Homepage(): JSX.Element {
-  return <Content>Landing Page</Content>;
+export default function LandingPage(): JSX.Element {
+  return (
+    <>
+      <Hero />
+      <Features />
+    </>
+  );
 }

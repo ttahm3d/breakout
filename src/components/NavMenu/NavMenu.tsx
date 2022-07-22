@@ -1,14 +1,16 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { IconType } from "react-icons";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import {
-  MdOutlineExplore,
+  // MdOutlineExplore,
   MdPeopleOutline,
-  MdOutlineBookmarkBorder,
+  MdOutlineBookmarks,
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "..";
 import { useAppSelector } from "../../hooks";
+import AddDialog from "../PostCard/Dialogs/AddDialog";
 
 type MenuItemType = {
   id: number;
@@ -18,7 +20,11 @@ type MenuItemType = {
 };
 
 export default function NavMenu(): JSX.Element {
+  const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const { currentUser } = useAppSelector((s) => s.authReducer);
+
+  const openAddDialog = () => setShowAddDialog(true);
+  const closeAddDialog = () => setShowAddDialog(false);
 
   const menuItems: MenuItemType[] = useMemo(() => {
     return [
@@ -28,12 +34,12 @@ export default function NavMenu(): JSX.Element {
         text: "Home",
         path: "/home",
       },
-      {
-        id: 2,
-        icon: MdOutlineExplore,
-        text: "Explore",
-        path: "/explore",
-      },
+      // {
+      //   id: 2,
+      //   icon: MdOutlineExplore,
+      //   text: "Explore",
+      //   path: "/explore",
+      // },
       {
         id: 3,
         icon: MdPeopleOutline,
@@ -42,7 +48,7 @@ export default function NavMenu(): JSX.Element {
       },
       {
         id: 4,
-        icon: MdOutlineBookmarkBorder,
+        icon: MdOutlineBookmarks,
         text: "Bookmarks",
         path: "/bookmarks",
       },
@@ -57,14 +63,29 @@ export default function NavMenu(): JSX.Element {
 
   return (
     <MenuBar>
-      <MenuItemsContainer>
-        {menuItems.map((item) => (
-          <MenuItem to={item.path} key={item.id}>
-            <div className="icon">{<item.icon />}</div>
-            <div className="text">{item.text}</div>
-          </MenuItem>
-        ))}
-      </MenuItemsContainer>
+      <Container>
+        <BtnContainer>
+          <AddPostBtn
+            fullwidth
+            variant="primary__block"
+            radius={0.25}
+            onClick={openAddDialog}>
+            Add Post
+          </AddPostBtn>
+        </BtnContainer>
+        <MenuItemsContainer>
+          {menuItems.map((item) => (
+            <MenuItem to={item.path} key={item.id}>
+              <div className="icon">{<item.icon />}</div>
+              <div className="text">{item.text}</div>
+            </MenuItem>
+          ))}
+        </MenuItemsContainer>
+        <AddDialog
+          showAddDialog={showAddDialog}
+          closeAddDialog={closeAddDialog}
+        />
+      </Container>
     </MenuBar>
   );
 }
@@ -74,11 +95,10 @@ const MenuBar = styled.aside`
   padding: 0.5rem;
   margin: 0.5rem 0;
   min-height: 80vh;
-  border-right: 1px solid ${(props) => props.theme.colors.violet7};
 
   @media screen and (max-width: 56.25em) {
     background-color: ${(props) => props.theme.colors.violet3};
-    padding: 1rem;
+    padding: 0.5rem;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -89,6 +109,23 @@ const MenuBar = styled.aside`
   }
 `;
 
+const Container = styled.div`
+  position: sticky;
+  top: 4.5rem;
+`;
+
+const BtnContainer = styled.div`
+  margin: 2rem 0;
+
+  @media screen and (max-width: 56.25em) {
+    margin: 0.5rem 0;
+  }
+`;
+
+const AddPostBtn = styled(Button)`
+  padding: 0.5rem 0.75rem;
+`;
+
 const MenuItemsContainer = styled.div`
   display: flex;
   margin: 0;
@@ -96,8 +133,6 @@ const MenuItemsContainer = styled.div`
   flex-direction: column;
   list-style: none;
   gap: 0.5rem;
-  position: sticky;
-  top: 4.5rem;
 
   @media screen and (max-width: 56.25em) {
     flex-direction: row;

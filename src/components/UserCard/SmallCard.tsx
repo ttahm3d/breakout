@@ -15,25 +15,21 @@ type CardProps = {
   showBtn?: boolean;
 };
 
-export default function UserCard({
+export default function SmallUserCard({
   user,
   showBtn = true,
 }: CardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((s) => s.authReducer.currentUser);
 
-  const handleClick = (e: any, user: any) => {
-    e.stopPropagation();
-    dispatch(followUserHandler(user?.uid));
-  };
-
   const handleFollow = (e: Event, user: any) => {
+    e.stopPropagation();
     dispatch(followUserHandler(user?.uid));
     dispatch(getUserInfo(user?.userName));
   };
 
   const handleUnfollow = (e: Event, user: any) => {
-    console.log("test", user);
+    e.stopPropagation();
     dispatch(unfollowUserHandler(user?.uid));
     dispatch(getUserInfo(user?.userName));
   };
@@ -64,19 +60,19 @@ export default function UserCard({
       {showBtn && (
         <div className="profile__button">
           {isAlreadyBeingFollowed ? (
-            <Button
+            <FFButton
               variant="primary__cta"
               radius={3}
               onClick={(e: any) => handleUnfollow(e, user)}>
               Unfollow
-            </Button>
+            </FFButton>
           ) : (
-            <Button
+            <FFButton
               variant="primary__block"
               radius={3}
               onClick={(e: any) => handleFollow(e, user)}>
               Follow
-            </Button>
+            </FFButton>
           )}
         </div>
       )}
@@ -91,7 +87,7 @@ const Container = styled.div`
   gap: 0.5rem;
 
   :hover {
-    background-color: ${(props) => props.theme.colors.violet4};
+    background-color: ${(props) => props.theme.colors.slate4};
   }
 
   .profile__image__container {
@@ -102,6 +98,7 @@ const Container = styled.div`
 
     img {
       border-radius: 50%;
+      aspect-ratio: 1;
     }
   }
 
@@ -119,4 +116,9 @@ const Container = styled.div`
     align-self: center;
     justify-self: end;
   }
+`;
+
+const FFButton = styled(Button)`
+  width: 80px;
+  font-size: 0.88rem;
 `;

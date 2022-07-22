@@ -6,12 +6,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -50,6 +45,8 @@ export const createUser = async (signupData: SignUpType, userId: string) => {
         "https://res.cloudinary.com/dut75albw/image/upload/v1658120718/breakout/default_user_1_oemavu.png",
       followers: [],
       following: [],
+      bookmarks: [],
+      likes: [],
       bio: "",
       website: "",
     };
@@ -88,6 +85,8 @@ export const createGoogleUser = async (gUser: IAuth) => {
         photoURL: gUser.photoURL,
         followers: [],
         following: [],
+        bookmarks: [],
+        likes: [],
         bio: "",
         website: "",
       };
@@ -269,14 +268,14 @@ export const changeUserProfileImage = async (file: any) => {
   try {
     const uid = localStorage.getItem("breakout/user-id");
     if (uid) {
+      const user = await getUserById(uid);
       const loading = toast.loading("Uploading image...");
-      const storageRef = ref(storage, `/users/${file?.name}`);
+      const storageRef = ref(storage, `/users/${user?.userName}`);
       const uploadTask = await uploadBytesResumable(storageRef, file);
       const pathName = uploadTask?.ref?.toString();
       const uploadedPictureRef = ref(storage, pathName);
       toast.success("Profile picture change successfully", { id: loading });
       const url = await getDownloadURL(uploadedPictureRef);
-      console.log(url);
       return url;
     }
   } catch (error) {

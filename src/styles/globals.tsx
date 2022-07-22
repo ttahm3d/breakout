@@ -5,7 +5,7 @@ type MainContainerProps = {
 };
 
 const Container = styled.section`
-  width: min(100% - 2rem, 80em);
+  width: min(100% - 2rem, 75em);
   margin: 0 auto;
 `;
 

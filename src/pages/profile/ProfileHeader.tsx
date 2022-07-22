@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Loader } from "../../components";
+import { Button } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { AiOutlineLink, AiOutlineCamera } from "react-icons/ai";
 import { FlexCenter } from "../../styles/globals";
@@ -151,7 +151,7 @@ export default function ProfileHeader(): JSX.Element {
 }
 
 const BannerSection = styled.section`
-  border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+  border-bottom: 1px solid ${(props) => props.theme.colors.slate7};
   padding: 0.5rem;
   border-radius: 0.25rem;
 `;
@@ -167,6 +167,7 @@ const ProfileImage = styled.div`
 
   img {
     border-radius: 50%;
+    aspect-ratio: 1;
     margin-top: -2.5rem;
     margin-left: 2rem;
     border: 4px solid ${(props) => props.theme.colors.slate1};
@@ -218,7 +219,6 @@ const FullName = styled.div`
 `;
 
 const UserName = styled.div`
-  margin-top: -0.5rem;
   color: ${(props) => props.theme.colors.mauve10};
 `;
 
@@ -257,10 +257,4 @@ const FFCount = styled.div`
 const FollowFollowers = styled.div`
   display: flex;
   gap: 2rem;
-`;
-
-const BtnGroup = styled.div`
-  align-self: center;
-  display: flex;
-  justify-content: space-between;
 `;

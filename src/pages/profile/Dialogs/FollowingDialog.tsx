@@ -1,6 +1,6 @@
 import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
-import { Modal, NavigationLink, UserCard } from "../../../components";
+import { Modal, NavigationLink, SmallUserCard } from "../../../components";
 
 type DialogProps = {
   showFollowingDialog: boolean;
@@ -22,7 +22,7 @@ export default function FollowingDialog({
         {following?.length !== 0 ? (
           <>
             {following?.map((user: DocumentData) => (
-              <UserCard key={user?.uid} user={user} showBtn={false} />
+              <SmallUserCard key={user?.uid} user={user} showBtn={false} />
             ))}
           </>
         ) : (

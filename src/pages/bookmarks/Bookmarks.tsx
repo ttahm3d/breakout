@@ -21,12 +21,10 @@ export default function Bookmarks(): JSX.Element {
     dispatch(getAllPosts());
   }, [dispatch]);
 
-  if (loading) return <Loader />;
-
   return (
     <Container>
       {!loading ? (
-        <>
+        <div className="left-side">
           {bookmarkedPosts?.length === 0 ? (
             <NoPosts
               message="No bookmarked posts"
@@ -41,7 +39,7 @@ export default function Bookmarks(): JSX.Element {
               ))}
             </PostsContainer>
           )}
-        </>
+        </div>
       ) : null}
       <div className="right-side">
         <Members />
@@ -56,8 +54,9 @@ const Container = styled.div`
   grid-template-columns: 4fr 2fr;
   gap: 0.5rem;
 
-  .right-side {
+  .left-side {
     border-left: 1px solid ${(props) => props.theme.colors.violet7};
+    border-right: 1px solid ${(props) => props.theme.colors.violet7};
   }
 
   @media screen and (max-width: 56.25em) {

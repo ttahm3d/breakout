@@ -13,7 +13,7 @@ export default function Home() {
     <>
       {!loading ? (
         <Container>
-          <div>
+          <div className="left-side">
             <AddPost />
             <Posts />
           </div>
@@ -32,8 +32,9 @@ const Container = styled.div`
   grid-template-columns: 4fr 2fr;
   gap: 0.5rem;
 
-  .right-side {
+  .left-side {
     border-left: 1px solid ${(props) => props.theme.colors.violet7};
+    border-right: 1px solid ${(props) => props.theme.colors.violet7};
   }
 
   @media screen and (max-width: 56.25em) {

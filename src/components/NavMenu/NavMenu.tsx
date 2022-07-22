@@ -93,7 +93,6 @@ const MenuBar = styled.aside`
   padding: 0.5rem;
   margin: 0.5rem 0;
   min-height: 80vh;
-  border-right: 1px solid ${(props) => props.theme.colors.violet7};
 
   @media screen and (max-width: 56.25em) {
     background-color: ${(props) => props.theme.colors.violet3};

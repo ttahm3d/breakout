@@ -54,6 +54,11 @@ const Container = styled.section`
   gap: 0.5rem;
   padding: 0.5rem 0;
 
+  .left-side {
+    border-left: 1px solid ${(props) => props.theme.colors.violet7};
+    border-right: 1px solid ${(props) => props.theme.colors.violet7};
+  }
+
   .tab__div {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -61,7 +66,6 @@ const Container = styled.section`
   }
 
   .right-side {
-    border-left: 1px solid ${(props) => props.theme.colors.violet7};
   }
 
   @media screen and (max-width: 56.25em) {

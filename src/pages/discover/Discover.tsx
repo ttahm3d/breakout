@@ -23,12 +23,13 @@ const Container = styled.div`
   padding: 0.5rem 0;
   display: grid;
   grid-template-columns: 4fr 2fr;
-  gap: 1rem;
+  gap: 0.5rem;
 
   .profiles__container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    border-left: 1px solid ${(props) => props.theme.colors.violet7};
+    border-right: 1px solid ${(props) => props.theme.colors.violet7};
   }
 
   @media screen and (max-width: 56.25em) {

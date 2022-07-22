@@ -14,6 +14,7 @@ export default function Bookmarks(): JSX.Element {
           <LargeUserCard user={user} key={user?.uid} showBtn={true} />
         ))}
       </div>
+      <div className="right-side"></div>
     </Container>
   );
 }
@@ -28,5 +29,13 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  @media screen and (max-width: 56.25em) {
+    grid-template-columns: 1fr;
+
+    .right-side {
+      display: none;
+    }
   }
 `;

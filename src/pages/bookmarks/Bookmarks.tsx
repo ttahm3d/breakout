@@ -64,7 +64,7 @@ const Container = styled.div`
     grid-template-columns: 1fr;
 
     .right-side {
-      border: none;
+      display: none;
     }
   }
 `;

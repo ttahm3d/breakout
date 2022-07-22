@@ -7,14 +7,17 @@ import { FiDatabase } from "react-icons/fi";
 export default function Features(): JSX.Element {
   const features = [
     {
+      id: 1,
       text: "Fast",
       icon: <AiOutlineThunderbolt />,
     },
     {
+      id: 2,
       text: "Google Authentication",
       icon: <BsGoogle />,
     },
     {
+      id: 3,
       text: "Realtime Sync with firebase",
       icon: <FiDatabase />,
     },
@@ -24,7 +27,7 @@ export default function Features(): JSX.Element {
     <Container>
       <div className="features__list">
         {features.map((feature) => (
-          <div className="feature">
+          <div className="feature" key={feature.id}>
             <div className="icon">{feature.icon}</div>
             <div className="text">{feature?.text}</div>
           </div>

@@ -30,7 +30,7 @@ export default function Header({
     <HeaderComponent>
       <Container>
         <Navbar>
-          <Logo>
+          <Logo onClick={() => navigate("/")}>
             <img src={BreakoutLogo} alt="Breakout Logo" />
           </Logo>
           <NavItems>
@@ -107,6 +107,7 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const UserInfo = styled.div`

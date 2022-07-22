@@ -65,6 +65,13 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
   const closeEditDialog = () => setShowEditDialog(false);
   const openDeleteDialog = () => setShowDeleteDialog(true);
   const closeDeleteDialog = () => setShowDeleteDialog(false);
+  const postDateTime =
+    new Date(post?.timeStamp?.seconds * 1000).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    }) +
+    ", " +
+    new Date(post?.timeStamp?.seconds * 1000).toLocaleDateString();
 
   const dispatch = useAppDispatch();
   const { otherUsers: users } = useAppSelector((s) => s.userReducer);
@@ -171,6 +178,14 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
           </PostOptions>
         )}
       </PostHeader>
+      <TimeEdit>
+        <div>{postDateTime}</div>
+        {post?.isEdited && (
+          <p>
+            <em>Edited</em>
+          </p>
+        )}
+      </TimeEdit>
       <PostBody>
         <PostContent>{post?.content}</PostContent>
         {post?.imageURL && (
@@ -356,6 +371,15 @@ const PostOptions = styled.div`
   }
 `;
 
+const TimeEdit = styled.div`
+  padding: 0 0.5rem;
+  display: flex;
+  font-size: smaller;
+  align-items: center;
+  gap: 1rem;
+  color: ${(props) => props.theme.colors.gray11};
+`;
+
 const PostBody = styled.div`
   padding: 1rem 0.5rem;
 `;
@@ -367,6 +391,10 @@ const PostContent = styled.div`
 const PostImageContainer = styled.div`
   padding: 1rem 0 0;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   img {
     object-fit: cover;

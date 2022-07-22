@@ -1,3 +1,4 @@
+import { DocumentData } from "firebase/firestore";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { NavigationLink, SmallUserCard } from "..";
@@ -5,10 +6,14 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUsers } from "../../redux/features/User/thunk";
 import { FlexCenter } from "../../styles/globals";
 
+const getFiveUsers = (users: DocumentData | undefined) => users?.slice(0, 5);
+
 export default function Members(): JSX.Element {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((s) => s.authReducer);
-  const { otherUsers: users } = useAppSelector((s) => s.userReducer);
+  const { otherUsers } = useAppSelector((s) => s.userReducer);
+
+  const users = getFiveUsers(otherUsers);
 
   useEffect(() => {
     if (currentUser?.uid) dispatch(getUsers(currentUser?.uid));
@@ -17,7 +22,7 @@ export default function Members(): JSX.Element {
   return (
     <Container>
       <h3>Who to Follow?</h3>
-      {users?.slice(0, 5).map((user) => (
+      {users?.slice(0, 5).map((user: any) => (
         <SmallUserCard user={user} key={user?.uid} />
       ))}
       <FlexCenter className="nav">

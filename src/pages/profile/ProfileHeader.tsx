@@ -151,7 +151,7 @@ export default function ProfileHeader(): JSX.Element {
 }
 
 const BannerSection = styled.section`
-  border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+  border-bottom: 1px solid ${(props) => props.theme.colors.slate7};
   padding: 0.5rem;
   border-radius: 0.25rem;
 `;

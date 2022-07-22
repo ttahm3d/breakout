@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    background-color: ${(props) => props.theme.colors.violet1};
+    background-color: ${(props) => props.theme.colors.mauve1};
     color:  ${(props) => props.theme.colors.gray12};
     font-family: "IBM Plex Sans", sans-serif;
     -webkit-font-smoothing: antialiased;

@@ -97,7 +97,7 @@ const ShowButton = styled.div`
   align-items: center;
   border-radius: 0 0.25rem 0.25rem 0;
   justify-content: center;
-  padding: 0.44rem;
+  padding: 0.35rem;
   top: 32.5%;
   right: 1px;
   font-size: 1.2rem;

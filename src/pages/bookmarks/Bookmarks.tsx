@@ -1,7 +1,13 @@
 import { DocumentData } from "firebase/firestore";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Loader, Members, NoPosts, PostCard } from "../../components";
+import {
+  AllCaughtUp,
+  Loader,
+  Members,
+  NoPosts,
+  PostCard,
+} from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllPosts } from "../../redux/features/Posts/thunk";
 
@@ -33,11 +39,14 @@ export default function Bookmarks(): JSX.Element {
               redirectPath="home"
             />
           ) : (
-            <PostsContainer>
-              {bookmarkedPosts?.map((post) => (
-                <PostCard key={post?.pid} post={post} />
-              ))}
-            </PostsContainer>
+            <>
+              <PostsContainer>
+                {bookmarkedPosts?.map((post) => (
+                  <PostCard key={post?.pid} post={post} />
+                ))}
+              </PostsContainer>
+              <AllCaughtUp message="That's all the bookmarks available for now." />
+            </>
           )}
         </div>
       ) : null}
@@ -49,14 +58,14 @@ export default function Bookmarks(): JSX.Element {
 }
 
 const Container = styled.div`
-  padding: 0.5rem 0;
   display: grid;
   grid-template-columns: 4fr 2fr;
   gap: 0.5rem;
 
   .left-side {
-    border-left: 1px solid ${(props) => props.theme.colors.violet7};
-    border-right: 1px solid ${(props) => props.theme.colors.violet7};
+    padding: 1rem 0;
+    border-left: 1px solid ${(props) => props.theme.colors.slate7};
+    border-right: 1px solid ${(props) => props.theme.colors.slate7};
   }
 
   @media screen and (max-width: 56.25em) {
@@ -64,6 +73,10 @@ const Container = styled.div`
 
     .right-side {
       display: none;
+    }
+
+    .left-side {
+      border: 0;
     }
   }
 `;

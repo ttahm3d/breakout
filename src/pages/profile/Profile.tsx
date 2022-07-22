@@ -52,9 +52,9 @@ const Container = styled.section`
   display: grid;
   grid-template-columns: 4fr 2fr;
   gap: 0.5rem;
-  padding: 0.5rem 0;
 
   .left-side {
+    padding: 1rem 0;
     border-left: 1px solid ${(props) => props.theme.colors.violet7};
     border-right: 1px solid ${(props) => props.theme.colors.violet7};
   }
@@ -71,7 +71,7 @@ const Container = styled.section`
   @media screen and (max-width: 56.25em) {
     grid-template-columns: 1fr;
 
-    .right-side {
+    .left-side {
       border: none;
     }
   }
@@ -94,12 +94,4 @@ const TabHeader = styled.div<ITab>`
     if (props.active) return props.theme.colors.slate12;
     return props.theme.colors.slate11;
   }};
-  /* border-bottom: ${(props) => {
-    if (props.active) return `1px solid ${props.theme.colors.plum7}`;
-    return `1px solid transparent`;
-  }};
-
-  :first-child {
-    border-right: 2px solid ${(props) => props.theme.colors.plum7};
-  } */
 `;

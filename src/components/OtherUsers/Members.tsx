@@ -24,12 +24,7 @@ export default function Members(): JSX.Element {
 }
 
 const Container = styled.div`
-  background-color: ${(props) => {
-    if (props.theme.title === "dark") {
-      return props.theme.colors.violet2;
-    }
-    return props.theme.colors.violet3;
-  }};
+  background-color: ${(props) => props.theme.colors.slate2};
   border-radius: 0.25rem;
   margin-left: 0.5rem;
   padding: 0.5rem;

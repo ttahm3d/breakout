@@ -24,7 +24,6 @@ export default function Header({
   const dispatch = useAppDispatch();
 
   const toggleDropdown = () => setShowDropdown((s) => !s);
-  // const openDropdown = () => setShowDropdown(true);
   const closeDropdown = () => setShowDropdown(false);
 
   return (
@@ -37,10 +36,7 @@ export default function Header({
           <NavItems>
             {currentUser !== undefined ? (
               <>
-                <UserInfo
-                  onClick={toggleDropdown}
-                  // onMouseEnter={openDropdown}
-                  onMouseLeave={closeDropdown}>
+                <UserInfo onClick={toggleDropdown} onMouseLeave={closeDropdown}>
                   <UserImage className="image">
                     <img
                       src={currentUser.photoURL}
@@ -88,8 +84,8 @@ export default function Header({
 
 const HeaderComponent = styled.header`
   padding: 0.75rem 0;
-  border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
-  background-color: ${(props) => props.theme.colors.violet1};
+  border-bottom: 1px solid ${(props) => props.theme.colors.slate6};
+  background-color: ${(props) => props.theme.colors.mauve1};
   z-index: 9;
   position: sticky;
   top: 0;
@@ -122,7 +118,7 @@ const UserInfo = styled.div`
   border-radius: 0.25rem;
   padding: 0.4rem 0.75rem;
   background-color: ${(props) => props.theme.colors.violet3};
-  color: ${(props) => props.theme.colors.violet11};
+  color: ${(props) => props.theme.colors.violet10};
 `;
 
 const UserImage = styled.div`

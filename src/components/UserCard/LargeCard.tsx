@@ -111,9 +111,7 @@ export default function LargeUserCard({
 const Container = styled.div`
   padding: 1rem;
   border-radius: 0.25rem;
-  :not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.colors.violet6};
-  }
+  border: 1px solid ${(props) => props.theme.colors.slate6};
 
   .profile__header {
     display: grid;
@@ -122,7 +120,7 @@ const Container = styled.div`
   }
 
   :hover {
-    background-color: ${(props) => props.theme.colors.violet4};
+    background-color: ${(props) => props.theme.colors.slate3};
   }
 
   .profile__text {
@@ -143,7 +141,7 @@ const Container = styled.div`
 
   .profile__text--fullname {
     color: ${(props) => props.theme.colors.gray12};
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
   }
 

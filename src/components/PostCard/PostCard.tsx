@@ -40,7 +40,12 @@ type ActionType = {
   icon: IconType;
   actionHandler: any;
   text: string;
+  active?: boolean;
 };
+
+interface IAction {
+  active?: boolean;
+}
 
 export default function PostCard({ post }: PostCardProps): JSX.Element {
   const [showComment, setShowComment] = useState<boolean>(false);
@@ -120,6 +125,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
         ? () => dispatch(removeBookmark(post?.pid))
         : () => dispatch(addBookmark(post?.pid)),
       text: isBookmarked ? "Bookmarked" : "Bookmark",
+      active: isBookmarked,
     },
     {
       id: "like",
@@ -128,6 +134,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
         ? () => dispatch(unLikePost(post?.pid))
         : () => dispatch(likePost(post?.pid)),
       text: isLiked ? "Liked" : "Like",
+      active: isLiked,
     },
   ];
 
@@ -197,7 +204,10 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
       </PostStats>
       <PostActions>
         {actions.map((action) => (
-          <Action key={action.id} onClick={action.actionHandler}>
+          <Action
+            key={action.id}
+            onClick={action.actionHandler}
+            active={action.active}>
             <FlexCenter className="icon">{<action.icon />}</FlexCenter>
             <div>{action.text}</div>
           </Action>
@@ -216,6 +226,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
           <CmtBtn
             variant="secondary__block"
             radius={0.25}
+            fullwidth
             onClick={handleCommentSubmit}>
             Add Comment
           </CmtBtn>
@@ -262,31 +273,13 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
 }
 
 const PostContainer = styled.article`
-  padding: 1rem 0rem 0.5rem;
-  border-bottom: 2px solid ${(props) => props.theme.colors.violet8};
-
-  :hover {
-    background-color: ${(props) => {
-      if (props.theme.title === "dark") {
-        return props.theme.colors.violet2;
-      }
-      return props.theme.colors.violet2;
-    }};
-    opacity: ${(props) => {
-      if (props.theme.title === "dark") {
-        return 1;
-      }
-      return 1;
-    }};
-  }
-
-  :last-child {
-    border: none;
-  }
+  border-bottom: 1px solid ${(props) => props.theme.colors.violet6};
 `;
 
 const PostHeader = styled.div`
+  padding: 0.5rem;
   display: grid;
+  gap: 0.5rem;
   grid-template-columns: 1fr 6fr 1fr;
 `;
 
@@ -313,12 +306,13 @@ const PostUserInfo = styled.div`
 
 const PostFullName = styled.div`
   font-size: clamp(1rem, 10vw, 1.2rem);
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: -0.15px;
   margin: 0;
 `;
 
 const PostUserName = styled.div`
-  color: ${(props) => props.theme.colors.mauve10};
+  color: ${(props) => props.theme.colors.gray10};
 `;
 
 const PostOptions = styled.div`
@@ -330,7 +324,7 @@ const PostOptions = styled.div`
   cursor: pointer;
 
   :hover {
-    background-color: ${(props) => props.theme.colors.violet4};
+    background-color: ${(props) => props.theme.colors.gray4};
   }
 
   .options__container {
@@ -371,7 +365,7 @@ const PostContent = styled.div`
 `;
 
 const PostImageContainer = styled.div`
-  padding: 0.5rem 0 0;
+  padding: 1rem 0 0;
   position: relative;
 
   img {
@@ -381,9 +375,9 @@ const PostImageContainer = styled.div`
 
 const PostImageAltText = styled.div`
   margin-top: 0.5rem;
-  background-color: ${(props) => props.theme.colors.violet3};
-  color: ${(props) => props.theme.colors.violet9};
-  border: 1px solid ${(props) => props.theme.colors.violet7};
+  background-color: ${(props) => props.theme.colors.mauve3};
+  color: ${(props) => props.theme.colors.slate11};
+  border: 1px solid ${(props) => props.theme.colors.slate6};
   padding: 0.25rem;
   width: fit-content;
 
@@ -396,8 +390,8 @@ const PostStats = styled.div`
   display: flex;
   font-size: smaller;
   padding: 0.5rem;
-  border-top: 0.5px solid ${(props) => props.theme.colors.violet4};
-  border-bottom: 0.5px solid ${(props) => props.theme.colors.violet4};
+  border-top: 1px solid ${(props) => props.theme.colors.gray4};
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray4};
   cursor: pointer;
 
   :hover {
@@ -410,7 +404,7 @@ const PostActions = styled.div`
   grid-template-columns: repeat(3, 1fr);
 `;
 
-const Action = styled.div`
+const Action = styled.div<IAction>`
   display: flex;
   align-content: center;
   justify-content: center;
@@ -418,37 +412,23 @@ const Action = styled.div`
   font-size: smaller;
   gap: 1rem;
   cursor: pointer;
-  background-color: ${(props) => {
-    if (props.theme.title === "dark") {
-      return props.theme.colors.violet2;
-    }
-    return props.theme.colors.violet3;
-  }};
-  border-bottom: 0.5px solid ${(props) => props.theme.colors.violet4};
-  color: ${(props) => {
-    if (props.theme.title === "dark") {
-      return props.theme.colors.violet9;
-    }
-    return props.theme.colors.violet9;
-  }};
+  border-bottom: 0.5px solid ${(props) => props.theme.colors.mauve4};
+  color: ${(props) => props.theme.colors.slate11};
 
   .icon {
     font-size: 1rem;
+
+    color: ${(props) => {
+      if (props.active) {
+        return props.theme.colors.red10;
+      }
+      return props.theme.colors.slate11;
+    }};
   }
 
   :hover {
-    background-color: ${(props) => {
-      if (props.theme.title === "dark") {
-        return props.theme.colors.violet3;
-      }
-      return props.theme.colors.violet4;
-    }};
-    color: ${(props) => {
-      if (props.theme.title === "dark") {
-        return props.theme.colors.violet10;
-      }
-      return props.theme.colors.violet10;
-    }};
+    background-color: ${(props) => props.theme.colors.violet3};
+    color: ${(props) => props.theme.colors.violet10};
   }
 
   :focus {
@@ -467,18 +447,22 @@ const Action = styled.div`
 `;
 
 const AddComment = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0.5rem;
   gap: 0.5rem;
   align-items: center;
+  justify-content: center;
 `;
 
 const CommentInput = styled.input`
-  width: 80%;
+  grid-column: 1/6;
+  width: 100%;
   margin: 0.5rem auto;
-  padding: 0.5rem;
+  padding: 0.45rem;
   background-color: inherit;
   border: 1px solid ${(props) => props.theme.colors.violet8};
-  font-size: 1rem;
+  font-size: smaller;
   color: ${(props) => props.theme.colors.violet12};
   border-radius: 0.25rem;
 
@@ -488,6 +472,7 @@ const CommentInput = styled.input`
 `;
 
 const CmtBtn = styled(Button)`
+  grid-column: 6/8;
   font-size: 14px;
   padding: 0.5rem 0.75rem;
 
@@ -503,13 +488,16 @@ const Comments = styled.div`
 
 const Comment = styled.div`
   padding: 0.5rem;
-  background-color: ${(props) => props.theme.colors.violet3};
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 0.5rem;
 
   :not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+    border-bottom: 1px solid ${(props) => props.theme.colors.gray8};
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.colors.mauve3};
   }
 
   .image {
@@ -520,13 +508,13 @@ const Comment = styled.div`
     img {
       aspect-ratio: 1;
       border-radius: 50%;
-      width: 60px;
+      width: 50px;
     }
   }
 
   .header {
     grid-column: 2 / 8;
-    align-self: center;
+    align-items: center;
 
     .userinfo {
       display: flex;
@@ -547,8 +535,7 @@ const Comment = styled.div`
 
   .content {
     font-size: smaller;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    background-color: ${(props) => props.theme.colors.violet2};
+    padding: 0.5rem 0;
+    color: ${(props) => props.theme.colors.gray11};
   }
 `;

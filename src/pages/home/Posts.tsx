@@ -1,12 +1,14 @@
 import { DocumentData } from "firebase/firestore";
 import { useMemo } from "react";
 import styled from "styled-components";
-import { NoPosts, PostCard, AllCaughtUp } from "../../components";
+import { AllCaughtUp, NoPosts, PostCard, Loader } from "../../components";
 import { useAppSelector } from "../../hooks";
 
 export default function Posts(): JSX.Element {
-  const { posts } = useAppSelector((s) => s.postsReducer);
-  const { currentUser } = useAppSelector((s) => s.authReducer);
+  const { posts, loading } = useAppSelector((s) => s.postsReducer);
+  const { currentUser, loading: authLoader } = useAppSelector(
+    (s) => s.authReducer
+  );
 
   const followingIds = useMemo(() => {
     return currentUser?.following?.reduce(
@@ -23,6 +25,8 @@ export default function Posts(): JSX.Element {
   ) => posts?.filter((post) => userIds.includes(post?.userId));
 
   const timelinePosts = getTimelinePosts(posts, followingIds);
+
+  if (loading || authLoader) return <Loader />;
 
   return (
     <>

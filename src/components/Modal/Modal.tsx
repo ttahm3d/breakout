@@ -49,7 +49,7 @@ const StyledModalContainer = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: rgba(37, 30, 64, 0.6);
+  background-color: rgba(22, 22, 24, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,10 +60,10 @@ const StyledModalContainer = styled.div`
 const StyledModal = styled.div<IModal>`
   width: ${(props) => {
     if (props.size === "md") return `min(50rem, 90vw)`;
-    return "30rem";
+    return `min(30rem, 90vw)`;
   }};
   max-height: 60vh;
-  background-color: ${(props) => props.theme.colors.violet1};
+  background-color: ${(props) => props.theme.colors.mauve1};
   overflow-y: auto;
 
   ::-webkit-scrollbar {
@@ -89,7 +89,7 @@ const ModalHeader = styled.div`
   align-items: center;
   font-size: 1.2rem;
   font-weight: 600;
-  background-color: ${(props) => props.theme.colors.violet2};
+  background-color: ${(props) => props.theme.colors.mauve2};
 `;
 
 const CloseIcon = styled(IconButton)`
@@ -99,11 +99,11 @@ const CloseIcon = styled(IconButton)`
   color: ${(props) => props.theme.colors.red10};
 
   :hover {
-    background-color: ${(props) => props.theme.colors.red5};
+    background-color: ${(props) => props.theme.colors.red4};
   }
 
   :active {
-    background-color: ${(props) => props.theme.colors.red6};
+    background-color: ${(props) => props.theme.colors.red5};
   }
 `;
 

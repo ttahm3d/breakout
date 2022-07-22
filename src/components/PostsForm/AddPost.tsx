@@ -55,5 +55,5 @@ export default function AddPost(): JSX.Element {
 
 const Container = styled.div`
   padding: 0.5rem 0 1rem;
-  border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+  border-bottom: 1px solid ${(props) => props.theme.colors.slate7};
 `;

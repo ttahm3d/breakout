@@ -101,9 +101,9 @@ export default function Footer() {
 }
 
 const FooterWrapper = styled.footer`
-  padding: 2rem 0 6rem;
+  padding: 2rem 0 8rem;
   margin-top: auto;
-  border-top: 1px solid ${(props) => props.theme.colors.violet7};
+  border-top: 1px solid ${(props) => props.theme.colors.slate6};
 
   @media screen and (min-width: 56.25em) {
     padding: 2rem 0;

@@ -19,9 +19,17 @@ export default function LikesDialog({
       closeModal={closeLikesDialog}
       header="Liked by">
       <Container>
-        {likes?.map((user: any) => (
-          <SmallUserCard user={user} key={user?.uid} showBtn={false} />
-        ))}
+        {likes?.length !== 0 ? (
+          <>
+            {likes?.map((user: any) => (
+              <SmallUserCard key={user?.uid} user={user} showBtn={false} />
+            ))}
+          </>
+        ) : (
+          <div className="message__container">
+            <p>This post hasn't been liked by anyone</p>
+          </div>
+        )}
       </Container>
     </Modal>
   );
@@ -29,4 +37,11 @@ export default function LikesDialog({
 
 const Container = styled.div`
   padding: 1rem;
+
+  .message__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 `;

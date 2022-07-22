@@ -20,12 +20,12 @@ export default function Bookmarks(): JSX.Element {
 }
 
 const Container = styled.div`
-  padding: 0.5rem 0;
   display: grid;
   grid-template-columns: 4fr 2fr;
   gap: 0.5rem;
 
   .profiles__container {
+    padding: 1rem 0;
     display: flex;
     flex-direction: column;
     border-left: 1px solid ${(props) => props.theme.colors.violet7};
@@ -34,6 +34,10 @@ const Container = styled.div`
 
   @media screen and (max-width: 56.25em) {
     grid-template-columns: 1fr;
+
+    .profiles__container {
+      border: 0;
+    }
 
     .right-side {
       display: none;

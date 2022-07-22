@@ -87,7 +87,7 @@ const Container = styled.div`
   gap: 0.5rem;
 
   :hover {
-    background-color: ${(props) => props.theme.colors.violet4};
+    background-color: ${(props) => props.theme.colors.slate4};
   }
 
   .profile__image__container {

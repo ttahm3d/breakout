@@ -19,7 +19,7 @@ export default function AllCaughtUp({ message = "" }: ACProps): JSX.Element {
 }
 
 const Container = styled.div`
-  padding: 1rem;
+  padding: 10rem 0 5rem;
   display: flex;
   align-items: center;
   justify-content: center;

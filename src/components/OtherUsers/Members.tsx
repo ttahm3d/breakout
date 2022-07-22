@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import { SmallUserCard } from "..";
+import { NavigationLink, SmallUserCard } from "..";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUsers } from "../../redux/features/User/thunk";
+import { FlexCenter } from "../../styles/globals";
 
 export default function Members(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,15 +17,18 @@ export default function Members(): JSX.Element {
   return (
     <Container>
       <h3>Who to Follow?</h3>
-      {users?.map((user) => (
+      {users?.slice(0, 5).map((user) => (
         <SmallUserCard user={user} key={user?.uid} />
       ))}
+      <FlexCenter className="nav">
+        <NavigationLink to="/discover">View All</NavigationLink>
+      </FlexCenter>
     </Container>
   );
 }
 
 const Container = styled.div`
-  background-color: ${(props) => props.theme.colors.slate2};
+  background-color: ${(props) => props.theme.colors.gray2};
   border-radius: 0.25rem;
   margin-left: 0.5rem;
   padding: 0.5rem;
@@ -38,5 +42,9 @@ const Container = styled.div`
 
   @media screen and (max-width: 56.25em) {
     display: none;
+  }
+
+  .nav {
+    padding: 1rem 0;
   }
 `;

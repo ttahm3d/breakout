@@ -153,12 +153,12 @@ const MenuItem = styled(NavLink)`
   cursor: pointer;
 
   &[aria-current] {
-    background-color: ${(props) => props.theme.colors.plum4};
+    background-color: ${(props) => props.theme.colors.plum5};
     color: ${(props) => props.theme.colors.slate12};
   }
 
   :hover {
-    background-color: ${(props) => props.theme.colors.plum3};
+    background-color: ${(props) => props.theme.colors.plum4};
     color: ${(props) => props.theme.colors.gray12};
   }
 

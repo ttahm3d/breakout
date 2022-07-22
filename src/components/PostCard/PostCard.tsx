@@ -505,7 +505,7 @@ const Comment = styled.div`
   padding: 0.5rem;
   background-color: ${(props) => props.theme.colors.violet3};
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 0.5rem;
 
   :not(:last-child) {
@@ -513,9 +513,9 @@ const Comment = styled.div`
   }
 
   .image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    grid-column: 1/2;
+    align-self: center;
+    justify-self: center;
 
     img {
       aspect-ratio: 1;
@@ -525,21 +525,30 @@ const Comment = styled.div`
   }
 
   .header {
-    grid-column: 2 / 6;
+    grid-column: 2 / 8;
+    align-self: center;
+
     .userinfo {
+      display: flex;
+      gap: 0.5rem;
+
       .fullname {
+        grid-column: 2 / 4;
         color: ${(props) => props.theme.colors.slate12};
         font-weight: 500;
       }
 
       .userName {
+        grid-column: 4 / 5;
         color: ${(props) => props.theme.colors.mauve10};
       }
     }
   }
 
   .content {
+    font-size: smaller;
     padding: 0.5rem;
+    margin: 0.5rem 0;
     background-color: ${(props) => props.theme.colors.violet2};
   }
 `;

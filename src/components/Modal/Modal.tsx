@@ -62,7 +62,7 @@ const StyledModal = styled.div<IModal>`
     if (props.size === "md") return `min(50rem, 90vw)`;
     return `min(30rem, 90vw)`;
   }};
-  max-height: 60vh;
+  height: min-content(45vh, 700px);
   background-color: ${(props) => props.theme.colors.mauve1};
   overflow-y: auto;
 

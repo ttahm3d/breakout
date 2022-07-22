@@ -102,8 +102,13 @@ export const createGoogleUser = async (gUser: IAuth) => {
 export const googleSignIn = async () => {
   try {
     const response = await signInWithPopup(auth, googleAuthProvider);
-    localStorage.setItem("breakout/user-id", response?.user?.uid);
-    Toast({ message: "Sign in Successful", type: "success" });
+    const user = await getUserById(response.user.uid);
+    if (user?.uid) {
+      localStorage.setItem("breakout/user-id", response?.user?.uid);
+      Toast({ message: "Sign in Successful", type: "success" });
+    } else {
+      toast.error("Please signup using you Google Account");
+    }
     return await getUserById(response?.user?.uid);
   } catch (error: any) {
     Toast({
@@ -153,6 +158,7 @@ export const emailPasswordSignIn = async (signinData: SignInType) => {
   try {
     const { email, password } = signinData;
     const response = await signInWithEmailAndPassword(auth, email, password);
+    const user = await getUserById(response.user.uid);
     localStorage.setItem("breakout/user-id", response?.user?.uid);
     Toast({ message: "Sign In Successful", type: "success" });
     return await getUserById(response?.user?.uid);

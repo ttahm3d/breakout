@@ -11,7 +11,7 @@ export default function Toast({ message, type }: ToastType) {
 }
 
 export function ToastComponent(props: any) {
-  return <StyledToaster />;
+  return <StyledToaster theme={props.theme} />;
 }
 
 const StyledToaster = styled(Toaster)`

@@ -1,9 +1,7 @@
 import { DocumentData } from "firebase/firestore";
 import { useMemo } from "react";
 import styled from "styled-components";
-import { NoPosts } from "../../components";
-import PostCard from "../../components/PostCard/PostCard";
-import AllCaughtUp from "../../components/Utils/AllCaughtUp";
+import { NoPosts, PostCard, AllCaughtUp } from "../../components";
 import { useAppSelector } from "../../hooks";
 
 export default function Posts(): JSX.Element {

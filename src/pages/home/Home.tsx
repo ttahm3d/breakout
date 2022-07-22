@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { Loader } from "../../components";
-import Members from "../../components/OtherUsers/Members";
-import AddPost from "../../components/PostsForm/AddPost";
+import { Loader, Members } from "../../components";
+import AddPost from "./AddPost";
 import { useAppSelector } from "../../hooks";
 import Posts from "./Posts";
 

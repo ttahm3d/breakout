@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getUserInfo } from "../../redux/features/User/thunk";
-import Members from "../../components/OtherUsers/Members";
+import { Members } from "../../components";
 import Posts from "./Posts";
 import { FlexCenter } from "../../styles/globals";
 import LikedPosts from "./LikedPosts";

@@ -1,7 +1,6 @@
 import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
-import { Loader, NoPosts } from "../../components";
-import PostCard from "../../components/PostCard/PostCard";
+import { Loader, NoPosts, PostCard } from "../../components";
 import { useAppSelector } from "../../hooks";
 
 const getLikedPosts = (posts: DocumentData[] | undefined, uid: string) =>

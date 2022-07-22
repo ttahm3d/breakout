@@ -1,9 +1,7 @@
 import { DocumentData } from "firebase/firestore";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Loader, NoPosts } from "../../components";
-import Members from "../../components/OtherUsers/Members";
-import PostCard from "../../components/PostCard/PostCard";
+import { Loader, Members, NoPosts, PostCard } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllPosts } from "../../redux/features/Posts/thunk";
 

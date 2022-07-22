@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import Loader from "../components/Loader/Loader";
+import { Loader } from "../components";
 import RequireAuth from "./RequireAuth";
 import RedirectAuth from "./RedirectAuth";
 

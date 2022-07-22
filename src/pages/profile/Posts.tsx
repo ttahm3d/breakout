@@ -1,8 +1,6 @@
 import { DocumentData } from "firebase/firestore";
 import styled from "styled-components";
-import { Loader, NoPosts } from "../../components";
-import PostCard from "../../components/PostCard/PostCard";
-import AllCaughtUp from "../../components/Utils/AllCaughtUp";
+import { AllCaughtUp, Loader, NoPosts, PostCard } from "../../components";
 import { useAppSelector } from "../../hooks";
 
 const getPostsOfCurrentUser = (

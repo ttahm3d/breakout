@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import styled from "styled-components";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch, useDocumentTitle } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
 import {
   signUpHandler,
@@ -66,6 +66,8 @@ export default function SignUp(): JSX.Element {
       },
     ];
   }, []);
+
+  useDocumentTitle({ title: "SignUp | Breakout" });
 
   return (
     <FormContainer>

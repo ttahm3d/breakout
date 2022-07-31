@@ -1,14 +1,8 @@
 import { DocumentData } from "firebase/firestore";
 import { useEffect } from "react";
 import styled from "styled-components";
-import {
-  AllCaughtUp,
-  Loader,
-  Members,
-  NoPosts,
-  PostCard,
-} from "../../components";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { AllCaughtUp, Members, NoPosts, PostCard } from "../../components";
+import { useAppDispatch, useAppSelector, useDocumentTitle } from "../../hooks";
 import { getAllPosts } from "../../redux/features/Posts/thunk";
 
 const getBookmarkedPosts = (posts: DocumentData[] | undefined, uid: string) =>
@@ -26,6 +20,8 @@ export default function Bookmarks(): JSX.Element {
   useEffect(() => {
     dispatch(getAllPosts());
   }, [dispatch]);
+
+  useDocumentTitle({ title: "Bookmarks | Breakout" });
 
   return (
     <Container>

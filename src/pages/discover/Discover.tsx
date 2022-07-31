@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { LargeUserCard, Loader } from "../../components";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useDocumentTitle } from "../../hooks";
 
 export default function Bookmarks(): JSX.Element {
   const { otherUsers: users, loading } = useAppSelector((s) => s.userReducer);
 
+  useDocumentTitle({ title: "Discover | Breakout" });
   if (loading) return <Loader />;
 
   return (

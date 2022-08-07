@@ -97,11 +97,11 @@ const FilterButton = styled.button<IFilter>`
     return props.theme.colors.plum3;
   }};
   color: ${(props) => {
-    if (props.active) return props.theme.colors.plum12;
+    if (props.active) return props.theme.colors.white;
     return props.theme.colors.plum10;
   }};
   padding: 0.25rem 0.75rem;
-  border: 0;
+  border: 1px solid ${(props) => props.theme.colors.plum7};
 
   :first-child {
     border-top-left-radius: 2rem;

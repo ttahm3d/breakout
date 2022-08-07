@@ -57,14 +57,14 @@ const Container = styled.section`
 
   .left-side {
     padding: 1rem 0;
-    border-left: 1px solid ${(props) => props.theme.colors.violet7};
-    border-right: 1px solid ${(props) => props.theme.colors.violet7};
+    border-left: 1px solid ${(props) => props.theme.colors.slate7};
+    border-right: 1px solid ${(props) => props.theme.colors.slate7};
   }
 
   .tab__div {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid ${(props) => props.theme.colors.violet7};
+    border-bottom: 1px solid ${(props) => props.theme.colors.slate8};
   }
 
   .right-side {

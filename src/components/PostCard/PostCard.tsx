@@ -288,7 +288,13 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
 }
 
 const PostContainer = styled.article`
-  border-bottom: 1px solid ${(props) => props.theme.colors.violet6};
+  :not(:last-child) {
+    border-bottom: 2px solid ${(props) => props.theme.colors.slate8};
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.colors.mauve2};
+  }
 `;
 
 const PostHeader = styled.div`
@@ -521,7 +527,7 @@ const Comment = styled.div`
   gap: 0.5rem;
 
   :not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.colors.gray8};
+    border-bottom: 0.5px solid ${(props) => props.theme.colors.gray8};
   }
 
   :hover {

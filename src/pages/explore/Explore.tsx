@@ -106,7 +106,6 @@ const FilterButton = styled.button<IFilter>`
   :first-child {
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
-    border-right: 1px solid ${(props) => props.theme.colors.plum7};
   }
 
   :last-child {

@@ -44,11 +44,11 @@ export default function Footer() {
         text: "Home",
         path: "/home",
       },
-      // {
-      //   id: 2,
-      //   text: "Explore",
-      //   path: "/explore",
-      // },
+      {
+        id: 2,
+        text: "Explore",
+        path: "/explore",
+      },
       {
         id: 3,
         text: "Discover",

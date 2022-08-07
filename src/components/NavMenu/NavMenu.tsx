@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { IconType } from "react-icons";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import {
-  // MdOutlineExplore,
+  MdOutlineExplore,
   MdPeopleOutline,
   MdOutlineBookmarks,
 } from "react-icons/md";
@@ -34,12 +34,12 @@ export default function NavMenu(): JSX.Element {
         text: "Home",
         path: "/home",
       },
-      // {
-      //   id: 2,
-      //   icon: MdOutlineExplore,
-      //   text: "Explore",
-      //   path: "/explore",
-      // },
+      {
+        id: 2,
+        icon: MdOutlineExplore,
+        text: "Explore",
+        path: "/explore",
+      },
       {
         id: 3,
         icon: MdPeopleOutline,

@@ -44,11 +44,11 @@ export default function Footer() {
         text: "Home",
         path: "/home",
       },
-      // {
-      //   id: 2,
-      //   text: "Explore",
-      //   path: "/explore",
-      // },
+      {
+        id: 2,
+        text: "Explore",
+        path: "/explore",
+      },
       {
         id: 3,
         text: "Discover",
@@ -78,9 +78,9 @@ export default function Footer() {
             <FooterHeader>Internal Links</FooterHeader>
             <LinksContainer>
               {internalLinks.map((link) => (
-                <ExtLink href={link.path} key={link.id}>
+                <IntLink to={link.path} key={link.id}>
                   <>{link.text}</>
-                </ExtLink>
+                </IntLink>
               ))}
             </LinksContainer>
           </FooterLinksWrapper>
@@ -88,9 +88,9 @@ export default function Footer() {
             <FooterHeader>Other Links</FooterHeader>
             <LinksContainer>
               {externalLinks.map((item) => (
-                <IntLink to={item.path} key={item.id}>
+                <ExtLink href={item.path} key={item.id}>
                   <>{item.text}</>
-                </IntLink>
+                </ExtLink>
               ))}
             </LinksContainer>
           </FooterLinksWrapper>

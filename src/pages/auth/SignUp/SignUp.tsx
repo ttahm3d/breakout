@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import styled from "styled-components";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch, useDocumentTitle } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
 import {
   signUpHandler,
@@ -23,8 +23,8 @@ export default function SignUp(): JSX.Element {
   };
 
   const validationSchema = Yup.object({
-    firstName: Yup.string().required("Cannot be empty"),
-    lastName: Yup.string().required("Cannot be empty"),
+    firstName: Yup.string().required("Cannot be empty").trim(),
+    lastName: Yup.string().required("Cannot be empty").trim(),
     email: Yup.string()
       .email("Invalid Email format")
       .required("Email is required"),
@@ -66,6 +66,8 @@ export default function SignUp(): JSX.Element {
       },
     ];
   }, []);
+
+  useDocumentTitle({ title: "SignUp | Breakout" });
 
   return (
     <FormContainer>

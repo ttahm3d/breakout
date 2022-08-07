@@ -1,18 +1,22 @@
 import styled from "styled-components";
-import { LargeUserCard, Loader } from "../../components";
-import { useAppSelector } from "../../hooks";
+import { LargeUserCard, Loader, SearchBar } from "../../components";
+import { useAppSelector, useDocumentTitle } from "../../hooks";
 
 export default function Bookmarks(): JSX.Element {
   const { otherUsers: users, loading } = useAppSelector((s) => s.userReducer);
 
+  useDocumentTitle({ title: "Discover | Breakout" });
   if (loading) return <Loader />;
 
   return (
     <Container>
-      <div className="profiles__container">
-        {users?.map((user) => (
-          <LargeUserCard user={user} key={user?.uid} showBtn={true} />
-        ))}
+      <div className="left-side">
+        <SearchBar />
+        <div className="profiles__container">
+          {users?.map((user) => (
+            <LargeUserCard user={user} key={user?.uid} showBtn={true} />
+          ))}
+        </div>
       </div>
       <div className="right-side"></div>
     </Container>
@@ -24,12 +28,15 @@ const Container = styled.div`
   grid-template-columns: 4fr 2fr;
   gap: 0.5rem;
 
+  .left-side {
+    border-left: 1px solid ${(props) => props.theme.colors.gray7};
+    border-right: 1px solid ${(props) => props.theme.colors.gray7};
+  }
+
   .profiles__container {
-    padding: 1rem 0;
     display: flex;
     flex-direction: column;
-    border-left: 1px solid ${(props) => props.theme.colors.violet7};
-    border-right: 1px solid ${(props) => props.theme.colors.violet7};
+    padding: 0 0.5rem;
   }
 
   @media screen and (max-width: 56.25em) {
@@ -37,6 +44,10 @@ const Container = styled.div`
 
     .profiles__container {
       border: 0;
+    }
+
+    .left-side {
+      border: none;
     }
 
     .right-side {

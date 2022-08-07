@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ProfileHeader from "./ProfileHeader";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector, useDocumentTitle } from "../../hooks";
 import { getUserInfo } from "../../redux/features/User/thunk";
 import { Members } from "../../components";
 import Posts from "./Posts";
@@ -26,6 +26,8 @@ export default function LandingPage(): JSX.Element {
       dispatch(getUserInfo(userName));
     }
   }, [userName, dispatch, user?.following?.length, user?.followers?.length]);
+
+  useDocumentTitle({ title: `${user?.firstName}'s profile` });
 
   return (
     <Container>

@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { Members } from "../../components";
 import AddPost from "./AddPost";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useDocumentTitle } from "../../hooks";
 import Posts from "./Posts";
 
 export default function Home() {
-  const { loading } = useAppSelector((s) => s.authReducer);
+  const { currentUser, loading } = useAppSelector((s) => s.authReducer);
+
+  useDocumentTitle({ title: `${currentUser?.firstName}'s feed` });
 
   return (
     <>

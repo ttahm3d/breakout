@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Form, Formik } from "formik";
 import styled from "styled-components";
 import * as Yup from "yup";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch, useDocumentTitle } from "../../../hooks";
 import { Button, FormikField, NavigationLink } from "../../../components";
 import { FlexCenter } from "../../../styles/globals";
 import {
@@ -60,6 +60,8 @@ export default function SingIn(): JSX.Element {
       },
     ];
   }, []);
+
+  useDocumentTitle({ title: "SignIn | Breakout" });
 
   return (
     <Content>

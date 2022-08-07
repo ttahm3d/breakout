@@ -14,6 +14,7 @@ import NoPosts from "./Utils/NoPosts";
 import PostCard from "./PostCard/PostCard";
 import PostForm from "./PostCard/Forms/PostForm";
 import ScrollToTop from "./ScrollToTop/ScrollToTop";
+import SearchBar from "./SearchBar/SearchBar";
 import Toast, { ToastComponent } from "./Toast/Toast";
 import SmallUserCard from "./UserCard/SmallCard";
 
@@ -35,6 +36,7 @@ export {
   PostCard,
   PostForm,
   ScrollToTop,
+  SearchBar,
   SmallUserCard,
   Toast,
   ToastComponent,

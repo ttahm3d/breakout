@@ -34,6 +34,7 @@ export default function Header({
             <img src={BreakoutLogo} alt="Breakout Logo" />
           </Logo>
           <NavItems>
+            {/* <SearchBar /> */}
             {currentUser !== undefined ? (
               <>
                 <UserInfo onClick={toggleDropdown} onMouseLeave={closeDropdown}>

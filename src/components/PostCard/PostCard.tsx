@@ -489,13 +489,13 @@ const CommentInput = styled.input`
   margin: 0.5rem auto;
   padding: 0.45rem;
   background-color: inherit;
-  border: 1px solid ${(props) => props.theme.colors.violet8};
+  border: 1px solid ${(props) => props.theme.colors.gray6};
   font-size: smaller;
   color: ${(props) => props.theme.colors.violet12};
   border-radius: 0.25rem;
 
   :focus {
-    outline: 1px solid ${(props) => props.theme.colors.violet8};
+    outline: 1px solid ${(props) => props.theme.colors.gray7};
   }
 `;
 

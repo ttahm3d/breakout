@@ -18,7 +18,7 @@ export default function SearchBar(): JSX.Element {
           ?.toLocaleLowerCase()
           .includes(searchText.toLocaleLowerCase())
     );
-  }, [searchText]);
+  }, [searchText, otherUsers]);
 
   return (
     <Container>

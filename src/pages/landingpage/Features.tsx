@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { BsGoogle } from "react-icons/bs";
-import { MdOutlineAttachMoney } from "react-icons/md";
-import { AiOutlineThunderbolt, AiOutlineLock } from "react-icons/ai";
+import { AiOutlineThunderbolt } from "react-icons/ai";
 import { FiDatabase } from "react-icons/fi";
 
 export default function Features(): JSX.Element {

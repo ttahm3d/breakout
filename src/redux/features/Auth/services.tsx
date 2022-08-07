@@ -158,7 +158,6 @@ export const emailPasswordSignIn = async (signinData: SignInType) => {
   try {
     const { email, password } = signinData;
     const response = await signInWithEmailAndPassword(auth, email, password);
-    const user = await getUserById(response.user.uid);
     localStorage.setItem("breakout/user-id", response?.user?.uid);
     Toast({ message: "Sign In Successful", type: "success" });
     return await getUserById(response?.user?.uid);

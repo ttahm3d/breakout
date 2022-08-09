@@ -27,12 +27,24 @@ export default function SingIn(): JSX.Element {
 
   const handleSubmit = (signInData: SignInType, { resetForm }: any) => {
     dispatch(signInHandler(signInData));
-    resetForm();
+    setTimeout(() => {
+      resetForm();
+    }, 3000);
     if (location.state?.from) {
       navigate(location.state.from);
     } else {
       navigate("/home");
     }
+  };
+
+  const handleGuestLogin = () => {
+    handleSubmit(
+      {
+        email: "sugandhem@gmail.com",
+        password: "sugandhem",
+      },
+      {}
+    );
   };
 
   const validationSchema = Yup.object({
@@ -82,7 +94,7 @@ export default function SingIn(): JSX.Element {
                   type={field.type}
                 />
               ))}
-              <FlexCenter>
+              <ClmFlex>
                 <LoginBtn
                   variant="primary__block"
                   fullwidth
@@ -90,7 +102,14 @@ export default function SingIn(): JSX.Element {
                   type="submit">
                   Sign In
                 </LoginBtn>
-              </FlexCenter>
+                <LoginBtn
+                  variant="secondary__block"
+                  fullwidth
+                  radius={0.25}
+                  onClick={() => handleGuestLogin()}>
+                  Sign In as Guest
+                </LoginBtn>
+              </ClmFlex>
             </Form>
             <FlexCenter>
               <LoginBtn
@@ -138,4 +157,9 @@ const LoginBtn = styled(Button)`
     margin: 1rem 0;
     width: 18.025rem;
   }
+`;
+
+const ClmFlex = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

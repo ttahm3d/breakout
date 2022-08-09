@@ -88,6 +88,11 @@ const Filters = styled.div`
   padding: 1rem;
   display: flex;
   justify-content: flex-end;
+  background-color: ${(props) => {
+    if (props.theme.title === "dark") return props.theme.colors.mauve2;
+    return props.theme.colors.mauve3;
+  }};
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray7};
 `;
 
 const FilterButton = styled.button<IFilter>`

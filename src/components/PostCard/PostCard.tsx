@@ -250,7 +250,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
       {post?.comments?.length > 0 ? (
         <Comments>
           {post.comments?.map((comment: any) => (
-            <Comment key={comment?.text + comment?.text.length}>
+            <Comment key={comment?.text + comment?.text?.length}>
               <div className="image">
                 <img
                   src={comment?.photoURL}

@@ -47,9 +47,7 @@ export default function PostForm({
         onChange={(e) =>
           setPost((post) => ({ ...post, content: e.target.value }))
         }></Textarea>
-      <CharCount charCount={post?.content?.length}>
-        {post?.content?.length} / 160 Chars
-      </CharCount>
+
       <FileEmojiPicker>
         <label htmlFor="post-image-input">
           <FlexCenter className="icon">
@@ -70,6 +68,11 @@ export default function PostForm({
             </EmojiPicker>
           )}
         </FlexCenter>
+        {post?.content?.length > 0 && (
+          <CharCount charCount={post?.content?.length}>
+            {post?.content?.length} / 160 Chars
+          </CharCount>
+        )}
       </FileEmojiPicker>
       {post?.imageURL && (
         <>
@@ -136,6 +139,8 @@ const Textarea = styled.textarea`
 `;
 
 const CharCount = styled.small<ICharCount>`
+  margin-left: auto;
+  font-size: smaller;
   padding: 0.25rem;
   color: ${(props) => {
     if (props?.charCount > 120 && props.charCount <= 140)
@@ -179,8 +184,8 @@ const PostImageInput = styled.input`
 const FileEmojiPicker = styled.div`
   display: flex;
   padding: 0.5rem 0;
+  align-items: center;
   gap: 0.5rem;
-  font-size: 1.25rem;
 
   .icon {
     color: ${(props) => props.theme.colors.violet9};
@@ -189,6 +194,7 @@ const FileEmojiPicker = styled.div`
     border-radius: 50%;
     padding: 0.25rem;
     cursor: pointer;
+    font-size: 1.25rem;
     bottom: 0;
 
     :hover {

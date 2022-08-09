@@ -242,6 +242,7 @@ export default function PostCard({ post }: PostCardProps): JSX.Element {
             variant="secondary__block"
             radius={0.25}
             fullwidth
+            disabled={comment.text === "" || comment.text.length > 100}
             onClick={handleCommentSubmit}>
             Add Comment
           </CmtBtn>

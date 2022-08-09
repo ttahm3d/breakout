@@ -29,7 +29,7 @@ export default function AddDialog({
     isEdited: false,
   });
 
-  const isValidAdd = post?.content !== "";
+  const isValidAdd = post?.content !== "" && post?.content?.length <= 160;
 
   const handlePostSubmission = (post: PostType) => {
     dispatch(createPost(post));

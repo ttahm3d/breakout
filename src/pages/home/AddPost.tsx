@@ -20,7 +20,7 @@ export default function AddPost(): JSX.Element {
     isEdited: false,
   });
 
-  const isValidAdd = post?.content !== "";
+  const isValidAdd = post?.content !== "" && post?.content?.length <= 160;
 
   const actions = [
     {

@@ -45,7 +45,7 @@ export default function EditDialog({
     } = initialValues;
     const { content, imgAltText, imageURL } = post;
 
-    const isValidAdd = post?.content !== "";
+    const isValidAdd = post?.content !== "" && post?.content?.length <= 160;
     const isValueSame = !(
       initContent === content &&
       initAltText === imgAltText &&

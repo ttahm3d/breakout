@@ -15,6 +15,10 @@ type FormProps = {
   actions: any[];
 };
 
+interface ICharCount {
+  charCount: number;
+}
+
 export default function PostForm({
   post,
   setPost,
@@ -43,6 +47,9 @@ export default function PostForm({
         onChange={(e) =>
           setPost((post) => ({ ...post, content: e.target.value }))
         }></Textarea>
+      <CharCount charCount={post?.content?.length}>
+        {post?.content?.length} / 160 Chars
+      </CharCount>
       <FileEmojiPicker>
         <label htmlFor="post-image-input">
           <FlexCenter className="icon">
@@ -126,6 +133,24 @@ const Textarea = styled.textarea`
   :focus {
     outline: 1px solid ${(props) => props.theme.colors.violet8};
   }
+`;
+
+const CharCount = styled.small<ICharCount>`
+  padding: 0.25rem;
+  color: ${(props) => {
+    if (props?.charCount > 120 && props.charCount <= 140)
+      return props.theme.colors.orange10;
+    if (props?.charCount > 140 && props.charCount <= 160)
+      return props.theme.colors.red10;
+    return props.theme.colors.teal10;
+  }};
+  background-color: ${(props) => {
+    if (props?.charCount > 120 && props.charCount <= 140)
+      return props.theme.colors.orange3;
+    if (props?.charCount > 140 && props.charCount <= 160)
+      return props.theme.colors.red3;
+    return props.theme.colors.teal3;
+  }};
 `;
 
 const ImgAltText = styled.input`
